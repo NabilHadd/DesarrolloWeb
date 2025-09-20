@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html char="es">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <title>Mi Página Web</title>
@@ -7,70 +7,82 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1 class="text-3xl font-bold underline text-red-500 text-center mb-8">
+    <h1 id="titulo-principal">
         InfoMovil
     </h1>    
 
     <!-- Contenedor Noticias -->
-    <div class="max-w-4xl mx-auto mb-6 p-6 border rounded-lg shadow-lg bg-white">
+    <div class="rounded-lg shadow" data-container="noticias">
         <div id="Noticias">
-            <h3 class="text-xl font-semibold mb-2">Actualidad</h3>
-            <p>Esto es un párrafo sobre actualidad.</p>
+            <h2 class="button" id="0">Actualidad</h2>
+            <div class ="content">
+                <p>Esto es un párrafo sobre actualidad.</p>
+                <span>texto</span>
+            </div>
         </div>
     </div>
     
     <!-- Contenedor Clima -->
-    <div class="max-w-4xl mx-auto mb-6 p-6 border rounded-lg shadow-lg bg-white">
+    <div class="rounded-lg shadow" data-container="clima">
         <div id="Clima">
-            <h3 class="text-xl font-semibold mb-2">Clima</h3>
-            <p>Un poco sobre clima en cada ciudad</p>
-            <table class="table-auto border-collapse border border-gray-300 w-full mt-4">
-                <thead>
-                    <tr class="bg-gray-100">
-                        <th class="border border-gray-300 px-4 py-2">Ciudad</th>
-                        <th class="border border-gray-300 px-4 py-2">Temperatura</th>
-                        <th class="border border-gray-300 px-4 py-2">Precipitaciones</th>
-                        <th class="border border-gray-300 px-4 py-2">Viento</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="border border-gray-300 px-4 py-2">La Serena</td>
-                        <td class="border border-gray-300 px-4 py-2">10°</td>
-                        <td class="border border-gray-300 px-4 py-2">30%</td>
-                        <td class="border border-gray-300 px-4 py-2">10 km/h</td>
-                    </tr>
-                    <tr>
-                        <td class="border border-gray-300 px-4 py-2">Coquimbo</td>
-                        <td class="border border-gray-300 px-4 py-2">19°</td>
-                        <td class="border border-gray-300 px-4 py-2">70%</td>
-                        <td class="border border-gray-300 px-4 py-2">20 km/h</td>
-                    </tr>
-                </tbody>
-            </table>
+            <h2 class="button" id="1">Clima</h2>
+            <div class="content">
+                <p>Un poco sobre clima en cada ciudad</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ciudad</th>
+                            <th>Temperatura</th>
+                            <th>Precipitaciones</th>
+                            <th>Viento</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>La Serena</td>
+                            <td>10°</td>
+                            <td>30%</td>
+                            <td>10 km/h</td>
+                        </tr>
+                        <tr>
+                            <td>Coquimbo</td>
+                            <td>19°</td>
+                            <td>70%</td>
+                            <td>20 km/h</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
         </div>
     </div>
 
     <!-- Contenedor Pokemons -->
-    <div class="max-w-4xl mx-auto mb-6 p-6 border rounded-lg shadow-lg bg-white">
+    <div class="rounded-lg" data-container="pokemons" >
         <div id="Pokemons">
-            <h3 class="text-xl font-semibold mb-2">Pokemones</h3>
-            <p>Cada vez que actualices la página verás 4 pokemones distintos.</p>
+            <h2 class="button" id="2">Pokemones</h2>
+            <div class="content">
+                <p>Cada vez que actualices la página verás 4 pokemones distintos.</p>
 
-            <div class="grid grid-cols-2 gap-4 mt-4">
-                <div id="pokemon_1" class="border rounded p-2"></div>
-                <div id="pokemon_2" class="border rounded p-2"></div>
-                <div id="pokemon_3" class="border rounded p-2"></div>
-                <div id="pokemon_4" class="border rounded p-2"></div>
+                <div class="grid">
+                    <div class="rounded-lg" id="pokemon_1" ></div>
+                    <div class="rounded-lg" id="pokemon_2" ></div>
+                    <div class="rounded-lg" id="pokemon_3" ></div>
+                    <div class="rounded-lg" id="pokemon_4" ></div>
+                </div>
             </div>
+            
         </div>
     </div>
 
     <!-- Contenedor Politica -->
-    <div class="max-w-4xl mx-auto mb-6 p-6 border rounded-lg shadow-lg bg-white">
+    <div class="rounded-lg shadow" data-container="politica" >
         <div id="Politica">
-            <h3 class="text-xl font-semibold mb-2">Un poco de política</h3>
-            <p>Estadísticas de los candidatos presidenciales.</p>
+            <h2 class="button" id="3">Un poco de política</h2>
+            <div class ="content">
+                <p>Estadísticas de los candidatos presidenciales.</p>
+                <span>texto</span>
+            </div>
         </div>
     </div>
 

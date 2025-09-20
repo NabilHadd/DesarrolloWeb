@@ -1,0 +1,122 @@
+/* Móvil (default) */
+/*Cambio de color del fondo para saber que estamos en una pantalla de celular.*/
+body{
+    place-items: center; /* centra horizontal y vertical */
+    min-height: 100vh;
+    margin: 0;
+    background-color: #ffffff;
+}
+
+[data-container]{
+    width: 80%;
+    background-color: #ffffff;
+    margin: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 5%;
+}
+
+/*Contenedor de los pokemons*/
+[data-container= "pokemons"]{
+    background-color: #f5f8ff;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15); /* sombra tenue */
+
+}
+
+/*Titulo de los pokemon*/
+[data-container= "pokemons"] > div h2{
+    text-align: center;
+    padding-bottom: 15px;
+    padding-top:15px;
+}
+
+/*contenedor de pokemons*/
+[data-container="pokemons"] > div .grid {
+    display: flex;
+    flex-direction: column; /* hace que los hijos se apilen verticalmente */
+    gap: 16px; /* opcional: separación entre los elementos */
+}
+
+/*cada pokemon por separado*/
+[data-container="pokemons"] > div .grid > div {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15); /* sombra tenue */
+    padding: 5px;
+    margin: 10px auto;
+    width: 90%;
+    min-height: 80px;
+    background-color: #fff;
+}
+
+/*Imagenes de pokemons*/
+[data-container="pokemons"] > div .grid > div > img{
+    width: 40%;
+    height: auto;
+    object-fit: cover;  /* recorta la imagen para llenar el contenedor */
+    display: block;
+    margin: 0 auto;
+}
+
+/*nombre cada pokemon*/
+[data-container="pokemons"] > div .grid > div > p{
+    text-align: center;
+    font-size: large;
+}
+
+#titulo-principal {
+    color: #000000;
+}
+
+
+
+
+
+
+
+/* Tablet y desktop */
+@media (min-width: 768px) and (max-width: 1023px) {
+
+    #titulo-principal {
+        color: #ff0000;
+    }
+
+
+    [data-container="pokemons"] > div .grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas iguales */
+        gap: 16px;
+    }
+
+    /*Imagenes de pokemons*/
+    [data-container="pokemons"] > div .grid > div > img{
+        width: 50%;
+        height: auto;
+        object-fit: cover;  /* recorta la imagen para llenar el contenedor */
+        display: block;
+        margin: 0 auto;
+    }
+}
+
+@media (min-width: 1024px){
+   
+    #titulo-principal {
+        color: #0062ff;
+    }
+
+    [data-container="pokemons"] > div .grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr); /* 2 columnas iguales */
+        gap: 16px;
+    }
+
+    /*Imagenes de pokemons*/
+    [data-container="pokemons"] > div .grid > div > img{
+        width: 80%;
+        height: auto;
+        object-fit: cover;  /* recorta la imagen para llenar el contenedor */
+        display: block;
+        margin: 0 auto;
+    }
+
+}
