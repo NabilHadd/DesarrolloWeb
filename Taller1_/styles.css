@@ -90,12 +90,13 @@ body{
 }
 
 .modal-content {
-    width: 80%;
-    height: 80%;
+    width: 80vh;
+    height: 80vh;     
+    overflow-y: auto;       /* habilita scrolling si el contenido es más grande que el popup*/
     background: white;
     padding: 40px;
     border-radius: 10px;
-    
+    margin: 40px auto; 
 }
 
 .modal-content > img {
