@@ -101,16 +101,17 @@ fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
     const modal = document.getElementById('modal');
     const modalTitle = document.getElementById('modal-title');
     const modalIngredients = document.getElementById('modal-ingredients');
+    const modalImg = document.getElementById('modal-img');
     const modalSteps = document.getElementById('modal-steps');
     const closeBtn = document.getElementById('close');
 
-    // Delegate click events on the meal containers
+    // eventos en el contenedor
     document.body.addEventListener('click', (e) => {
         if (e.target.tagName === 'IMG' && e.target.dataset.name) {
             modalTitle.textContent = e.target.dataset.name;
             modalSteps.textContent = e.target.dataset.instructions;
 
-    // Parse ingredients back from JSON
+    // parseo de ingredientes 
             const ingredients = JSON.parse(e.target.dataset.ingredients);
             modalIngredients.innerHTML = ingredients.map(i => `<li>${i}</li>`).join("");
 

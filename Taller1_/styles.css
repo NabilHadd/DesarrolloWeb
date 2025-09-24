@@ -16,6 +16,7 @@ body{
     padding-left: 20px;
     padding-right: 20px;
     border-radius: 5%;
+    cursor: pointer;
 }
 
 /*Contenedor de los pokemons*/
@@ -68,6 +69,7 @@ body{
     color: #000000;
 }
 
+/* diseño de pop-up al hacer click en receta*/
 .modal {
     display: none;
     position: fixed;
@@ -79,12 +81,22 @@ body{
     justify-content: center;
     align-items: center;
 }
+/* titulo de receta */
+.modal > .modal-content > h2 {
+    text-underline-offset: 1px;
+    font-weight: bold;
+    text-decoration: underline;
+    text-align: center;
+}
 
 .modal-content {
+    width: 80%;
+    height: 80%;
     background: white;
-    padding: 20px;
+    padding: 40px;
     border-radius: 10px;
-    width: 300px;
+    /*flex: pop-up;*/
+    
 }
 #close {
     float: right;
