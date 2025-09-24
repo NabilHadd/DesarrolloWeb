@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Mi Página Web</title>
+<title>Taller 1 Intro Web Movil</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -22,38 +22,32 @@
         </div>
     </div>
     
-    <!-- Contenedor Clima -->
-    <div class="rounded-lg shadow" data-container="clima">
-        <div id="Clima">
-            <h2 class="button" id="1">Clima</h2>
+    <!-- Contenedor Recetas -->
+    <div class="rounded-lg shadow" data-container="pokemons">
+        <div id="Recetas">
+            <h2 class="button" id="1">Recetas</h2>
             <div class="content">
-                <p>Un poco sobre clima en cada ciudad</p>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Ciudad</th>
-                            <th>Temperatura</th>
-                            <th>Precipitaciones</th>
-                            <th>Viento</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>La Serena</td>
-                            <td>10°</td>
-                            <td>30%</td>
-                            <td>10 km/h</td>
-                        </tr>
-                        <tr>
-                            <td>Coquimbo</td>
-                            <td>19°</td>
-                            <td>70%</td>
-                            <td>20 km/h</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <p>Cada vez que actualices la página verás 4 recetas distintas</p>
+                <p>Puedes hacer click en la receta para mostrar sus ingredientes y proceso</p>
+
+                <div class="grid">
+                    <div class="rounded-lg" id="meal_1" ></div>
+                    <div class="rounded-lg" id="meal_2" ></div>
+                    <div class="rounded-lg" id="meal_3" ></div>
+                    <div class="rounded-lg" id="meal_4" ></div>
+                </div>
+                
             </div>
             
+        </div>
+    </div>
+    <!-- Popup o modal para mostrar al hacer click en una de las 4 preparaciones-->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span id="close">&times;</span>
+            <h2 id="modal-title"></h2>
+            <p><strong>Ingredients:</strong> <span id="modal-ingredients"></span></p>
+            <p><strong>Steps:</strong> <span id="modal-steps"></span></p>
         </div>
     </div>
 

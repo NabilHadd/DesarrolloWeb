@@ -57,3 +57,71 @@ return res.json(); // o res.text(), res.blob()
 })
 .catch(err => console.error('Error:', err));
 //Fin consulta pokemons.
+
+//consulta recetas
+fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
+    .then(res => {
+        if(!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+    })
+    .then(data => {
+        const meals = data.meals;
+        for (let index = 0; index<4; index++) {
+            const num = Math.floor(Math.random()*meals.length);
+            const meal = meals[num];
+
+
+            const container = document.getElementById(`meal_${index +1}`);
+            const mealname = document.createElement('p');
+            mealname.textContent = meal.strMeal;
+            container.appendChild(mealname);
+            const img = document.createElement('img');
+            img.src = meal.strMealThumb;
+            img.alt = meal.strMeal;
+
+            img.dataset.name = meal.strMeal;
+            img.dataset.instructions = meal.strInstructions;
+
+            let ingredients = [];
+            for (let i  = 1; i<= 20; i++) {
+                const ingredient = meal[`strIngredient${i}`];
+                const measure = meal[`strMeasure${i}`];
+                if (ingredient && ingredient.trim()!=="") {
+                    ingredients.push(`${measure} ${ingredient}`);
+                }
+            }
+            img.dataset.ingredients = JSON.stringify(ingredients);
+            container.appendChild(img);
+        }
+    })
+    .catch(err=> console.error('Error:' , err));
+
+
+
+    const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalIngredients = document.getElementById('modal-ingredients');
+    const modalSteps = document.getElementById('modal-steps');
+    const closeBtn = document.getElementById('close');
+
+    // Delegate click events on the meal containers
+    document.body.addEventListener('click', (e) => {
+        if (e.target.tagName === 'IMG' && e.target.dataset.name) {
+            modalTitle.textContent = e.target.dataset.name;
+            modalSteps.textContent = e.target.dataset.instructions;
+
+    // Parse ingredients back from JSON
+            const ingredients = JSON.parse(e.target.dataset.ingredients);
+            modalIngredients.innerHTML = ingredients.map(i => `<li>${i}</li>`).join("");
+
+            modal.style.display = 'flex';
+        }
+    });
+
+    closeBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) modal.style.display = 'none';
+    });
