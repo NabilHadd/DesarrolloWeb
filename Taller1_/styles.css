@@ -95,15 +95,37 @@ body{
     background: white;
     padding: 40px;
     border-radius: 10px;
-    /*flex: pop-up;*/
     
 }
+
+.modal-content > img {
+  display: flex;
+  justify-content: center; /* horizontal */
+  align-items: center; 
+}
+
 #close {
     float: right;
     cursor: pointer;
 }
+#modal-img {
+    display: block;
+    margin: 0 auto; /* se centra la imagen horizonalmente*/
+    width: 300px;      
+    max-width: 90%;    /* responisve*/
+    padding: 10px;
+    height: auto;       
+}
 
+#modal-ingredients {
+    list-style-position: inside; /* bullets are inside the container */
+    margin: 0 auto;              /* center the whole list */
+    text-align: center;    
+}
+#ingrediente {
+    text-align: center;
 
+}
 
 
 /* Tablet y desktop */
