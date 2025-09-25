@@ -129,7 +129,7 @@ fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
 
 
 const economia = document.querySelector('[data-container="economia"]');
-const economia_content = economia.querySelector('.economia');
+const economia_content = economia.querySelector('.grid');
 console.log(economia_content)
 
 
@@ -148,10 +148,24 @@ return res.json(); // o res.text(), res.blob()
     const names = llaves.slice(3, 19); //dejamos solo 16 items para que se ordenen bien en forma de matriz. 4X4 para desktop, 8x2 para tablet y 16x1 para celular.
     
     const items = names.map(n => ({
+        codigo: data[n].codigo,
         nombre: data[n].nombre,
         valor: data[n].valor,
         fecha: data[n].fecha
     }));
+
+    items.map(i=> {
+        const div = document.createElement('div');
+        div.id = i.codigo;
+        const p = document.createElement('p');
+        p.textContent = i.nombre;
+        div.appendChild(p);
+        p.textContent = i.valor;
+        div.appendChild(p);
+        p.textContent = i.fecha;
+        div.appendChild(p);
+        economia_content.appendChild(div);
+    });
 
     console.log(items);
     
