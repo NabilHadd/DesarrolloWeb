@@ -127,6 +127,11 @@ fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
         if (e.target === modal) modal.style.display = 'none';
     });
 
+
+const economia = document..querySelector("data-container=economia")
+console.log(economia)
+
+
 //Consulta economica
 //uf, utm, cobre, dolar, euro, yen, ipc, tasa desempleo, bitcoin.
 //para calcular si subio o bajo consulta los datos del dia anterior con el siguiente get
@@ -140,14 +145,12 @@ return res.json(); // o res.text(), res.blob()
     const llaves = Object.keys(data);
     const date = data.fecha
     const names = llaves.slice(3, 19); //dejamos solo 16 items para que se ordenen bien en forma de matriz. 4X4 para desktop, 8x2 para tablet y 16x1 para celular.
-    console.log(names);
-    console.log(date);
-
+    
     const items = names.map(n => ({
         nombre: data[n].nombre,
         valor: data[n].valor,
         fecha: data[n].fecha
-                                }));
+    }));
 
     console.log(items);
     
