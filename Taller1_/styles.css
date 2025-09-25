@@ -69,6 +69,41 @@ body{
     color: #000000;
 }
 
+[data-container="economia"]{
+    background-color: #f5f8ff;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15); /* sombra tenue */
+}
+
+
+/*Titulo de los pokemon*/
+[data-container= "economia"] > div h2{
+    text-align: center;
+    padding-bottom: 15px;
+    padding-top:15px;
+}
+
+/*contenedor de pokemons*/
+[data-container="economia"] > div .grid {
+    display: flex;
+    flex-direction: column; /* hace que los hijos se apilen verticalmente */
+    gap: 16px; /* opcional: separación entre los elementos */
+}
+
+/*cada pokemon por separado*/
+[data-container="economia"] > div .grid > div {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15); /* sombra tenue */
+    padding: 5px;
+    margin: 10px auto;
+    width: 90%;
+    min-height: 80px;
+    background-color: #fff;
+}
+
+
+
+
+
+
 /* diseño de pop-up al hacer click en receta*/
 .modal {
     display: none;
