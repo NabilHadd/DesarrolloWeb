@@ -157,7 +157,7 @@ return res.json(); // o res.text(), res.blob()
     items.map(i=> {
         const div = document.createElement('div');
         div.id = i.codigo;
-        div.class = "rounded lg"
+        miElemento.classList.add('rounded lg');
         const pNombre = document.createElement('p');
         pNombre.textContent = i.nombre;
         div.appendChild(pNombre);
