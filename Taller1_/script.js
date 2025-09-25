@@ -128,8 +128,9 @@ fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
     });
 
 
-const economia = document.querySelector('[data-container="economia"]')
-console.log(economia)
+const economia = document.querySelector('[data-container="economia"]');
+const economia_content = economia.getElementById('economia').getElementByClass('content');
+console.log(economia_content)
 
 
 //Consulta economica
