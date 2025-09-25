@@ -104,7 +104,7 @@ fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
         }
     })
     .catch(err=> console.error('Error:' , err));
-
+    //fin consulta recetas
 
 
     const modal = document.getElementById('modal');
@@ -137,3 +137,18 @@ fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
     window.addEventListener('click', (e) => {
         if (e.target === modal) modal.style.display = 'none';
     });
+
+//Consulta economica
+//uf, utm, cobre, dolar, euro, yen, ipc, tasa desempleo, bitcoin.
+//para calcular si subio o bajo consulta los datos del dia anterior con el siguiente get
+//https://findic.cl/api/{indicador}/{dd-mm-yyyy} donde indicas el indicador y el dia actual -1.
+fetch('https://findic.cl/api/')
+.then(res => {
+if (!res.ok) throw new Error(`HTTP ${res.status}`);
+return res.json(); // o res.text(), res.blob()
+})
+.then(data => {
+    console.log(data)
+})
+.catch(err => console.error('Error:', err));
+//Fin consulta economica
