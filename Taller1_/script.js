@@ -157,13 +157,19 @@ return res.json(); // o res.text(), res.blob()
     items.map(i=> {
         const div = document.createElement('div');
         div.id = i.codigo;
-        const p = document.createElement('p');
-        p.textContent = i.nombre;
-        div.appendChild(p);
-        p.textContent = i.valor;
-        div.appendChild(p);
-        p.textContent = i.fecha;
-        div.appendChild(p);
+        const pNombre = document.createElement('p');
+        pNombre.textContent = i.nombre;
+        div.appendChild(pNombre);
+
+    // Crear un <p> para el valor y agregarlo al div
+        const pValor = document.createElement('p');
+        pValor.textContent = i.valor;
+        div.appendChild(pValor);
+
+    // Crear un <p> para la fecha y agregarlo al div
+        const pFecha = document.createElement('p');
+        pFecha.textContent = i.fecha;
+        div.appendChild(pFecha);
         economia_content.appendChild(div);
     });
 
