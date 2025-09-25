@@ -75,22 +75,23 @@ body{
 }
 
 
-/*Titulo de los pokemon*/
+/*Titulo de los economia*/
 [data-container= "economia"] > div h2{
     text-align: center;
     padding-bottom: 15px;
     padding-top:15px;
 }
 
-/*contenedor de pokemons*/
+/*contenedor de economia*/
 [data-container="economia"] > div .grid {
     display: flex;
     flex-direction: column; /* hace que los hijos se apilen verticalmente */
     gap: 16px; /* opcional: separación entre los elementos */
 }
 
-/*cada pokemon por separado*/
+/*cada item por separado*/
 [data-container="economia"] > div .grid > div {
+    text-align: center;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15); /* sombra tenue */
     padding: 5px;
     margin: 10px auto;
