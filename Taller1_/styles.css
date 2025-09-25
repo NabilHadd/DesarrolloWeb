@@ -178,6 +178,12 @@ body{
         grid-template-columns: repeat(2, 1fr); /* 2 columnas iguales */
         gap: 16px;
     }
+    
+    [data-container="economia"] > div .grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas iguales */
+        gap: 16px;
+    }
 
     /*Imagenes de pokemons*/
     [data-container="pokemons"] > div .grid > div > img{
@@ -200,6 +206,13 @@ body{
         grid-template-columns: repeat(4, 1fr); /* 2 columnas iguales */
         gap: 16px;
     }
+    
+    [data-container="economia"] > div .grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr); /* 2 columnas iguales */
+        gap: 16px;
+    }
+
 
     /*Imagenes de pokemons*/
     [data-container="pokemons"] > div .grid > div > img{
