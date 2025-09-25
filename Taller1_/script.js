@@ -137,7 +137,8 @@ if (!res.ok) throw new Error(`HTTP ${res.status}`);
 return res.json(); // o res.text(), res.blob()
 })
 .then(data => {
-    console.log(data)
+    const items = Object.keys(data);
+    console.log(items);
 })
 .catch(err => console.error('Error:', err));
 //Fin consulta economica
