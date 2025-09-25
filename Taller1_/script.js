@@ -139,14 +139,14 @@ return res.json(); // o res.text(), res.blob()
 .then(data => {
     const llaves = Object.keys(data);
     const date = data.fecha
-    const names = names.slice(3, 19); //dejamos solo 16 items para que se ordenen bien en forma de matriz. 4X4 para desktop, 8x2 para tablet y 16x1 para celular.
+    const names = llaves.slice(3, 19); //dejamos solo 16 items para que se ordenen bien en forma de matriz. 4X4 para desktop, 8x2 para tablet y 16x1 para celular.
     console.log(names);
     console.log(date);
 
     const items = names.map(n => ({
-        nombre: data.n.nombre,
-        valor: data.n.valor,
-        fecha: data.n.fecha
+        nombre: data[n].nombre,
+        valor: data[n].valor,
+        fecha: data[n].fecha
                                 }));
 
     console.log(items);
