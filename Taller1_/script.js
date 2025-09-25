@@ -138,7 +138,7 @@ return res.json(); // o res.text(), res.blob()
 })
 .then(data => {
     const items = Object.keys(data);
-    const date = data.items[2]
+    const date = data.fecha
     items = items.slice(3, items.length); //dejamos solo 16 items para que se ordenen bien en forma de matriz. 4X4 para desktop, 8x2 para tablet y 16x1 para celular.
     console.log(items);
     console.log(date);
