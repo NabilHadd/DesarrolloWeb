@@ -136,9 +136,9 @@ body{
 }
 
 .modal-content > img {
-  display: flex;
-  justify-content: center; /* horizontal */
-  align-items: center; 
+    display: flex;
+    justify-content: center; /* horizontal */
+    align-items: center; 
 }
 
 #close {
@@ -155,8 +155,8 @@ body{
 }
 
 #modal-ingredients {
-    list-style-position: inside; /* bullets are inside the container */
-    margin: 0 auto;              /* center the whole list */
+    list-style-position: inside; 
+    margin: 0 auto;              /*se centra lista y los "puntos" van del lado del texto*/
     text-align: center;    
 }
 #ingrediente {

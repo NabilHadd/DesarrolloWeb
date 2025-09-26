@@ -66,8 +66,14 @@ fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
     })
     .then(data => {
         const meals = data.meals;
+        let nums = []
         for (let index = 0; index<4; index++) {
             const num = Math.floor(Math.random()*meals.length);
+            if(nums.includes(num)) {
+                index--;
+                continue;
+            }
+            nums.push(num)
             const meal = meals[num];
 
 
@@ -91,6 +97,7 @@ fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
                 }
             }
             img.dataset.ingredients = JSON.stringify(ingredients);
+            img.dataset.img = meal.strMealThumb;
             container.appendChild(img);
         }
     })
@@ -110,6 +117,8 @@ fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
         if (e.target.tagName === 'IMG' && e.target.dataset.name) {
             modalTitle.textContent = e.target.dataset.name;
             modalSteps.textContent = e.target.dataset.instructions;
+            modalImg.src = e.target.dataset.img;
+            modalImg.alt = e.target.dataset.name;
 
     // parseo de ingredientes 
             const ingredients = JSON.parse(e.target.dataset.ingredients);
