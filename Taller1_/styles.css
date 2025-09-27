@@ -1,12 +1,169 @@
-/* Móvil (default) */
-/*Cambio de color del fondo para saber que estamos en una pantalla de celular.*/
-body{
-    place-items: center; /* centra horizontal y vertical */
-    min-height: 100vh;
-    margin: 0;
-    background-color: #ffffff;
+/* =================== */
+/* CONFIGURACIÓN GLOBAL DEL SITIO */
+/* =================== */
+
+/* Activar navegación suave al hacer scroll */
+html {
+    scroll-behavior: smooth;
 }
 
+/* Aplicar fuente Inter de Google Fonts a todos los elementos de texto */
+body, h1, h2, h3, h4, h5, h6, p, li, a, span, button, input, textarea {
+    font-family: 'Inter', sans-serif;
+}
+
+/* =================== */
+/* TÍTULO PRINCIPAL CON EFECTOS ESPECTACULARES */
+/* =================== */
+
+/* Estilos para el título "Web/Móvil - Taller 1" con sombras multicolor */
+h1#titulo-principal, h2.titulo-principal {
+    margin-top: 0px;
+    margin-bottom: 50px;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 3rem; /* Tamaño grande para desktop */
+    letter-spacing: 0.15rem; /* Espaciado entre letras */
+    color: #fff; /* Texto blanco */
+    /* Sombras múltiples con colores vibrantes que crean efecto 3D */
+    text-shadow: -2px 2px #ef3550,    /* Rojo */
+                 -4px 4px #f48fb1,    /* Rosa */
+                 -6px 6px #7e57c2,    /* Púrpura */
+                 -8px 8px #2196f3,    /* Azul */
+                 -10px 10px #26c6da,  /* Cian */
+                 -12px 12px #43a047,  /* Verde */
+                 -14px 14px #eeff41,  /* Amarillo */
+                 -16px 16px #f9a825,  /* Naranja */
+                 -18px 18px #ff5722;  /* Rojo naranja */
+    /* Animación que hace pulsar las sombras */
+    animation: textShadowPulse 6s ease-in-out infinite;
+}
+
+/* RESPONSIVE: Versión móvil del título (pantallas pequeñas) */
+@media (max-width: 767px) {
+    h1#titulo-principal, h2.titulo-principal {
+        font-size: 2rem; /* Título más pequeño */
+        letter-spacing: 0.1rem;
+        /* Sombras más pequeñas para móvil */
+        text-shadow: -1px 1px #ef3550,
+                     -2px 2px #f48fb1,
+                     -3px 3px #7e57c2,
+                     -4px 4px #2196f3,
+                     -5px 5px #26c6da,
+                     -6px 6px #43a047,
+                     -7px 7px #eeff41,
+                     -8px 8px #f9a825,
+                     -9px 9px #ff5722;
+    }
+}
+
+/* RESPONSIVE: Versión tablet del título */
+@media (min-width: 768px) and (max-width: 1023px) {
+    h1#titulo-principal, h2.titulo-principal {
+        font-size: 2.5rem; /* Tamaño intermedio */
+        letter-spacing: 0.12rem;
+        /* Sombras intermedias para tablet */
+        text-shadow: -1.5px 1.5px #ef3550,
+                     -3px 3px #f48fb1,
+                     -4.5px 4.5px #7e57c2,
+                     -6px 6px #2196f3,
+                     -7.5px 7.5px #26c6da,
+                     -9px 9px #43a047,
+                     -10.5px 10.5px #eeff41,
+                     -12px 12px #f9a825,
+                     -13.5px 13.5px #ff5722;
+    }
+}
+
+/* =================== */
+/* FONDO PRINCIPAL DE LA PÁGINA */
+/* =================== */
+
+/* Configuración del body con fondo degradado azul marino */
+body{
+    place-items: center; /* Centra todo el contenido */
+    min-height: 100vh; /* Altura mínima de toda la ventana */
+    margin: 0;
+    /* Degradado de azul marino oscuro a azul marino claro */
+    background: linear-gradient(135deg, #0f172a 0%, #1e40af 30%, #1e3a8a 70%, #3730a3 100%);
+    font-family: 'Inter', sans-serif;
+    position: relative;
+    overflow-x: hidden; /* Evita scroll horizontal */
+}
+
+/* =================== */
+/* EFECTOS DINÁMICOS DE FONDO */
+/* =================== */
+
+/* Primer efecto de fondo: círculos de luz flotantes */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Múltiples gradientes radiales que simulan luces suaves */
+    background: 
+        radial-gradient(circle at 20% 20%, rgba(120, 200, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 120, 200, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 60%, rgba(200, 255, 120, 0.1) 0%, transparent 50%);
+    animation: backgroundFloat 20s ease-in-out infinite;
+    z-index: -2; /* Detrás de todo el contenido */
+    pointer-events: none; /* No interfiere con clicks */
+}
+
+/* Segundo efecto de fondo: barrido de luz */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Línea de luz que se mueve por la pantalla */
+    background: 
+        linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.02) 50%, transparent 70%);
+    animation: backgroundSweep 15s linear infinite;
+    z-index: -1; /* Encima del primer efecto pero detrás del contenido */
+    pointer-events: none;
+}
+
+/* Animación para el movimiento flotante de las luces */
+@keyframes backgroundFloat {
+    0%, 100% {
+        transform: translateX(0) translateY(0) scale(1);
+        opacity: 0.6;
+    }
+    25% {
+        transform: translateX(20px) translateY(-15px) scale(1.05);
+        opacity: 0.8;
+    }
+    50% {
+        transform: translateX(-15px) translateY(10px) scale(0.95);
+        opacity: 0.7;
+    }
+    75% {
+        transform: translateX(10px) translateY(-10px) scale(1.02);
+        opacity: 0.9;
+    }
+}
+
+/* Animación para el barrido de luz */
+@keyframes backgroundSweep {
+    0% {
+        transform: translateX(-100%) rotate(0deg);
+    }
+    100% {
+        transform: translateX(100%) rotate(360deg);
+    }
+}
+
+/* =================== */
+/* CONTENEDORES PRINCIPALES DE CADA SECCIÓN */
+/* =================== */
+
+/* Estilos base para todos los contenedores de secciones */
 [data-container]{
     width: 80%;
     background-color: #ffffff;
@@ -15,109 +172,550 @@ body{
     padding-bottom: 5px;
     padding-left: 20px;
     padding-right: 20px;
-    border-radius: 5%;
+    border-radius: 5%; /* Esquinas redondeadas */
+    cursor: pointer; /* Cursor de mano al pasar por encima */
+    /* Transiciones suaves para efectos hover */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+/* =================== */
+/* COLORES PASTEL DISTINTIVOS PARA CADA SECCIÓN */
+/* =================== */
+
+/* Sección de Noticias - Tonos rosa pastel */
+[data-container="noticias"] {
+    background: linear-gradient(135deg, #fff0f3, #ffffff);
+    border-left: 4px solid #ffb3ba; /* Borde izquierdo rosa */
+}
+
+/* Sección de Recetas - Tonos amarillo pastel */
+[data-container="recetas"] {
+    background: linear-gradient(135deg, #fff9e6, #ffffff);
+    border-left: 4px solid #ffe066; /* Borde izquierdo amarillo */
+}
+
+/* Sección de Pokémones - Tonos azul pastel */
+[data-container="pokemons"] {
+    background: linear-gradient(135deg, #e6f3ff, #ffffff);
+    border-left: 4px solid #87ceeb; /* Borde izquierdo azul cielo */
+}
+
+/* Sección de Economía - Tonos verde pastel */
+[data-container="economia"] {
+    background: linear-gradient(135deg, #f0fff0, #ffffff);
+    border-left: 4px solid #98fb98; /* Borde izquierdo verde claro */
+}
+
+/* =================== */
+/* EFECTOS HOVER Y ESTADOS ACTIVOS */
+/* =================== */
+
+/* Efecto hover cuando no está activa la sección */
+[data-container]:hover:not(.active) {
+    transform: scale(1.02); /* Agranda ligeramente */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada */
+}
+
+/* Estado cuando la sección está expandida/activa */
+[data-container].active {
+    transform: none; /* Sin transformación */
+    box-shadow: none; /* Sin sombra extra */
+}
+
+/* =================== */
+/* COLORES INTENSIFICADOS PARA ESTADO ACTIVO */
+/* =================== */
+
+/* Noticias activa - Rosa más intenso */
+[data-container="noticias"].active {
+    background: linear-gradient(135deg, #ffe6ea, #fff0f3);
+    border-left: 4px solid #ff8a95;
+}
+
+/* Recetas activa - Amarillo más intenso */
+[data-container="recetas"].active {
+    background: linear-gradient(135deg, #fff3cc, #fff9e6);
+    border-left: 4px solid #ffcc00;
+}
+
+/* Pokémones activa - Azul más intenso */
+[data-container="pokemons"].active {
+    background: linear-gradient(135deg, #cce7ff, #e6f3ff);
+    border-left: 4px solid #5dade2;
+}
+
+/* Economía activa - Verde más intenso */
+[data-container="economia"].active {
+    background: linear-gradient(135deg, #e6ffe6, #f0fff0);
+    border-left: 4px solid #77dd77;
+}
+
+/* =================== */
+/* TÍTULOS DE SECCIONES CON ESTILOS DISTINTIVOS */
+/* =================== */
+
+/* Título de Actualidad/Noticias - Gradiente rojo con emoji periódico */
+[data-container="noticias"] h2.button {
+    font-size: 2.2rem;
+    font-weight: 700;
+    /* Gradiente de rojo a naranja */
+    background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+    -webkit-background-clip: text; /* Aplicar gradiente solo al texto */
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-align: center;
+    padding: 15px 0;
+    position: relative;
+    text-shadow: 0 2px 4px rgba(255, 107, 107, 0.3);
+    transition: all 0.3s ease;
+}
+
+/* Emoji de periódico antes del título de noticias */
+[data-container="noticias"] h2.button::before {
+    content: "📰 ";
+    font-size: 1.8rem;
+    margin-right: 10px;
+}
+
+/* Efecto hover para título de noticias */
+[data-container="noticias"] h2.button:hover {
+    transform: translateY(-2px); /* Sube ligeramente */
+    text-shadow: 0 4px 8px rgba(255, 107, 107, 0.4);
+}
+
+/* Título de Recetas - Gradiente verde con emoji chef */
+[data-container="recetas"] h2.button {
+    font-size: 2.2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #26de81, #20bf6b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-align: center;
+    padding: 15px 0;
+    position: relative;
+    text-shadow: 0 2px 4px rgba(38, 222, 129, 0.3);
+    transition: all 0.3s ease;
+}
+
+/* Emoji de chef antes del título de recetas */
+[data-container="recetas"] h2.button::before {
+    content: "👨‍🍳 ";
+    font-size: 1.8rem;
+    margin-right: 10px;
+}
+
+/* Efecto hover para título de recetas */
+[data-container="recetas"] h2.button:hover {
+    transform: translateY(-2px);
+    text-shadow: 0 4px 8px rgba(38, 222, 129, 0.4);
+}
+
+/* Título de Pokémones - Gradiente púrpura con emoji rayo */
+[data-container="pokemons"] h2.button {
+    font-size: 2.2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #4834d4, #686de0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-align: center;
+    padding: 15px 0;
+    position: relative;
+    text-shadow: 0 2px 4px rgba(72, 52, 212, 0.3);
+    transition: all 0.3s ease;
+}
+
+/* Emoji de rayo antes del título de pokémones */
+[data-container="pokemons"] h2.button::before {
+    content: "⚡ ";
+    font-size: 1.8rem;
+    margin-right: 10px;
+}
+
+/* Efecto hover para título de pokémones */
+[data-container="pokemons"] h2.button:hover {
+    transform: translateY(-2px);
+    text-shadow: 0 4px 8px rgba(72, 52, 212, 0.4);
+}
+
+/* Título de Economía - Gradiente naranja (sin emoji por problemas de compatibilidad) */
+[data-container="economia"] h2.button {
+    font-size: 2.2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #f39c12, #e67e22);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-align: center;
+    padding: 15px 0;
+    position: relative;
+    text-shadow: 0 2px 4px rgba(243, 156, 18, 0.3);
+    transition: all 0.3s ease;
+}
+
+/* Efecto hover para título de economía */
+[data-container="economia"] h2.button:hover {
+    transform: translateY(-2px);
+    text-shadow: 0 4px 8px rgba(243, 156, 18, 0.4);
+}
+
+/* =================== */
+/* ESTILOS ESPECÍFICOS PARA SECCIÓN DE RECETAS */
+/* =================== */
+
+/* Contenedor principal de recetas con sombra */
+[data-container="recetas"]{
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Título centrado de la sección recetas */
+[data-container= "recetas"] > div h2{
+    text-align: center;
+    padding-bottom: 15px;
+    padding-top:15px;
+}
+
+/* MÓVIL: Grid de recetas en columna vertical */
+[data-container="recetas"] > div .grid {
+    display: flex;
+    flex-direction: column; /* Una receta debajo de otra */
+    gap: 16px; /* Espaciado entre recetas */
+}
+
+/* Cada tarjeta individual de receta */
+[data-container="recetas"] > div .grid > div {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15); /* Sombra sutil */
+    padding: 5px;
+    margin: 10px auto;
+    width: 90%; /* Ocupa 90% del ancho disponible */
+    min-height: 80px;
+    background-color: #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
 }
 
-/*Contenedor de los pokemons*/
-[data-container= "pokemons"]{
-    background-color: #f5f8ff;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15); /* sombra tenue */
-
+/* Hover solo cuando la sección no está activa */
+[data-container="recetas"]:not(.active) > div .grid > div:hover {
+    transform: scale(1.03); /* Agranda ligeramente */
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
 }
 
-/*Titulo de los pokemon*/
+/* Imágenes de recetas centradas */
+[data-container="recetas"] > div .grid > div > img{
+    width: 40%; /* 40% del ancho del contenedor */
+    height: auto; /* Mantiene proporción */
+    object-fit: cover; /* Recorta si es necesario */
+    display: block;
+    margin: 0 auto; /* Centrar horizontalmente */
+}
+
+/* Nombres de recetas centrados */
+[data-container="recetas"] > div .grid > div > p{
+    text-align: center;
+    font-size: large;
+}
+
+/* =================== */
+/* ESTILOS ESPECÍFICOS PARA SECCIÓN DE POKÉMONES */
+/* =================== */
+
+/* Contenedor principal de pokémones con sombra */
+[data-container= "pokemons"]{
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Título centrado de la sección pokémones */
 [data-container= "pokemons"] > div h2{
     text-align: center;
     padding-bottom: 15px;
     padding-top:15px;
 }
 
-/*contenedor de pokemons*/
+/* MÓVIL: Grid de pokémones en columna vertical */
 [data-container="pokemons"] > div .grid {
     display: flex;
-    flex-direction: column; /* hace que los hijos se apilen verticalmente */
-    gap: 16px; /* opcional: separación entre los elementos */
+    flex-direction: column;
+    gap: 16px;
 }
 
-/*cada pokemon por separado*/
+/* Cada tarjeta individual de pokémon */
 [data-container="pokemons"] > div .grid > div {
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15); /* sombra tenue */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
     padding: 5px;
     margin: 10px auto;
     width: 90%;
     min-height: 80px;
     background-color: #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
 }
 
-/*Imagenes de pokemons*/
+/* Hover de pokémones solo cuando no está activa */
+[data-container="pokemons"]:not(.active) > div .grid > div:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+/* Imágenes de pokémones */
 [data-container="pokemons"] > div .grid > div > img{
     width: 40%;
     height: auto;
-    object-fit: cover;  /* recorta la imagen para llenar el contenedor */
+    object-fit: cover;
     display: block;
     margin: 0 auto;
 }
 
-/*nombre cada pokemon*/
+/* Nombres de pokémones */
 [data-container="pokemons"] > div .grid > div > p{
     text-align: center;
     font-size: large;
 }
 
-#titulo-principal {
-    color: #000000;
+/* =================== */
+/* CONTENEDORES DE CONTENIDO CON DEGRADADOS PASTEL */
+/* =================== */
+
+/* Estilos base para todos los contenedores de contenido */
+.content {
+    padding: 20px;
+    border-radius: 15px; /* Esquinas redondeadas */
+    margin: 15px 0;
+    transition: all 0.3s ease;
 }
 
+/* Degradado pastel para contenido de noticias */
+[data-container="noticias"] .content {
+    background: linear-gradient(135deg, #ffeef0 0%, #fff8e1 50%, #f8f0ff 100%);
+    border: 1px solid rgba(255, 182, 193, 0.3);
+    box-shadow: 0 4px 15px rgba(255, 182, 193, 0.1);
+}
+
+/* Degradado pastel para contenido de recetas */
+[data-container="recetas"] .content {
+    background: linear-gradient(135deg, #fff8e1 0%, #e8f4fd 50%, #ffeef0 100%);
+    border: 1px solid rgba(255, 224, 102, 0.3);
+    box-shadow: 0 4px 15px rgba(255, 224, 102, 0.1);
+}
+
+/* Degradado pastel para contenido de pokémones */
+[data-container="pokemons"] .content {
+    background: linear-gradient(135deg, #e8f4fd 0%, #ffeef0 50%, #fff8e1 100%);
+    border: 1px solid rgba(173, 216, 230, 0.3);
+    box-shadow: 0 4px 15px rgba(173, 216, 230, 0.1);
+}
+
+/* Degradado pastel para contenido de economía */
+[data-container="economia"] .content {
+    background: linear-gradient(135deg, #f0fff0 0%, #fff8e1 50%, #e8f4fd 100%);
+    border: 1px solid rgba(144, 238, 144, 0.3);
+    box-shadow: 0 4px 15px rgba(144, 238, 144, 0.1);
+}
+
+/* Efecto hover sutil para contenedores */
+.content:hover {
+    transform: translateY(-2px); /* Sube ligeramente */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* =================== */
+/* ESTILOS PARA PIE DE PÁGINA */
+/* =================== */
+
+/* Contenedor principal del footer */
+#footer-estudiantil {
+    background: linear-gradient(135deg, #2c3e50, #34495e); /* Gradiente gris oscuro */
+    color: white;
+    padding: 40px 20px 20px;
+    margin-top: 50px;
+    text-align: center;
+    position: relative;
+    overflow: hidden; /* Para el efecto de brillo */
+}
+
+/* Efecto de brillo animado que cruza el footer */
+#footer-estudiantil::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.05), transparent);
+    animation: footerShine 4s ease-in-out infinite;
+}
+
+/* Título principal del footer */
+.footer-content h3 {
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    color: #ecf0f1;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3); /* Sombra sutil */
+}
+
+/* Subtítulo de información del equipo */
+.team-info h4 {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    color: #3498db; /* Azul claro */
+    font-weight: 600;
+}
+
+/* Grid de estudiantes responsive */
+.students-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Se adapta al contenido */
+    gap: 15px;
+    margin-bottom: 25px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Tarjeta individual de cada estudiante */
+.student {
+    background: rgba(255,255,255,0.1); /* Fondo semi-transparente */
+    padding: 15px;
+    border-radius: 10px;
+    backdrop-filter: blur(5px); /* Efecto de desenfoque */
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+/* Hover de tarjetas de estudiantes */
+.student:hover {
+    transform: translateY(-3px); /* Levanta la tarjeta */
+    background: rgba(255,255,255,0.15); /* Fondo más claro */
+}
+
+/* Nombre del estudiante */
+.student .name {
+    display: block;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+    color: #ecf0f1;
+}
+
+/* RUT del estudiante */
+.student .rut {
+    display: block;
+    font-size: 0.9rem;
+    color: #bdc3c7; /* Gris claro */
+}
+
+/* Contenedor de enlaces */
+.footer-link {
+    margin: 25px 0;
+}
+
+/* Enlaces del footer */
+.footer-link a {
+    color: #3498db; /* Azul */
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+/* Hover de enlaces */
+.footer-link a:hover {
+    color: #5dade2; /* Azul más claro */
+    text-decoration: underline;
+}
+
+/* Parte inferior del footer con copyright */
+.footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.2); /* Línea separadora */
+    padding-top: 15px;
+    margin-top: 25px;
+    font-size: 0.9rem;
+    color: #95a5a6; /* Gris medio */
+}
+
+/* Animación del efecto de brillo del footer */
+@keyframes footerShine {
+    0% { left: -50%; }
+    50% { left: 50%; }
+    100% { left: 150%; }
+}
+
+/* RESPONSIVE: Footer en móvil */
+@media (max-width: 767px) {
+    .students-grid {
+        grid-template-columns: 1fr; /* Una sola columna */
+        gap: 10px;
+    }
+    
+    #footer-estudiantil {
+        padding: 30px 15px 15px;
+    }
+    
+    .footer-content h3 {
+        font-size: 1.5rem;
+    }
+}
+
+/* =================== */
+/* ESTILOS ESPECÍFICOS PARA SECCIÓN DE ECONOMÍA */
+/* =================== */
+
+/* Contenedor principal de economía */
 [data-container="economia"]{
-    background-color: #f5f8ff;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15); /* sombra tenue */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
 }
 
-
-/*Titulo de los economia*/
+/* Título centrado de economía */
 [data-container= "economia"] > div h2{
     text-align: center;
     padding-bottom: 15px;
     padding-top:15px;
 }
 
-/*contenedor de economia*/
+/* MÓVIL: Grid de elementos económicos en columna */
 [data-container="economia"] > div .grid {
     display: flex;
-    flex-direction: column; /* hace que los hijos se apilen verticalmente */
-    gap: 16px; /* opcional: separación entre los elementos */
+    flex-direction: column;
+    gap: 16px;
 }
 
-/*cada item por separado*/
+/* Cada elemento económico individual */
 [data-container="economia"] > div .grid > div {
-    text-align: center;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15); /* sombra tenue */
+    text-align: center; /* Centrar todo el texto */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
     padding: 5px;
     margin: 10px auto;
     width: 90%;
     min-height: 80px;
     background-color: #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
 }
 
+/* Hover de elementos económicos */
+[data-container="economia"]:not(.active) > div .grid > div:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
 
+/* =================== */
+/* MODAL DE RECETAS */
+/* =================== */
 
-
-
-
-/* diseño de pop-up al hacer click en receta*/
+/* Contenedor principal del modal */
 .modal {
-    display: none;
-    position: fixed;
+    display: none; /* Oculto por defecto */
+    position: fixed; /* Posición fija sobre toda la pantalla */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(128, 128, 128, 0.479);
+    background: rgba(0, 0, 0, 0.8); /* Fondo oscuro semi-transparente */
     justify-content: center;
     align-items: center;
+    z-index: 10000; /* Por encima de todo */
 }
-/* titulo de receta */
+
+/* Título del modal de receta */
 .modal > .modal-content > h2 {
     text-underline-offset: 1px;
     font-weight: bold;
@@ -125,102 +723,323 @@ body{
     text-align: center;
 }
 
+/* Contenido principal del modal */
 .modal-content {
     width: 80%;
-    height: 80vh;     
-    overflow-y: auto;       /* habilita scrolling si el contenido es más grande que el popup*/
-    background: white;
+    height: 80vh; /* 80% de la altura de la ventana */
+    overflow-y: auto; /* Scroll vertical si el contenido es muy largo */
+    /* Degradado pastel para el fondo del modal */
+    background: linear-gradient(135deg, #fff8e1 0%, #e8f4fd 50%, #ffeef0 100%);
+    border: 1px solid rgba(255, 224, 102, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     padding: 40px;
-    border-radius: 10px;
-    margin: 40px auto; 
+    border-radius: 15px;
+    margin: 40px auto;
+    position: relative;
+    z-index: 10001;
 }
 
+/* Imagen del modal centrada */
 .modal-content > img {
     display: flex;
-    justify-content: center; /* horizontal */
+    justify-content: center;
     align-items: center; 
 }
 
+/* Botón de cerrar modal */
 #close {
     float: right;
     cursor: pointer;
 }
+
+/* Imagen principal de la receta en el modal */
 #modal-img {
     display: block;
-    margin: 0 auto; /* se centra la imagen horizonalmente*/
-    width: 300px;      
-    max-width: 90%;    /* responisve*/
+    margin: 0 auto; /* Centrar horizontalmente */
+    width: 400px;      
+    max-width: 90%; /* Responsive */
     padding: 10px;
-    height: auto;       
+    height: auto; /* Mantener proporción */
 }
 
+/* Lista de ingredientes estilizada */
 #modal-ingredients {
-    list-style-position: inside; 
-    margin: 0 auto;              /*se centra lista y los "puntos" van del lado del texto*/
-    text-align: center;    
+    list-style-position: inside; /* Viñetas dentro del contenedor */
+    margin: 20px auto;              
+    text-align: left;    
+    max-width: 500px;
+    padding: 15px;
+    background-color: #f8f9fa; /* Fondo gris muy claro */
+    border-radius: 8px;
+    border-left: 4px solid #007bff; /* Borde azul a la izquierda */
 }
+
+/* Elementos individuales de ingredientes */
+#modal-ingredients li {
+    margin: 8px 0;
+    padding: 5px 0;
+    font-weight: 500;
+    color: #333;
+}
+
+/* Lista de pasos de preparación */
+#modal-steps {
+    list-style-position: inside;
+    margin: 20px auto;
+    text-align: left;
+    max-width: 600px;
+    padding: 15px;
+    background-color: #f0f8f0; /* Fondo verde muy claro */
+    border-radius: 8px;
+    border-left: 4px solid #28a745; /* Borde verde */
+}
+
+/* Elementos individuales de pasos */
+#modal-steps li {
+    margin: 12px 0;
+    padding: 8px 0;
+    line-height: 1.5; /* Espaciado entre líneas */
+    color: #333;
+}
+
+/* Texto resaltado en los pasos */
+#modal-steps li strong {
+    color: #28a745; /* Verde para destacar */
+}
+
+/* Título de la sección ingredientes */
 #ingrediente {
     text-align: center;
-
+    font-weight: bold;
+    color: #007bff; /* Azul */
+    margin: 15px 0 10px 0;
 }
 
+/* Título de la sección pasos */
+.steps-title {
+    text-align: center;
+    font-weight: bold;
+    color: #28a745; /* Verde */
+    margin: 20px 0 10px 0;
+}
 
-/* Tablet y desktop */
+/* =================== */
+/* RESPONSIVE - TABLET (768px - 1023px) */
+/* =================== */
+
 @media (min-width: 768px) and (max-width: 1023px) {
 
-    #titulo-principal {
-        color: #ff0000;
-    }
-
-
-    [data-container="pokemons"] > div .grid {
+    /* TABLET: Grid de recetas en 2 columnas */
+    [data-container="recetas"] > div .grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr); /* 2 columnas iguales */
+        gap: 16px;
+    }
+
+    /* TABLET: Grid de pokémones en 2 columnas */
+    [data-container="pokemons"] > div .grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
         gap: 16px;
     }
     
+    /* TABLET: Grid de economía en 2 columnas */
     [data-container="economia"] > div .grid {
         display: grid;
-        grid-template-columns: repeat(2, 1fr); /* 2 columnas iguales */
+        grid-template-columns: repeat(2, 1fr);
         gap: 16px;
     }
 
-    /*Imagenes de pokemons*/
+    /* TABLET: Imágenes de recetas más grandes */
+    [data-container="recetas"] > div .grid > div > img{
+        width: 50%; /* 50% en lugar de 40% */
+        height: auto;
+        object-fit: cover;
+        display: block;
+        margin: 0 auto;
+    }
+
+    /* TABLET: Imágenes de pokémones más grandes */
     [data-container="pokemons"] > div .grid > div > img{
         width: 50%;
         height: auto;
-        object-fit: cover;  /* recorta la imagen para llenar el contenedor */
+        object-fit: cover;
         display: block;
         margin: 0 auto;
     }
 }
 
+/* =================== */
+/* RESPONSIVE - DESKTOP (1024px+) */
+/* =================== */
+
 @media (min-width: 1024px){
-   
-    #titulo-principal {
-        color: #0062ff;
+
+    /* DESKTOP: Grid de recetas en 4 columnas */
+    [data-container="recetas"] > div .grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr); /* 4 columnas */
+        gap: 16px;
     }
 
+    /* DESKTOP: Grid de pokémones en 4 columnas */
     [data-container="pokemons"] > div .grid {
         display: grid;
-        grid-template-columns: repeat(4, 1fr); /* 2 columnas iguales */
+        grid-template-columns: repeat(4, 1fr);
         gap: 16px;
     }
     
+    /* DESKTOP: Grid de economía en 4 columnas */
     [data-container="economia"] > div .grid {
         display: grid;
-        grid-template-columns: repeat(4, 1fr); /* 2 columnas iguales */
+        grid-template-columns: repeat(4, 1fr);
         gap: 16px;
     }
 
-
-    /*Imagenes de pokemons*/
-    [data-container="pokemons"] > div .grid > div > img{
-        width: 80%;
+    /* DESKTOP: Imágenes de recetas aún más grandes */
+    [data-container="recetas"] > div .grid > div > img{
+        width: 80%; /* 80% del contenedor */
         height: auto;
-        object-fit: cover;  /* recorta la imagen para llenar el contenedor */
+        object-fit: cover;
         display: block;
         margin: 0 auto;
     }
 
+    /* DESKTOP: Imágenes de pokémones más grandes */
+    [data-container="pokemons"] > div .grid > div > img{
+        width: 80%;
+        height: auto;
+        object-fit: cover;
+        display: block;
+        margin: 0 auto;
+    }
 }
+
+/* =================== */
+/* ESTILOS ESPECÍFICOS PARA SECCIÓN DE NOTICIAS */
+/* =================== */
+
+/* Contenedor principal de noticias */
+[data-container="noticias"] {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Título de noticias */
+[data-container="noticias"] > div h2 {
+    text-align: center;
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+
+/* MÓVIL: Grid de noticias en columna */
+[data-container="noticias"] > div .grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Cada noticia individual */
+[data-container="noticias"] > div .grid > div {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+    padding: 15px; /* Más padding que otros elementos */
+    margin: 10px auto;
+    width: 90%;
+    min-height: 80px;
+    background-color: #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+/* Hover de noticias */
+[data-container="noticias"]:not(.active) > div .grid > div:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+/* Estado expandido de noticias (si aplica) */
+[data-container="noticias"] > div .grid > div.expanded {
+    background-color: #f9fafb;
+    border: 1px solid #ddd;
+    padding: 20px;
+    transition: background-color 0.3s ease;
+}
+
+/* Imágenes de noticias */
+[data-container="noticias"] > div .grid > div > img {
+    width: 40%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Títulos de noticias */
+[data-container="noticias"] > div .grid > div > p {
+    text-align: center;
+    font-size: large;
+}
+
+/* RESPONSIVE TABLET: Noticias en 2 columnas */
+@media (min-width: 768px) and (max-width: 1023px) {
+    [data-container="noticias"] > div .grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+    [data-container="noticias"] > div .grid > div > img {
+        width: 50%;
+        height: auto;
+        object-fit: cover;
+        display: block;
+        margin: 0 auto;
+    }
+}
+
+/* RESPONSIVE DESKTOP: Noticias en 4 columnas */
+@media (min-width: 1024px) {
+    [data-container="noticias"] > div .grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+    }
+    [data-container="noticias"] > div .grid > div > img {
+        width: 80%;
+        height: auto;
+        object-fit: cover;
+        display: block;
+        margin: 0 auto;
+    }
+}
+
+/* =================== */
+/* ANIMACIÓN DEL TÍTULO PRINCIPAL */
+/* =================== */
+
+/* Animación que hace que las sombras del título pulsen */
+@keyframes textShadowPulse {
+    /* Estado inicial y final - sombras normales */
+    0%, 100% {
+        text-shadow: -2px 2px #ef3550,
+                     -4px 4px #f48fb1,
+                     -6px 6px #7e57c2,
+                     -8px 8px #2196f3,
+                     -10px 10px #26c6da,
+                     -12px 12px #43a047,
+                     -14px 14px #eeff41,
+                     -16px 16px #f9a825,
+                     -18px 18px #ff5722;
+    }
+    /* Estado intermedio - sombras extendidas al doble */
+    50% {
+        text-shadow: -4px 4px #ef3550,
+                     -8px 8px #f48fb1,
+                     -12px 12px #7e57c2,
+                     -16px 16px #2196f3,
+                     -20px 20px #26c6da,
+                     -24px 24px #43a047,
+                     -28px 28px #eeff41,
+                     -32px 32px #f9a825,
+                     -36px 36px #ff5722;
+    }
+}
+

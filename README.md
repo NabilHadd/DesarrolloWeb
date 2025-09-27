@@ -4,7 +4,7 @@ Grupo 11
 Integrantes:
 Nabil Haddad	21427760-4
 Vincenzo Porzio	
-Nicolas Cordero	
+Nicolas Cordero	20.543.155-1
 Diego Parga	21.621.105-7
 
 https://nabilhadd.github.io/DesarrolloWeb/Taller1_/

@@ -1,89 +1,212 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Taller 1 Intro Web Movil</title>
+    <meta charset="UTF-8">
+    <title>Taller 1 Intro Web Movil</title>
+    <!-- Librería Tailwind CSS para estilos modernos -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fuente Google Inter para tipografía profesional -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Archivos CSS personalizados -->
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="adicionales.css">
 </head>
 <body>
-    <h1 id="titulo-principal">
-        InfoMovil
-    </h1>    
+    <!-- ========== FONDO ANIMADO CON CÍRCULOS FLOTANTES ========== -->
+    <!-- Contenedor para los 30 círculos animados del fondo -->
+    <div class="background-animation">
+        <!-- Cada círculo tiene una clase única para estilos individuales -->
+        <div class="floating-element circle1"></div>
+        <div class="floating-element circle2"></div>
+        <div class="floating-element circle3"></div>
+        <div class="floating-element circle4"></div>
+        <div class="floating-element circle5"></div>
+        <div class="floating-element circle6"></div>
+        <div class="floating-element circle7"></div>
+        <div class="floating-element circle8"></div>
+        <div class="floating-element circle9"></div>
+        <div class="floating-element circle10"></div>
+        <div class="floating-element circle11"></div>
+        <div class="floating-element circle12"></div>
+        <div class="floating-element circle13"></div>
+        <div class="floating-element circle14"></div>
+        <div class="floating-element circle15"></div>
+        <div class="floating-element circle16"></div>
+        <div class="floating-element circle17"></div>
+        <div class="floating-element circle18"></div>
+        <div class="floating-element circle19"></div>
+        <div class="floating-element circle20"></div>
+        <div class="floating-element circle21"></div>
+        <div class="floating-element circle22"></div>
+        <div class="floating-element circle23"></div>
+        <div class="floating-element circle24"></div>
+        <div class="floating-element circle25"></div>
+        <div class="floating-element circle26"></div>
+        <div class="floating-element circle27"></div>
+        <div class="floating-element circle28"></div>
+        <div class="floating-element circle29"></div>
+        <div class="floating-element circle30"></div>
+    </div>
 
-    <!-- Contenedor Noticias -->
+    <!-- ========== TÍTULO PRINCIPAL DE LA PÁGINA ========== -->
+    <!-- Título con efectos de sombra multicolor animada -->
+    <h1 id="titulo-principal">InfoMovil</h1>    
+
+    <!-- ========== SECCIÓN DE NOTICIAS ========== -->
+    <!-- Contenedor principal para noticias con identificador único -->
     <div class="rounded-lg shadow" data-container="noticias">
         <div id="Noticias">
+            <!-- Botón para expandir/colapsar sección (id="0" para control JavaScript) -->
             <h2 class="button" id="0">Actualidad</h2>
-            <div class ="content">
-                <p>Esto es un párrafo sobre actualidad.</p>
-                <span>texto</span>
+            <div class="content">
+                <!-- Texto descriptivo para el usuario -->
+                <p id="loading-news">Cada vez que actualices la página verás 4 noticias distintas</p>
+                <p>Puedes hacer click en la noticia para mostrar su contenido</p>
+                <!-- Grid para mostrar las 4 noticias -->
+                <div class="grid">
+                    <div class="rounded-lg" id="news_1"></div>
+                    <div class="rounded-lg" id="news_2"></div>
+                    <div class="rounded-lg" id="news_3"></div>
+                    <div class="rounded-lg" id="news_4"></div>
+                </div>
             </div>
+        </div>
+    </div>
+
+    <!-- ========== MODAL PARA MOSTRAR DETALLES DE NOTICIAS ========== -->
+    <!-- Modal oculto que aparece al hacer click en una noticia -->
+    <div id="modal-news" class="modal" style="display:none;">
+        <div class="modal-content">
+            <!-- Botón para cerrar el modal -->
+            <span id="close-news">&times;</span>
+            <!-- Contenido dinámico del modal -->
+            <h2 id="modal-news-title"></h2>
+            <img id="modal-news-img" alt="Imagen de noticia" />
+            <p id="modal-news-content"></p>
         </div>
     </div>
     
-    <!-- Contenedor Recetas -->
-    <div class="rounded-lg shadow" data-container="pokemons">
+    <!-- ========== SECCIÓN DE RECETAS ========== -->
+    <!-- Contenedor principal para recetas -->
+    <div class="rounded-lg shadow" data-container="recetas">
         <div id="Recetas">
+            <!-- Botón para expandir/colapsar sección (id="1" para control JavaScript) -->
             <h2 class="button" id="1">Recetas</h2>
             <div class="content">
+                <!-- Texto descriptivo para el usuario -->
                 <p>Cada vez que actualices la página verás 4 recetas distintas</p>
                 <p>Puedes hacer click en la receta para mostrar sus ingredientes y proceso</p>
-
+                <!-- Grid para mostrar las 4 recetas -->
                 <div class="grid">
-                    <div class="rounded-lg" id="meal_1" ></div>
-                    <div class="rounded-lg" id="meal_2" ></div>
-                    <div class="rounded-lg" id="meal_3" ></div>
-                    <div class="rounded-lg" id="meal_4" ></div>
+                    <div class="rounded-lg" id="meal_1"></div>
+                    <div class="rounded-lg" id="meal_2"></div>
+                    <div class="rounded-lg" id="meal_3"></div>
+                    <div class="rounded-lg" id="meal_4"></div>
                 </div>
-                
             </div>
-            
         </div>
     </div>
-<!-- Popup o modal para mostrar al hacer click en una de las 4 preparaciones-->
+
+    <!-- ========== MODAL PARA MOSTRAR DETALLES DE RECETAS ========== -->
+    <!-- Modal que muestra ingredientes y pasos de preparación -->
     <div id="modal" class="modal">
         <div class="modal-content">
+            <!-- Botón para cerrar el modal -->
             <span id="close">&times;</span>
+            <!-- Contenido de la receta -->
             <h2 id="modal-title"></h2>
             <img id="modal-img" alt="Imagen de receta" />
-            <p id="ingrediente"><strong>Ingredients:</strong> <span id="modal-ingredients"></span></p>
-            <br> 
-            <p><strong>Steps:</strong> <span id="modal-steps"></span></p>
+            <!-- Sección de ingredientes -->
+            <p id="ingrediente"><strong>Ingredientes:</strong></p>
+            <ul id="modal-ingredients" style="list-style-type: disc; padding-left: 20px; margin-bottom: 20px;"></ul>
+            <!-- Sección de pasos de preparación -->
+            <p class="steps-title"><strong>Pasos de preparación:</strong></p>
+            <ol id="modal-steps" style="padding-left: 20px;"></ol>
         </div>
     </div>
-    <!-- Contenedor Pokemons -->
-    <div class="rounded-lg shadow" data-container="pokemons" >
+
+    <!-- ========== SECCIÓN DE POKÉMONES ========== -->
+    <!-- Contenedor principal para pokémones -->
+    <div class="rounded-lg shadow" data-container="pokemons">
         <div id="Pokemons">
+            <!-- Botón para expandir/colapsar sección (id="2" para control JavaScript) -->
             <h2 class="button" id="2">Pokemones</h2>
             <div class="content">
+                <!-- Texto descriptivo para el usuario -->
                 <p>Cada vez que actualices la página verás 4 pokemones distintos.</p>
-
+                <p>Puedes hacer click en cada uno para ver más detalles.</p>
+                <!-- Grid para mostrar los 4 pokémones -->
                 <div class="grid">
-                    <div class="rounded-lg" id="pokemon_1" ></div>
-                    <div class="rounded-lg" id="pokemon_2" ></div>
-                    <div class="rounded-lg" id="pokemon_3" ></div>
-                    <div class="rounded-lg" id="pokemon_4" ></div>
+                    <div class="rounded-lg" id="pokemon_1"></div>
+                    <div class="rounded-lg" id="pokemon_2"></div>
+                    <div class="rounded-lg" id="pokemon_3"></div>
+                    <div class="rounded-lg" id="pokemon_4"></div>
                 </div>
             </div>
-            
         </div>
     </div>
 
-    <!-- Contenedor Politica -->
-    <div class="rounded-lg shadow" data-container="economia" >
+    <!-- ========== SECCIÓN DE ECONOMÍA ========== -->
+    <!-- Contenedor principal para datos económicos -->
+    <div class="rounded-lg shadow" data-container="economia">
         <div id="economia">
+            <!-- Botón para expandir/colapsar sección (id="3" para control JavaScript) -->
             <h2 class="button" id="3">Un poco de economia</h2>
-            <div class ="content">
+            <div class="content">
+                <!-- Texto descriptivo para el usuario -->
                 <p>Principales items economicos Chile.</p>
-                <div class="grid">
-                </div>
+                <!-- Grid dinámico que se llena con JavaScript -->
+                <div class="grid"></div>
             </div>
         </div>
     </div>
 
+    <!-- ========== PIE DE PÁGINA ========== -->
+    <!-- Footer con información del equipo de desarrollo -->
+    <footer id="footer-estudiantil">
+        <div class="footer-content">
+            <h3>Desarrollo Web/Móvil - Taller 1</h3>
+            <!-- Información del grupo y integrantes -->
+            <div class="team-info">
+                <h4>Grupo 11 - Integrantes:</h4>
+                <div class="students-grid">
+                    <!-- Cada integrante del equipo -->
+                    <div class="student">
+                        <span class="name">Nabil Haddad</span>
+                        <span class="rut">21.427.760-4</span>
+                    </div>
+                    <div class="student">
+                        <span class="name">Vincenzo Porzio</span>
+                        <span class="rut">-</span>
+                    </div>
+                    <div class="student">
+                        <span class="name">Nicolas Cordero</span>
+                        <span class="rut">20.543.155-1</span>
+                    </div>
+                    <div class="student">
+                        <span class="name">Diego Parga</span>
+                        <span class="rut">21.621.105-7</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Enlaces del proyecto -->
+            <div class="footer-link">
+                <p>🌐 <a href="https://nabilhadd.github.io/DesarrolloWeb/Taller1_/" target="_blank">Ver proyecto en GitHub Pages</a></p>
+                <p>💻 <a href="https://github.com/NabilHadd/DesarrolloWeb" target="_blank">Ver repositorio en GitHub</a></p>
+            </div>
+            <!-- Copyright -->
+            <div class="footer-bottom">
+                <p>&copy; 2025 - UCN - Desarrollo Web/Móvil</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== ARCHIVO JAVASCRIPT PRINCIPAL ========== -->
+    <!-- Contiene toda la lógica de la aplicación -->
     <script src="script.js"></script>
 </body>
-
-
 </html>

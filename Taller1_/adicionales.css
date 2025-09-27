@@ -1,0 +1,355 @@
+/* =================== */
+/* Elementos dinámicos de fondo */
+/* =================== */
+.background-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.floating-element {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.6;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+/* Círculos rosa pastel */
+.circle1 {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(45deg, #ffc1cc, #ffb3ba);
+    top: 5%;
+    left: 5%;
+    animation: floatUpDown 8s ease-in-out infinite;
+}
+
+.circle2 {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, #ffc1cc, #ffb3ba);
+    top: 15%;
+    right: 20%;
+    animation: floatLeftRight 6s ease-in-out infinite;
+    animation-delay: -1s;
+}
+
+.circle3 {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(45deg, #ffc1cc, #ffb3ba);
+    bottom: 25%;
+    left: 15%;
+    animation: floatDiagonal 10s ease-in-out infinite;
+    animation-delay: -3s;
+}
+
+/* Círculos azul pastel */
+.circle4 {
+    width: 65px;
+    height: 65px;
+    background: linear-gradient(45deg, #a8dadc, #b8e6e8);
+    top: 25%;
+    left: 45%;
+    animation: floatUpDown 7s ease-in-out infinite;
+    animation-delay: -2s;
+}
+
+.circle5 {
+    width: 90px;
+    height: 90px;
+    background: linear-gradient(45deg, #a8dadc, #b8e6e8);
+    top: 70%;
+    right: 30%;
+    animation: floatLeftRight 9s ease-in-out infinite;
+    animation-delay: -4s;
+}
+
+.circle6 {
+    width: 55px;
+    height: 55px;
+    background: linear-gradient(45deg, #a8dadc, #b8e6e8);
+    bottom: 10%;
+    right: 10%;
+    animation: floatDiagonal 6s ease-in-out infinite;
+    animation-delay: -1s;
+}
+
+/* Círculos amarillo pastel */
+.circle7 {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(45deg, #fff2a8, #ffe066);
+    top: 40%;
+    left: 25%;
+    animation: floatUpDown 11s ease-in-out infinite;
+    animation-delay: -5s;
+}
+
+.circle8 {
+    width: 68px;
+    height: 68px;
+    background: linear-gradient(45deg, #fff2a8, #ffe066);
+    bottom: 45%;
+    right: 15%;
+    animation: floatLeftRight 5s ease-in-out infinite;
+    animation-delay: -2s;
+}
+
+.circle9 {
+    width: 78px;
+    height: 78px;
+    background: linear-gradient(45deg, #fff2a8, #ffe066);
+    top: 80%;
+    left: 40%;
+    animation: floatDiagonal 8s ease-in-out infinite;
+    animation-delay: -6s;
+}
+
+/* Círculos verde pastel */
+.circle10 {
+    width: 85px;
+    height: 85px;
+    background: linear-gradient(45deg, #c1ffc1, #b3ffb3);
+    top: 55%;
+    left: 60%;
+    animation: floatUpDown 9s ease-in-out infinite;
+    animation-delay: -3s;
+}
+
+.circle11 {
+    width: 62px;
+    height: 62px;
+    background: linear-gradient(45deg, #c1ffc1, #b3ffb3);
+    top: 20%;
+    right: 45%;
+    animation: floatLeftRight 7s ease-in-out infinite;
+    animation-delay: -4s;
+}
+
+.circle12 {
+    width: 73px;
+    height: 73px;
+    background: linear-gradient(45deg, #c1ffc1, #b3ffb3);
+    bottom: 35%;
+    left: 80%;
+    animation: floatDiagonal 12s ease-in-out infinite;
+    animation-delay: -2s;
+}
+
+/* Círculos púrpura pastel */
+.circle13 {
+    width: 77px;
+    height: 77px;
+    background: linear-gradient(45deg, #e6ccff, #d9b3ff);
+    top: 35%;
+    right: 60%;
+    animation: floatUpDown 6s ease-in-out infinite;
+    animation-delay: -7s;
+}
+
+.circle14 {
+    width: 66px;
+    height: 66px;
+    background: linear-gradient(45deg, #e6ccff, #d9b3ff);
+    bottom: 60%;
+    left: 70%;
+    animation: floatLeftRight 10s ease-in-out infinite;
+    animation-delay: -1s;
+}
+
+.circle15 {
+    width: 95px;
+    height: 95px;
+    background: linear-gradient(45deg, #e6ccff, #d9b3ff);
+    top: 10%;
+    left: 75%;
+    animation: floatDiagonal 7s ease-in-out infinite;
+    animation-delay: -5s;
+}
+
+/* Círculos adicionales para llenar más el fondo */
+.circle16 {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(45deg, #ffc1cc, #ffb3ba);
+    top: 50%;
+    left: 10%;
+    animation: floatUpDown 8s ease-in-out infinite;
+    animation-delay: -4s;
+}
+
+.circle17 {
+    width: 71px;
+    height: 71px;
+    background: linear-gradient(45deg, #a8dadc, #b8e6e8);
+    bottom: 15%;
+    right: 50%;
+    animation: floatLeftRight 9s ease-in-out infinite;
+    animation-delay: -3s;
+}
+
+.circle18 {
+    width: 67px;
+    height: 67px;
+    background: linear-gradient(45deg, #fff2a8, #ffe066);
+    top: 65%;
+    right: 70%;
+    animation: floatDiagonal 11s ease-in-out infinite;
+    animation-delay: -6s;
+}
+
+.circle19 {
+    width: 84px;
+    height: 84px;
+    background: linear-gradient(45deg, #c1ffc1, #b3ffb3);
+    top: 85%;
+    left: 20%;
+    animation: floatUpDown 7s ease-in-out infinite;
+    animation-delay: -2s;
+}
+
+.circle20 {
+    width: 69px;
+    height: 69px;
+    background: linear-gradient(45deg, #e6ccff, #d9b3ff);
+    bottom: 80%;
+    right: 35%;
+    animation: floatLeftRight 6s ease-in-out infinite;
+    animation-delay: -5s;
+}
+
+@keyframes floatUpDown {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-25px);
+    }
+}
+
+@keyframes floatLeftRight {
+    0%, 100% {
+        transform: translateX(0px);
+    }
+    50% {
+        transform: translateX(25px);
+    }
+}
+
+@keyframes floatDiagonal {
+    0%, 100% {
+        transform: translate(0px, 0px);
+    }
+    50% {
+        transform: translate(20px, -15px);
+    }
+}
+
+/* Círculos adicionales para más dinamismo */
+.circle21 {
+    width: 58px;
+    height: 58px;
+    background: linear-gradient(45deg, #ffc1cc, #ffb3ba);
+    top: 30%;
+    left: 85%;
+    animation: floatUpDown 9s ease-in-out infinite;
+    animation-delay: -3s;
+}
+
+.circle22 {
+    width: 72px;
+    height: 72px;
+    background: linear-gradient(45deg, #a8dadc, #b8e6e8);
+    bottom: 50%;
+    left: 5%;
+    animation: floatLeftRight 8s ease-in-out infinite;
+    animation-delay: -6s;
+}
+
+.circle23 {
+    width: 46px;
+    height: 46px;
+    background: linear-gradient(45deg, #fff2a8, #ffe066);
+    top: 5%;
+    right: 55%;
+    animation: floatDiagonal 7s ease-in-out infinite;
+    animation-delay: -2s;
+}
+
+.circle24 {
+    width: 88px;
+    height: 88px;
+    background: linear-gradient(45deg, #c1ffc1, #b3ffb3);
+    bottom: 70%;
+    right: 5%;
+    animation: floatUpDown 10s ease-in-out infinite;
+    animation-delay: -7s;
+}
+
+.circle25 {
+    width: 54px;
+    height: 54px;
+    background: linear-gradient(45deg, #e6ccff, #d9b3ff);
+    top: 75%;
+    left: 65%;
+    animation: floatLeftRight 6s ease-in-out infinite;
+    animation-delay: -4s;
+}
+
+.circle26 {
+    width: 76px;
+    height: 76px;
+    background: linear-gradient(45deg, #ffc1cc, #ffb3ba);
+    bottom: 30%;
+    right: 85%;
+    animation: floatDiagonal 11s ease-in-out infinite;
+    animation-delay: -1s;
+}
+
+.circle27 {
+    width: 63px;
+    height: 63px;
+    background: linear-gradient(45deg, #a8dadc, #b8e6e8);
+    top: 45%;
+    left: 3%;
+    animation: floatUpDown 8s ease-in-out infinite;
+    animation-delay: -5s;
+}
+
+.circle28 {
+    width: 52px;
+    height: 52px;
+    background: linear-gradient(45deg, #fff2a8, #ffe066);
+    bottom: 5%;
+    left: 55%;
+    animation: floatLeftRight 9s ease-in-out infinite;
+    animation-delay: -3s;
+}
+
+.circle29 {
+    width: 81px;
+    height: 81px;
+    background: linear-gradient(45deg, #c1ffc1, #b3ffb3);
+    top: 60%;
+    right: 25%;
+    animation: floatDiagonal 7s ease-in-out infinite;
+    animation-delay: -6s;
+}
+
+.circle30 {
+    width: 59px;
+    height: 59px;
+    background: linear-gradient(45deg, #e6ccff, #d9b3ff);
+    bottom: 90%;
+    left: 50%;
+    animation: floatUpDown 10s ease-in-out infinite;
+    animation-delay: -8s;
+}
