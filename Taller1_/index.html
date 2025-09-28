@@ -16,154 +16,160 @@
     <link rel="stylesheet" href="adicionales.css">
 </head>
 <body>
-    <!-- ========== FONDO ANIMADO CON CÍRCULOS FLOTANTES ========== -->
-    <!-- Contenedor para los 30 círculos animados del fondo -->
-    <div class="background-animation">
-        <!-- Cada círculo tiene una clase única para estilos individuales -->
-        <div class="floating-element circle1"></div>
-        <div class="floating-element circle2"></div>
-        <div class="floating-element circle3"></div>
-        <div class="floating-element circle4"></div>
-        <div class="floating-element circle5"></div>
-        <div class="floating-element circle6"></div>
-        <div class="floating-element circle7"></div>
-        <div class="floating-element circle8"></div>
-        <div class="floating-element circle9"></div>
-        <div class="floating-element circle10"></div>
-        <div class="floating-element circle11"></div>
-        <div class="floating-element circle12"></div>
-        <div class="floating-element circle13"></div>
-        <div class="floating-element circle14"></div>
-        <div class="floating-element circle15"></div>
-        <div class="floating-element circle16"></div>
-        <div class="floating-element circle17"></div>
-        <div class="floating-element circle18"></div>
-        <div class="floating-element circle19"></div>
-        <div class="floating-element circle20"></div>
-        <div class="floating-element circle21"></div>
-        <div class="floating-element circle22"></div>
-        <div class="floating-element circle23"></div>
-        <div class="floating-element circle24"></div>
-        <div class="floating-element circle25"></div>
-        <div class="floating-element circle26"></div>
-        <div class="floating-element circle27"></div>
-        <div class="floating-element circle28"></div>
-        <div class="floating-element circle29"></div>
-        <div class="floating-element circle30"></div>
-    </div>
 
-    <!-- ========== TÍTULO PRINCIPAL DE LA PÁGINA ========== -->
-    <!-- Título con efectos de sombra multicolor animada -->
-    <h1 id="titulo-principal">InfoMovil</h1>    
 
-    <!-- ========== SECCIÓN DE NOTICIAS ========== -->
-    <!-- Contenedor principal para noticias con identificador único -->
-    <div class="rounded-lg shadow" data-container="noticias">
-        <div id="Noticias">
-            <!-- Botón para expandir/colapsar sección (id="0" para control JavaScript) -->
-            <h2 class="button" id="0">Actualidad</h2>
-            <div class="content">
-                <!-- Texto descriptivo para el usuario -->
-                <p id="loading-news">Cada vez que actualices la página verás 4 noticias distintas</p>
-                <p>Puedes hacer click en la noticia para mostrar su contenido</p>
-                <!-- Grid para mostrar las 4 noticias -->
-                <div class="grid">
-                    <div class="rounded-lg" id="news_1"></div>
-                    <div class="rounded-lg" id="news_2"></div>
-                    <div class="rounded-lg" id="news_3"></div>
-                    <div class="rounded-lg" id="news_4"></div>
+    <h1 id="titulo-principal">InfoMovil</h1>  
+    
+    <div class="main_content">
+        <!-- ========== FONDO ANIMADO CON CÍRCULOS FLOTANTES ========== -->
+        <!-- Contenedor para los 30 círculos animados del fondo -->
+        <div class="background-animation">
+            <!-- Cada círculo tiene una clase única para estilos individuales -->
+            <div class="floating-element circle1"></div>
+            <div class="floating-element circle2"></div>
+            <div class="floating-element circle3"></div>
+            <div class="floating-element circle4"></div>
+            <div class="floating-element circle5"></div>
+            <div class="floating-element circle6"></div>
+            <div class="floating-element circle7"></div>
+            <div class="floating-element circle8"></div>
+            <div class="floating-element circle9"></div>
+            <div class="floating-element circle10"></div>
+            <div class="floating-element circle11"></div>
+            <div class="floating-element circle12"></div>
+            <div class="floating-element circle13"></div>
+            <div class="floating-element circle14"></div>
+            <div class="floating-element circle15"></div>
+            <div class="floating-element circle16"></div>
+            <div class="floating-element circle17"></div>
+            <div class="floating-element circle18"></div>
+            <div class="floating-element circle19"></div>
+            <div class="floating-element circle20"></div>
+            <div class="floating-element circle21"></div>
+            <div class="floating-element circle22"></div>
+            <div class="floating-element circle23"></div>
+            <div class="floating-element circle24"></div>
+            <div class="floating-element circle25"></div>
+            <div class="floating-element circle26"></div>
+            <div class="floating-element circle27"></div>
+            <div class="floating-element circle28"></div>
+            <div class="floating-element circle29"></div>
+            <div class="floating-element circle30"></div>
+        </div>
+
+        <!-- ========== TÍTULO PRINCIPAL DE LA PÁGINA ========== -->
+        <!-- Título con efectos de sombra multicolor animada -->  
+
+        <!-- ========== SECCIÓN DE NOTICIAS ========== -->
+        <!-- Contenedor principal para noticias con identificador único -->
+        <div class="rounded-lg shadow" data-container="noticias">
+            <div id="Noticias">
+                <!-- Botón para expandir/colapsar sección (id="0" para control JavaScript) -->
+                <h2 class="button" id="0">Actualidad</h2>
+                <div class="content">
+                    <!-- Texto descriptivo para el usuario -->
+                    <p id="loading-news">Cada vez que actualices la página verás 4 noticias distintas</p>
+                    <p>Puedes hacer click en la noticia para mostrar su contenido</p>
+                    <!-- Grid para mostrar las 4 noticias -->
+                    <div class="grid">
+                        <div class="rounded-lg" id="news_1"></div>
+                        <div class="rounded-lg" id="news_2"></div>
+                        <div class="rounded-lg" id="news_3"></div>
+                        <div class="rounded-lg" id="news_4"></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- ========== MODAL PARA MOSTRAR DETALLES DE NOTICIAS ========== -->
-    <!-- Modal oculto que aparece al hacer click en una noticia -->
-    <div id="modal-news" class="modal" style="display:none;">
-        <div class="modal-content">
-            <!-- Botón para cerrar el modal -->
-            <span id="close-news">&times;</span>
-            <!-- Contenido dinámico del modal -->
-            <h2 id="modal-news-title"></h2>
-            <img id="modal-news-img" alt="Imagen de noticia" />
-            <p id="modal-news-content"></p>
+        <!-- ========== MODAL PARA MOSTRAR DETALLES DE NOTICIAS ========== -->
+        <!-- Modal oculto que aparece al hacer click en una noticia -->
+        <div id="modal-news" class="modal" style="display:none;">
+            <div class="modal-content">
+                <!-- Botón para cerrar el modal -->
+                <span id="close-news">&times;</span>
+                <!-- Contenido dinámico del modal -->
+                <h2 id="modal-news-title"></h2>
+                <img id="modal-news-img" alt="Imagen de noticia" />
+                <p id="modal-news-content"></p>
+            </div>
+        </div>
+        
+        <!-- ========== SECCIÓN DE RECETAS ========== -->
+        <!-- Contenedor principal para recetas -->
+        <div class="rounded-lg shadow" data-container="recetas">
+            <div id="Recetas">
+                <!-- Botón para expandir/colapsar sección (id="1" para control JavaScript) -->
+                <h2 class="button" id="1">Recetas</h2>
+                <div class="content">
+                    <!-- Texto descriptivo para el usuario -->
+                    <p>Cada vez que actualices la página verás 4 recetas distintas</p>
+                    <p>Puedes hacer click en la receta para mostrar sus ingredientes y proceso</p>
+                    <!-- Grid para mostrar las 4 recetas -->
+                    <div class="grid">
+                        <div class="rounded-lg" id="meal_1"></div>
+                        <div class="rounded-lg" id="meal_2"></div>
+                        <div class="rounded-lg" id="meal_3"></div>
+                        <div class="rounded-lg" id="meal_4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== MODAL PARA MOSTRAR DETALLES DE RECETAS ========== -->
+        <!-- Modal que muestra ingredientes y pasos de preparación -->
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <!-- Botón para cerrar el modal -->
+                <span id="close">&times;</span>
+                <!-- Contenido de la receta -->
+                <h2 id="modal-title"></h2>
+                <img id="modal-img" alt="Imagen de receta" />
+                <!-- Sección de ingredientes -->
+                <p id="ingrediente"><strong>Ingredientes:</strong></p>
+                <ul id="modal-ingredients" style="list-style-type: disc; padding-left: 20px; margin-bottom: 20px;"></ul>
+                <!-- Sección de pasos de preparación -->
+                <p class="steps-title"><strong>Pasos de preparación:</strong></p>
+                <ol id="modal-steps" style="padding-left: 20px;"></ol>
+            </div>
+        </div>
+
+        <!-- ========== SECCIÓN DE POKÉMONES ========== -->
+        <!-- Contenedor principal para pokémones -->
+        <div class="rounded-lg shadow" data-container="pokemons">
+            <div id="Pokemons">
+                <!-- Botón para expandir/colapsar sección (id="2" para control JavaScript) -->
+                <h2 class="button" id="2">Pokemones</h2>
+                <div class="content">
+                    <!-- Texto descriptivo para el usuario -->
+                    <p>Cada vez que actualices la página verás 4 pokemones distintos.</p>
+                    <p>Puedes hacer click en cada uno para ver más detalles.</p>
+                    <!-- Grid para mostrar los 4 pokémones -->
+                    <div class="grid">
+                        <div class="rounded-lg" id="pokemon_1"></div>
+                        <div class="rounded-lg" id="pokemon_2"></div>
+                        <div class="rounded-lg" id="pokemon_3"></div>
+                        <div class="rounded-lg" id="pokemon_4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== SECCIÓN DE ECONOMÍA ========== -->
+        <!-- Contenedor principal para datos económicos -->
+        <div class="rounded-lg shadow" data-container="economia">
+            <div id="economia">
+                <!-- Botón para expandir/colapsar sección (id="3" para control JavaScript) -->
+                <h2 class="button" id="3">Un poco de economia</h2>
+                <div class="content">
+                    <!-- Texto descriptivo para el usuario -->
+                    <p>Principales items economicos Chile.</p>
+                    <!-- Grid dinámico que se llena con JavaScript -->
+                    <div class="grid"></div>
+                </div>
+            </div>
         </div>
     </div>
     
-    <!-- ========== SECCIÓN DE RECETAS ========== -->
-    <!-- Contenedor principal para recetas -->
-    <div class="rounded-lg shadow" data-container="recetas">
-        <div id="Recetas">
-            <!-- Botón para expandir/colapsar sección (id="1" para control JavaScript) -->
-            <h2 class="button" id="1">Recetas</h2>
-            <div class="content">
-                <!-- Texto descriptivo para el usuario -->
-                <p>Cada vez que actualices la página verás 4 recetas distintas</p>
-                <p>Puedes hacer click en la receta para mostrar sus ingredientes y proceso</p>
-                <!-- Grid para mostrar las 4 recetas -->
-                <div class="grid">
-                    <div class="rounded-lg" id="meal_1"></div>
-                    <div class="rounded-lg" id="meal_2"></div>
-                    <div class="rounded-lg" id="meal_3"></div>
-                    <div class="rounded-lg" id="meal_4"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ========== MODAL PARA MOSTRAR DETALLES DE RECETAS ========== -->
-    <!-- Modal que muestra ingredientes y pasos de preparación -->
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <!-- Botón para cerrar el modal -->
-            <span id="close">&times;</span>
-            <!-- Contenido de la receta -->
-            <h2 id="modal-title"></h2>
-            <img id="modal-img" alt="Imagen de receta" />
-            <!-- Sección de ingredientes -->
-            <p id="ingrediente"><strong>Ingredientes:</strong></p>
-            <ul id="modal-ingredients" style="list-style-type: disc; padding-left: 20px; margin-bottom: 20px;"></ul>
-            <!-- Sección de pasos de preparación -->
-            <p class="steps-title"><strong>Pasos de preparación:</strong></p>
-            <ol id="modal-steps" style="padding-left: 20px;"></ol>
-        </div>
-    </div>
-
-    <!-- ========== SECCIÓN DE POKÉMONES ========== -->
-    <!-- Contenedor principal para pokémones -->
-    <div class="rounded-lg shadow" data-container="pokemons">
-        <div id="Pokemons">
-            <!-- Botón para expandir/colapsar sección (id="2" para control JavaScript) -->
-            <h2 class="button" id="2">Pokemones</h2>
-            <div class="content">
-                <!-- Texto descriptivo para el usuario -->
-                <p>Cada vez que actualices la página verás 4 pokemones distintos.</p>
-                <p>Puedes hacer click en cada uno para ver más detalles.</p>
-                <!-- Grid para mostrar los 4 pokémones -->
-                <div class="grid">
-                    <div class="rounded-lg" id="pokemon_1"></div>
-                    <div class="rounded-lg" id="pokemon_2"></div>
-                    <div class="rounded-lg" id="pokemon_3"></div>
-                    <div class="rounded-lg" id="pokemon_4"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ========== SECCIÓN DE ECONOMÍA ========== -->
-    <!-- Contenedor principal para datos económicos -->
-    <div class="rounded-lg shadow" data-container="economia">
-        <div id="economia">
-            <!-- Botón para expandir/colapsar sección (id="3" para control JavaScript) -->
-            <h2 class="button" id="3">Un poco de economia</h2>
-            <div class="content">
-                <!-- Texto descriptivo para el usuario -->
-                <p>Principales items economicos Chile.</p>
-                <!-- Grid dinámico que se llena con JavaScript -->
-                <div class="grid"></div>
-            </div>
-        </div>
-    </div>
 
     <!-- ========== PIE DE PÁGINA ========== -->
     <!-- Footer con información del equipo de desarrollo -->

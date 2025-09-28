@@ -206,7 +206,7 @@ newsModal.addEventListener('click', (e) => {
 
 // =================== CONSUMO DE API DE NOTICIAS ===================
 // Obtener noticias desde MediaStack API
-fetch('https://api.mediastack.com/v1/news?access_key=819290bca7613b3a76cc88ba9164b393&languages=es')
+fetch('https://api.mediastack.com/v1/news?access_key=41aab9f4734ef69dadafbd8b5f8de019&languages=es')
   .then(response => response.json())
   .then(data => {
     const articles = Array.isArray(data.data) ? data.data : [];

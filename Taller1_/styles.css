@@ -8,9 +8,34 @@ html {
 }
 
 /* Aplicar fuente Inter de Google Fonts a todos los elementos de texto */
-body, h1, h2, h3, h4, h5, h6, p, li, a, span, button, input, textarea {
+body {
     font-family: 'Inter', sans-serif;
+    min-height: 100vh;             /* Asegura que el body ocupe toda la ventana */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;        /* Coloca el contenido y el footer en columna */
+    background: linear-gradient(135deg, #0f172a 0%, #1e40af 30%, #1e3a8a 70%, #3730a3 100%);
 }
+
+.main_content {
+    flex: 1;                       /* Ocupa todo el espacio disponible */
+    display: flex;
+    flex-direction: column;
+    align-items: center;           /* Centrado horizontal */
+    justify-content: center;       /* Centrado vertical */
+    width: 100%;
+}
+
+footer {
+    /* No necesita flex ni grid, se queda abajo */
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    background: rgba(0,0,0,0.3);
+    color: white;
+}
+
 
 /* =================== */
 /* TÍTULO PRINCIPAL CON EFECTOS ESPECTACULARES */
@@ -78,18 +103,6 @@ h1#titulo-principal, h2.titulo-principal {
 /* =================== */
 /* FONDO PRINCIPAL DE LA PÁGINA */
 /* =================== */
-
-/* Configuración del body con fondo degradado azul marino */
-body{
-    place-items: center; /* Centra todo el contenido */
-    min-height: 100vh; /* Altura mínima de toda la ventana */
-    margin: 0;
-    /* Degradado de azul marino oscuro a azul marino claro */
-    background: linear-gradient(135deg, #0f172a 0%, #1e40af 30%, #1e3a8a 70%, #3730a3 100%);
-    font-family: 'Inter', sans-serif;
-    position: relative;
-    overflow-x: hidden; /* Evita scroll horizontal */
-}
 
 /* =================== */
 /* EFECTOS DINÁMICOS DE FONDO */
@@ -564,7 +577,7 @@ body::after {
 /* Grid de estudiantes responsive */
 .students-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Se adapta al contenido */
+    grid-template-columns: repeat(1, 1fr); /* Se adapta al contenido */
     gap: 15px;
     margin-bottom: 25px;
     max-width: 800px;
@@ -641,10 +654,6 @@ body::after {
 
 /* RESPONSIVE: Footer en móvil */
 @media (max-width: 767px) {
-    .students-grid {
-        grid-template-columns: 1fr; /* Una sola columna */
-        gap: 10px;
-    }
     
     #footer-estudiantil {
         padding: 30px 15px 15px;
@@ -694,6 +703,71 @@ body::after {
 [data-container="economia"]:not(.active) > div .grid > div:hover {
     transform: scale(1.03);
     box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+
+/* =================== */
+/* ESTILOS ESPECÍFICOS PARA SECCIÓN DE NOTICIAS */
+/* =================== */
+
+/* Contenedor principal de noticias */
+[data-container="noticias"] {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Título de noticias */
+[data-container="noticias"] > div h2 {
+    text-align: center;
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+
+/* MÓVIL: Grid de noticias en columna */
+[data-container="noticias"] > div .grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Cada noticia individual */
+[data-container="noticias"] > div .grid > div {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+    padding: 15px; /* Más padding que otros elementos */
+    margin: 10px auto;
+    width: 90%;
+    min-height: 80px;
+    background-color: #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+/* Hover de noticias */
+[data-container="noticias"]:not(.active) > div .grid > div:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+/* Estado expandido de noticias (si aplica) */
+[data-container="noticias"] > div .grid > div.expanded {
+    background-color: #f9fafb;
+    border: 1px solid #ddd;
+    padding: 20px;
+    transition: background-color 0.3s ease;
+}
+
+/* Imágenes de noticias */
+[data-container="noticias"] > div .grid > div > img {
+    width: 40%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Títulos de noticias */
+[data-container="noticias"] > div .grid > div > p {
+    text-align: center;
+    font-size: large;
 }
 
 /* =================== */
@@ -828,6 +902,10 @@ body::after {
 
 @media (min-width: 768px) and (max-width: 1023px) {
 
+    .students-grid {
+    grid-template-columns: repeat(2, 1fr); /* Se adapta al contenido */
+    }
+
     /* TABLET: Grid de recetas en 2 columnas */
     [data-container="recetas"] > div .grid {
         display: grid;
@@ -866,6 +944,18 @@ body::after {
         display: block;
         margin: 0 auto;
     }
+        [data-container="noticias"] > div .grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+    [data-container="noticias"] > div .grid > div > img {
+        width: 50%;
+        height: auto;
+        object-fit: cover;
+        display: block;
+        margin: 0 auto;
+    }
 }
 
 /* =================== */
@@ -873,6 +963,10 @@ body::after {
 /* =================== */
 
 @media (min-width: 1024px){
+
+    .students-grid {
+    grid-template-columns: repeat(4, 1fr); /* Se adapta al contenido */
+    }
 
     /* DESKTOP: Grid de recetas en 4 columnas */
     [data-container="recetas"] > div .grid {
@@ -912,95 +1006,13 @@ body::after {
         display: block;
         margin: 0 auto;
     }
-}
 
-/* =================== */
-/* ESTILOS ESPECÍFICOS PARA SECCIÓN DE NOTICIAS */
-/* =================== */
-
-/* Contenedor principal de noticias */
-[data-container="noticias"] {
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
-}
-
-/* Título de noticias */
-[data-container="noticias"] > div h2 {
-    text-align: center;
-    padding-bottom: 15px;
-    padding-top: 15px;
-}
-
-/* MÓVIL: Grid de noticias en columna */
-[data-container="noticias"] > div .grid {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-/* Cada noticia individual */
-[data-container="noticias"] > div .grid > div {
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
-    padding: 15px; /* Más padding que otros elementos */
-    margin: 10px auto;
-    width: 90%;
-    min-height: 80px;
-    background-color: #fff;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-}
-
-/* Hover de noticias */
-[data-container="noticias"]:not(.active) > div .grid > div:hover {
-    transform: scale(1.03);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-}
-
-/* Estado expandido de noticias (si aplica) */
-[data-container="noticias"] > div .grid > div.expanded {
-    background-color: #f9fafb;
-    border: 1px solid #ddd;
-    padding: 20px;
-    transition: background-color 0.3s ease;
-}
-
-/* Imágenes de noticias */
-[data-container="noticias"] > div .grid > div > img {
-    width: 40%;
-    height: auto;
-    object-fit: cover;
-    display: block;
-    margin: 0 auto;
-}
-
-/* Títulos de noticias */
-[data-container="noticias"] > div .grid > div > p {
-    text-align: center;
-    font-size: large;
-}
-
-/* RESPONSIVE TABLET: Noticias en 2 columnas */
-@media (min-width: 768px) and (max-width: 1023px) {
-    [data-container="noticias"] > div .grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
-    }
-    [data-container="noticias"] > div .grid > div > img {
-        width: 50%;
-        height: auto;
-        object-fit: cover;
-        display: block;
-        margin: 0 auto;
-    }
-}
-
-/* RESPONSIVE DESKTOP: Noticias en 4 columnas */
-@media (min-width: 1024px) {
-    [data-container="noticias"] > div .grid {
+        [data-container="noticias"] > div .grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: 16px;
     }
+
     [data-container="noticias"] > div .grid > div > img {
         width: 80%;
         height: auto;
@@ -1010,9 +1022,6 @@ body::after {
     }
 }
 
-/* =================== */
-/* ANIMACIÓN DEL TÍTULO PRINCIPAL */
-/* =================== */
 
 /* Animación que hace que las sombras del título pulsen */
 @keyframes textShadowPulse {
