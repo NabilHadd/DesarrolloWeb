@@ -7,7 +7,7 @@ Integrantes:
 
 Nabil Haddad	21.427.760-3
 
-Vincenzo Porzio	
+Vincenzo Porzio	21.369.897-4
 
 Nicolas Cordero	20.543.155-1
 
