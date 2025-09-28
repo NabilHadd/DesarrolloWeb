@@ -23,7 +23,13 @@ const pokemonTypeColors = {
 };
 
 
+const background = document.querySelector('.background-animation');
 
+for (let index = 0; index < 30; index++) {
+    const circle = document.createElement('div'); // <-- crear un div nuevo cada vez
+    circle.classList.add('floating-element', `circle${index + 1}`);
+    background.appendChild(circle);
+}
 // =================== SISTEMA DE ANIMACIÓN DE TEXTO ===================
 /**
  * Anima el texto de un elemento carácter por carácter (efecto máquina de escribir)
