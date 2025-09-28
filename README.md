@@ -1,7 +1,10 @@
 # DesarrolloWeb
 Talleres de desarrollo web/movil. 
+
 Grupo 11 
-Integrantes: 
+
+Integrantes:
+
 Nabil Haddad	21.427.760-3
 
 Vincenzo Porzio	
