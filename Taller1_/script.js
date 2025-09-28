@@ -3,6 +3,27 @@
 // Índices: 0=Noticias, 1=Recetas, 2=Pokémones, 3=Economía
 const visibility = [false, false, false, false]
 
+// =================== CONFIGURACIÓN DE POKÉMONES ===================
+// Diccionario para traducir tipos de pokémon de inglés a español
+const pokemonTypes = {
+    'normal': 'normal', 'fire': 'fuego', 'water': 'agua', 'electric': 'eléctrico',
+    'grass': 'planta', 'ice': 'hielo', 'fighting': 'lucha', 'poison': 'veneno',
+    'ground': 'tierra', 'flying': 'volador', 'psychic': 'psíquico', 'bug': 'bicho',
+    'rock': 'roca', 'ghost': 'fantasma', 'dragon': 'dragón', 'dark': 'siniestro',
+    'steel': 'acero', 'fairy': 'hada'
+};
+
+// Colores oficiales para cada tipo de pokémon
+const pokemonTypeColors = {
+    'normal': '#A8A878', 'fire': '#F08030', 'water': '#6890F0', 'electric': '#F8D030',
+    'grass': '#78C850', 'ice': '#98D8D8', 'fighting': '#C03028', 'poison': '#A040A0',
+    'ground': '#E0C068', 'flying': '#A890F0', 'psychic': '#F85888', 'bug': '#A8B820',
+    'rock': '#B8A038', 'ghost': '#705898', 'dragon': '#7038F8', 'dark': '#705848',
+    'steel': '#B8B8D0', 'fairy': '#EE99AC'
+};
+
+
+
 // =================== SISTEMA DE ANIMACIÓN DE TEXTO ===================
 /**
  * Anima el texto de un elemento carácter por carácter (efecto máquina de escribir)
@@ -31,6 +52,8 @@ function animateText(element, delay = 4) {
     }, delay);
 }
 
+
+
 /**
  * Anima todos los elementos de texto dentro de un contenedor
  * @param {HTMLElement} container - Contenedor que contiene los elementos a animar
@@ -53,78 +76,9 @@ function animateAllText(container = document, delay = 4) {
     });
 }
 
-// =================== CONFIGURACIÓN DE POKÉMONES ===================
-// Diccionario para traducir tipos de pokémon de inglés a español
-const pokemonTypes = {
-    'normal': 'normal', 'fire': 'fuego', 'water': 'agua', 'electric': 'eléctrico',
-    'grass': 'planta', 'ice': 'hielo', 'fighting': 'lucha', 'poison': 'veneno',
-    'ground': 'tierra', 'flying': 'volador', 'psychic': 'psíquico', 'bug': 'bicho',
-    'rock': 'roca', 'ghost': 'fantasma', 'dragon': 'dragón', 'dark': 'siniestro',
-    'steel': 'acero', 'fairy': 'hada'
-};
 
-// Colores oficiales para cada tipo de pokémon
-const pokemonTypeColors = {
-    'normal': '#A8A878', 'fire': '#F08030', 'water': '#6890F0', 'electric': '#F8D030',
-    'grass': '#78C850', 'ice': '#98D8D8', 'fighting': '#C03028', 'poison': '#A040A0',
-    'ground': '#E0C068', 'flying': '#A890F0', 'psychic': '#F85888', 'bug': '#A8B820',
-    'rock': '#B8A038', 'ghost': '#705898', 'dragon': '#7038F8', 'dark': '#705848',
-    'steel': '#B8B8D0', 'fairy': '#EE99AC'
-};
 
-/**
- * Crea el HTML para mostrar un tipo de pokémon con su ícono y color
- * @param {string} type - Tipo de pokémon en inglés
- * @returns {string} HTML del tipo con ícono y estilo
- */
-function createPokemonTypeWithIcon(type) {
-    const translatedType = pokemonTypes[type] || type; // Traducir o usar original
-    const color = pokemonTypeColors[type] || '#68A090'; // Color del tipo
-    const iconPath = `iconos-tipos-pokemon/${type}.svg`; // Ruta del ícono SVG
-    
-    return `
-        <span class="pokemon-type" style="
-            display: inline-flex; 
-            align-items: center; 
-            margin: 0 4px; 
-            color: ${color}; 
-            font-weight: 600;
-            font-size: 0.9em;
-        ">
-            <img src="${iconPath}" alt="${type}" style="
-                width: 16px; 
-                height: 16px; 
-                margin-right: 4px;
-                filter: none;
-            " />
-            ${translatedType}
-        </span>
-    `;
-}
 
-/**
- * Función básica para traducir ingredientes comunes de inglés a español
- * @param {string} text - Texto a traducir
- * @returns {string} Texto traducido
- */
-function simpleTranslate(text) {
-    // Diccionario de traducciones básicas
-    const translations = {
-        'chicken': 'pollo', 'beef': 'carne', 'pork': 'cerdo', 'fish': 'pescado',
-        'onion': 'cebolla', 'garlic': 'ajo', 'tomato': 'tomate', 'pepper': 'pimiento',
-        'salt': 'sal', 'sugar': 'azúcar', 'flour': 'harina', 'butter': 'mantequilla',
-        'oil': 'aceite', 'water': 'agua', 'milk': 'leche', 'egg': 'huevo',
-        'cheese': 'queso', 'rice': 'arroz', 'potato': 'papa', 'carrot': 'zanahoria'
-    };
-    
-    let translated = text.toLowerCase();
-    // Aplicar cada traducción
-    Object.keys(translations).forEach(english => {
-        translated = translated.replace(new RegExp(english, 'gi'), translations[english]);
-    });
-    
-    return translated;
-}
 
 // =================== INICIALIZACIÓN DE LA PÁGINA ===================
 // Ocultar todas las secciones de contenido al cargar la página
@@ -202,43 +156,29 @@ items.forEach(item => {
 // Crear modal dinámicamente para mostrar detalles de noticias
 const newsModal = document.createElement('div');
 newsModal.id = 'news-modal';
-// Configurar estilos del modal (posición fija, fondo oscuro, centrado)
-newsModal.style.position = 'fixed';
-newsModal.style.top = '0';
-newsModal.style.left = '0';
-newsModal.style.width = '100%';
-newsModal.style.height = '100%';
-newsModal.style.backgroundColor = 'rgba(0,0,0,0.7)';
-newsModal.style.display = 'none';
-newsModal.style.justifyContent = 'center';
-newsModal.style.alignItems = 'center';
-newsModal.style.zIndex = '1000';
-newsModal.style.transition = 'opacity 0.3s ease';
+newsModal.classList.add(
+  'fixed', 'top-0', 'left-0', 'w-full', 'h-full',
+  'bg-black/70', 'hidden', 'flex', 'justify-center', 'items-center',
+  'z-[1000]', 'transition-opacity', 'duration-300', 'ease-in-out'
+);
 
-// Crear contenido del modal
 const newsModalContent = document.createElement('div');
-// Aplicar degradado pastel como fondo
+newsModalContent.classList.add(
+  'relative', 'rounded-[15px]', 'p-6', 'pt-12', 'max-w-[800px]', 'w-[90%]', 'max-h-[90%]',
+  'overflow-y-auto', 'shadow-lg', 'border', 'transition-transform', 'duration-300', 'ease-in-out',
+  'text-justify'
+);
 newsModalContent.style.background = 'linear-gradient(135deg, #ffeef0 0%, #fff8e1 50%, #f8f0ff 100%)';
-newsModalContent.style.border = '1px solid rgba(255, 182, 193, 0.2)';
-newsModalContent.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.1)';
-newsModalContent.style.padding = '25px';
-newsModalContent.style.borderRadius = '15px';
-newsModalContent.style.maxWidth = '800px';
-newsModalContent.style.width = '90%';
-newsModalContent.style.maxHeight = '90%';
-newsModalContent.style.overflowY = 'auto';
-newsModalContent.style.textAlign = 'justify';
-newsModalContent.style.position = 'relative';
-newsModalContent.style.transition = 'transform 0.3s ease';
+newsModalContent.style.borderColor = 'rgba(255, 182, 193, 0.2)';
 
-// Crear botón de cerrar
+//boton cerrar 
 const newsModalClose = document.createElement('button');
-newsModalClose.textContent = 'Cerrar';
-newsModalClose.style.position = 'absolute';
-newsModalClose.style.top = '10px';
-newsModalClose.style.right = '10px';
-newsModalClose.style.padding = '5px 10px';
-newsModalClose.style.cursor = 'pointer';
+newsModalClose.textContent = 'cerrar';
+newsModalClose.classList.add(
+  'absolute', 'top-2.5', 'right-2.5', 'px-2.5', 'py-1.5', 'cursor-pointer',
+  'bg-gray-200', 'hover:bg-gray-300', 'rounded'
+);
+
 
 // Ensamblar modal y agregarlo al DOM
 newsModalContent.appendChild(newsModalClose);
@@ -291,15 +231,18 @@ fetch('https://api.mediastack.com/v1/news?access_key=819290bca7613b3a76cc88ba916
       const container = document.getElementById(`news_${i + 1}`);
       if (!container) continue;
       
-      // Limpiar y configurar contenedor
-      container.innerHTML = "";
-      container.style.padding = "10px";
-      container.style.overflow = "hidden";
-      container.style.cursor = "pointer";
-      container.style.transition = "transform 0.3s ease, box-shadow 0.3s ease";
-      container.style.display = 'block';
-      container.style.width = '100%';
-      container.style.transform = "translateY(0)";
+    container.innerHTML = "";
+    container.classList.add(
+    'p-2.5',      // padding ≈ 10px
+    'overflow-hidden',
+    'cursor-pointer',
+    'transition-transform',
+    'duration-300',
+    'ease-in-out',
+    'block',
+    'w-full',
+    'translate-y-0'
+    );
       
       // Agregar título de la noticia
       const title = document.createElement('p');
@@ -330,6 +273,10 @@ fetch('https://api.mediastack.com/v1/news?access_key=819290bca7613b3a76cc88ba916
     }
   })
   .catch(error => console.error('Error al obtener noticias:', error));
+
+
+
+
 
 // =================== EVENTO PARA ABRIR MODAL DE NOTICIAS ===================
 // Detectar clicks en contenedores de noticias
@@ -400,46 +347,43 @@ document.body.addEventListener('click', (e) => {
   }
 });
 
+
+
+
+
 // =================== MODAL PARA POKÉMONES ===================
 // Crear modal dinámicamente para mostrar detalles de pokémones
 const pokemonModal = document.createElement('div');
 pokemonModal.id = 'pokemon-modal';
-// Configurar estilos (similar al modal de noticias)
-pokemonModal.style.position = 'fixed';
-pokemonModal.style.top = '0';
-pokemonModal.style.left = '0';
-pokemonModal.style.width = '100%';
-pokemonModal.style.height = '100%';
-pokemonModal.style.backgroundColor = 'rgba(0,0,0,0.7)';
-pokemonModal.style.display = 'none';
-pokemonModal.style.justifyContent = 'center';
-pokemonModal.style.alignItems = 'center';
-pokemonModal.style.zIndex = '1001';
-pokemonModal.style.transition = 'opacity 0.3s ease';
+pokemonModal.classList.add(
+  'fixed', 'top-0', 'left-0', 'w-full', 'h-full',
+  'bg-black/70', 'hidden', 'flex', 'justify-center', 'items-center',
+  'z-[1001]', 'transition-opacity', 'duration-300', 'ease-in-out'
+);
+
 
 // Crear contenido del modal con degradado azul pastel
 const pokemonModalContent = document.createElement('div');
+pokemonModalContent.classList.add(
+  'relative', 'rounded-[15px]', 'p-7', 'max-w-[700px]', 'w-[90%]', 'max-h-[90%]',
+  'overflow-y-auto', 'shadow-lg', 'transition-transform', 'duration-300', 'ease-in-out', 'text-justify',
+  'border'
+);
 pokemonModalContent.style.background = 'linear-gradient(135deg, #e8f4fd 0%, #ffeef0 50%, #fff8e1 100%)';
-pokemonModalContent.style.border = '1px solid rgba(173, 216, 230, 0.2)';
-pokemonModalContent.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.1)';
-pokemonModalContent.style.padding = '28px';
-pokemonModalContent.style.borderRadius = '15px';
-pokemonModalContent.style.maxWidth = '700px';
-pokemonModalContent.style.width = '90%';
-pokemonModalContent.style.maxHeight = '90%';
-pokemonModalContent.style.overflowY = 'auto';
-pokemonModalContent.style.textAlign = 'justify';
-pokemonModalContent.style.position = 'relative';
-pokemonModalContent.style.transition = 'transform 0.3s ease';
+pokemonModalContent.style.borderColor = 'rgba(173, 216, 230, 0.2)';
+
 
 // Crear botón de cerrar
 const pokemonModalClose = document.createElement('button');
 pokemonModalClose.textContent = 'Cerrar';
-pokemonModalClose.style.position = 'absolute';
-pokemonModalClose.style.top = '10px';
-pokemonModalClose.style.right = '10px';
-pokemonModalClose.style.padding = '5px 10px';
-pokemonModalClose.style.cursor = 'pointer';
+pokemonModalClose.classList.add(
+  'absolute', 'top-2.5', 'right-2.5', 'px-2.5', 'py-1.5', 'cursor-pointer',
+  'bg-gray-200', 'hover:bg-gray-300', 'rounded'
+);
+
+
+
+
 
 // Ensamblar modal
 pokemonModalContent.appendChild(pokemonModalClose);
@@ -583,6 +527,11 @@ fetch('https://pokeapi.co/api/v2/pokemon?offset=20&limit=1000')
     }
 })
 .catch(err => console.error('Error:', err));
+
+
+
+
+
 
 /**
  * Configura el event handler para cuando se hace click en un pokémon
@@ -769,6 +718,9 @@ function setupPokemonClickHandler(container) {
     });
 }
 
+
+
+
 // =================== CONSUMO DE API DE RECETAS ===================
 // Obtener recetas desde TheMealDB API
 fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
@@ -938,6 +890,8 @@ closeBtn.addEventListener('click', () => {
     }, 300);
 });
 
+
+
 // Cerrar modal al hacer click fuera de él
 window.addEventListener('click', (e) => {
     if (e.target === modal) {
@@ -967,6 +921,13 @@ window.addEventListener('click', (e) => {
     }
 });
 
+
+
+
+
+
+
+
 // =================== CONFIGURACIÓN PARA DATOS ECONÓMICOS ===================
 // Obtener contenedor para datos económicos
 const economia = document.querySelector('[data-container="economia"]');
@@ -976,64 +937,99 @@ console.log(economia_content)
 // =================== CONSUMO DE API DE DATOS ECONÓMICOS ===================
 // Obtener indicadores económicos de Chile desde Findic API
 fetch('https://findic.cl/api/')
-.then(res => {
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    return res.json(); // o res.text(), res.blob()
-})
-.then(data => {
-    const llaves = Object.keys(data); // Obtener todas las claves
-    const date = data.fecha // Fecha de los datos
-    // Tomar solo 16 items para organización en matriz (4x4 desktop, 8x2 tablet, 16x1 móvil)
+.then(res => res.json())
+.then(async data => {
+    const llaves = Object.keys(data);
+
+
     const names = llaves.slice(3, 19);
-    
-    // Mapear datos de interés
-    const items = names.map(n => ({
-        codigo: data[n].codigo,
-        nombre: data[n].nombre,
-        valor: data[n].valor,
-        fecha: data[n].fecha
+
+    // Map asíncrono con Promise.all
+    const items = await Promise.all(names.map(async n => {
+        const codigo = data[n].codigo;
+        const nombre = data[n].nombre;
+        const date = data[n].fecha
+        const valorActual = data[n].valor;
+            // Restar un día
+        let [yyyy, mm, dd] = date.split("-");
+        let fecha = new Date(yyyy, mm - 1, dd);
+        fecha.setDate(fecha.getDate() - 1);
+        let dia = String(fecha.getDate()).padStart(2, "0");
+        let mes = String(fecha.getMonth() + 1).padStart(2, "0");
+        let anio = fecha.getFullYear();
+        let newDate = `${dia}-${mes}-${anio}`;
+
+        try {
+            const resPrev = await fetch(`https://findic.cl/api/${codigo}/${newDate}`);
+            const dataPrev = await resPrev.json();
+            const valorPrevio = dataPrev.serie[0].valor;
+
+            return {
+                codigo,
+                nombre,
+                valor: valorActual,
+                fecha: data[n].fecha,
+                porcentaje: ((valorActual - valorPrevio)/valorActual*100).toFixed(2) + '%'
+            };
+        } catch (err) {
+            console.error('Error fetch valor previo:', err);
+            return {
+                codigo,
+                nombre,
+                valor: valorActual,
+                fecha: data[n].fecha,
+                porcentaje: '0%'
+            };
+        }
     }));
 
-    // Crear elementos HTML para cada indicador económico
-    items.map(i=> {
+    // Crear HTML
+    items.forEach(i => {
         const div = document.createElement('div');
         div.id = i.codigo;
         div.classList.add('rounded', 'lg');
-        div.style.cursor = 'pointer';
-        div.style.transition = "transform 0.3s ease, box-shadow 0.3s ease";
-        
-        // Agregar efectos hover
-        div.addEventListener('mouseenter', () => {
-            div.style.transform = 'scale(1.03)';
-            div.style.boxShadow = '0 6px 12px rgba(0,0,0,0.2)';
-        });
-        div.addEventListener('mouseleave', () => {
-            div.style.transform = 'none';
-            div.style.boxShadow = 'none';
-        });
-        
-        // Crear elemento para nombre del indicador
+        div.classList.add(
+        'cursor-pointer',
+        'transition-transform',
+        'transition-shadow',
+        'duration-300',
+        'ease-in-out',
+        'hover:scale-105',
+        'hover:shadow-lg'
+        );
+
         const pNombre = document.createElement('p');
         pNombre.textContent = i.nombre;
         div.appendChild(pNombre);
 
-        // Crear elemento para valor del indicador
         const pValor = document.createElement('p');
         pValor.textContent = i.valor;
         div.appendChild(pValor);
 
-        // Crear elemento para fecha del indicador
+        const pPorcentaje = document.createElement('p');
+        pPorcentaje.textContent = i.porcentaje;
+        div.appendChild(pPorcentaje);
+
         const pFecha = document.createElement('p');
         pFecha.textContent = i.fecha;
         div.appendChild(pFecha);
-        
-        // Agregar al grid
+
+
+        if(parseFloat(i.porcentaje) > 0){
+            div.classList.add("bg-green-100", "text-green-800", "text-sm", "font-medium")
+        }else if (parseFloat(i.porcentaje) == 0){
+            div.classList.add("bg-gray-100", "text-gray-800", "text-sm", "font-medium")
+        }else{
+            div.classList.add("bg-red-100", "text-red-800", "text-sm", "font-medium")
+        }
         economia_content.appendChild(div);
     });
 
     console.log(items);
 })
 .catch(err => console.error('Error:', err));
+
+
 
 // =================== ANIMACIONES INICIALES ===================
 // Ejecutar animaciones cuando se carga el DOM
