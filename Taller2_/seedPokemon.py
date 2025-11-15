@@ -6,19 +6,50 @@ from datetime import datetime
 
 
 DB_CONFIG = {
-    "dbname": "economia",
+    "dbname": "pokemon",
     "user": "postgres",
     "password": "123",
     "host": "localhost",
     "port": "5432"
 }
-URL = "https://findic.cl/api"
-YEAR = '2024'
+URL = "https://pokeapi.co/api/v2/"
+ABILITY = 'ability/'
+TYPE = 'type/'
+POKEMON = 'pokemon/'
 
 
 
 def conectar_bd():
     return psycopg2.connect(**DB_CONFIG)
+
+
+
+def requestPokemon(pokemon):
+    response = requests.get(f'{URL+POKEMON}/{pokemon}')
+    raw_data = response.json()
+    return {
+        'id': raw_data.get('id'),
+        'height': raw_data.get('height'),
+        'weight': raw_data.get('weight'),
+        'name': raw_data.get('species').get('name'),
+        'sprite': raw_data.get('sprites').get('front_default')
+    }
+
+
+def requestType(type):
+    response = requests.get(f'{URL+POKEMON}/{type}')
+    raw_data = response.json()
+    return {
+        'id': raw_data.get('id'),
+        'name': raw_data.get('name'),
+        'sprite': raw_data.get('sprites').get('generation-iii').get('colosseum').get('name_icon')
+    }
+
+
+
+
+
+
 
 
 
@@ -60,7 +91,7 @@ def main():
     df_indicators = pd.DataFrame(data_indicators)
 
     # dataframe historicos
-    data_historic = history_indicators_flat
+    data_historic = [v for  v in history_indicators_flat]
     df_historic = pd.DataFrame(data_historic)
 
     # conexión
