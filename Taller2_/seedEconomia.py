@@ -1,7 +1,8 @@
 import psycopg2
 import pandas as pd
-import os
 import requests
+import io
+from datetime import datetime
 
 
 DB_CONFIG = {
@@ -11,20 +12,9 @@ DB_CONFIG = {
     "host": "localhost",
     "port": "5432"
 }
-
 URL = "https://findic.cl/api"
+YEAR = '2024'
 
-fst_date = '01-01-2024'
-snd_date = '01-01-2025'
-
-unidades = {
-    "uf": (fst_date, snd_date),
-    "dolar": (fst_date, snd_date),
-    "euro": (fst_date, snd_date)
-
-}
-
-"${codigo}/${newDate}"
 
 
 def conectar_bd():
@@ -32,80 +22,78 @@ def conectar_bd():
 
 
 
+def requestSerie(item, date):
+    response = requests.get(f'{URL}/{item}/{date}')
+    respuesta = response.json()['serie']
+
+    for d in respuesta:
+        d['indicator_code'] = item
+        d['date'] = datetime.strptime(d['fecha'], "%Y-%m-%d").date()
+        d['value'] = d['valor']
+        d.pop('valor', None)
+        d.pop('fecha', None)
+
+
+    return respuesta
+
+
+
 def main():
 
-    conn = conectar_bd()
+    
+    #todos los item economicos
+    response = requests.get(URL)
+    indicator_names = list(response.json().keys())[3:]
+
+    indicator_list = list(response.json().items())[3:]
+
+    for _, d in indicator_list:
+        d.pop("fecha", None)
+        d.pop("valor", None)
+
+    
+    history_indicators_mtx = [requestSerie(i, YEAR) for i in indicator_names]
+    history_indicators_flat = [x for sub in history_indicators_mtx for x in sub]
+
+    # dataframe indicadores
+    data_indicators = [v for _, v in indicator_list]
+    df_indicators = pd.DataFrame(data_indicators)
+
+    # dataframe historicos
+    data_historic = [v for  v in history_indicators_flat]
+    df_historic = pd.DataFrame(data_historic)
+
+    # conexión
+    conn = psycopg2.connect(**DB_CONFIG)
     cur = conn.cursor()
 
-    for indice, fechas in unidades.items():
+    # ---------- INSERT DF 1: indicator ----------
+    buffer1 = io.StringIO()
+    df_indicators.to_csv(buffer1, index=False, header=False)
+    buffer1.seek(0)
 
-        response = requests.get(f'{URL}/{indice}/01-01-2024')
-        try:
-
-
-            cur.execute("""
-                INSERT INTO "Producto" (nombre, descripcion, precio, stock, imagen)
-                VALUES (%s, %s, %s, %s, %s)
-            """, (
-                row["nombre"],
-                row["descripcion"],
-                row["precio"],
-                row["stock"],
-                psycopg2.Binary(imagen_bytes)
-            ))
-
-        except Exception as e:
-            print(f"Error en fila {i}: {e}")
-        
-        print(response.json())
-
-
-'''
-    # Insertar registros
-    for i, row in df.iterrows():
-        try:
-            img_path = os.path.join(IMAGES_DIR, imagenes[i])
-            imagen_bytes = leer_imagen(img_path)
-
-            cur.execute("""
-                INSERT INTO "Producto" (nombre, descripcion, precio, stock, imagen)
-                VALUES (%s, %s, %s, %s, %s)
-            """, (
-                row["nombre"],
-                row["descripcion"],
-                row["precio"],
-                row["stock"],
-                psycopg2.Binary(imagen_bytes)
-            ))
-
-        except Exception as e:
-            print(f"Error en fila {i}: {e}")
-
+    cur.copy_from(buffer1, 'indicator', sep=',')
     conn.commit()
-    print("✅ Productos insertados correctamente.")
 
-    # Insertar administrador por defecto
-    try:
-        cur.execute("""
-            INSERT INTO "Administrador" (rut_admin, nombre, email, contraseña)
-            VALUES (%s, %s, %s, %s)
-            ON CONFLICT (rut_admin) DO NOTHING
-        """, (
-            "111111111",
-            "Nabil",
-            "nabil@example.com",
-            "123"
-        ))
-        print("✅ Administrador agregado correctamente.")
-    except Exception as e:
-        print(f"Error al insertar administrador: {e}")
+    # ---------- INSERT DF 2: indicator_history ----------
+    buffer2 = io.StringIO()
+    df_historic.to_csv(buffer2, index=False, header=False)
+    buffer2.seek(0)
 
-    # Confirmar cambios y cerrar
+    cur.copy_from(buffer2, 'indicator_value', sep=',')
     conn.commit()
+
     cur.close()
     conn.close()
-    print("✅ Productos y administrador insertados correctamente.")'''
 
+
+
+
+
+
+
+
+    
 
 if __name__ == "__main__":
     main()
