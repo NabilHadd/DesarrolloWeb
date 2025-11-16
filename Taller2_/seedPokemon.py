@@ -2,15 +2,19 @@ import psycopg2
 import pandas as pd
 import requests
 import io
+import os
+from dotenv import load_dotenv
 
+# carga variables de entorno desde el archivo .env en el directorio raíz
+load_dotenv()
 
-DB_CONFIG = {
-    "dbname": "pokemon",
-    "user": "postgres",
-    "password": "123",
-    "host": "localhost",
-    "port": "5432"
-}
+# config de db leida desde .env
+DB_HOST = os.environ.get("POKEMON_DB_HOST", "db_pokemon")
+DB_NAME = os.environ.get("POKEMON_DB_DATABASE", "pokemon_db")
+DB_USER = os.environ.get("DB_USER", "dev_user")
+DB_PASSWORD = os.environ.get("DB_PASSWORD", "dev_password")
+DB_PORT = os.environ.get("POKEMON_DB_PORT", "5432") 
+
 URL = "https://pokeapi.co/api/v2/"
 ABILITY = 'ability/'
 TYPE = 'type/'
@@ -20,7 +24,27 @@ POKEMON = 'pokemon/'
 
 
 def conectar_bd():
-    return psycopg2.connect(**DB_CONFIG)
+    MAX_RETRIES = 10
+    for attempt in range(MAX_RETRIES):
+        try:
+            conn = psycopg2.connect(
+                host=DB_HOST,
+                database=DB_NAME,
+                user=DB_USER,
+                password=DB_PASSWORD,
+                port=DB_PORT,
+                connect_timeout=5
+            )
+            print(f"Conexión exitosa a la DB de Pokémon en el intento {attempt + 1}.")
+            return conn
+        except Exception as e:
+            if attempt < MAX_RETRIES - 1:
+                print(f"Error al conectar (Intento {attempt + 1}/{MAX_RETRIES}): {e}. Reintentando en 3 segundos...")
+                time.sleep(3)
+            else:
+                print(f"ERROR FATAL: No se pudo conectar a la base de datos de Pokémon después de {MAX_RETRIES} intentos.")
+                return None
+    return None
 
 
 
@@ -42,7 +66,7 @@ def requestType(type):
     return {
         'id': raw_data.get('id'),
         'name': raw_data.get('name'),
-        'sprite': raw_data.get('sprites').get('generation-iii').get('colosseum').get('name_icon')
+        'sprite': raw_data.get('sprites').get('generation-iii').get('colosseum').get('name_icon') 
     }
 
 def requestAbility(ability):
@@ -51,7 +75,7 @@ def requestAbility(ability):
 
     # buscar efecto en inglés
     effect_entries = raw_data.get('effect_entries', [])
-    effect = 'null'
+    effect = None # Cambiado de 'null' a None
 
     for entry in effect_entries:
         if entry.get('language', {}).get('name') == 'en':
@@ -97,10 +121,6 @@ def requestPokemonAbility(pokemon):
         ]
 
 
-
-
-
-
 def main():
 
     
@@ -116,10 +136,8 @@ def main():
     pokemon_response = requests.get(URL+POKEMON+POSTFIJO)
     pokemon_names = map(lambda x : x.get('name') ,pokemon_response.json().get('results'))
     data_pokemon = [requestPokemon(x) for x in pokemon_names]
-    data_pokemon_ability = [requestPokemonAbility(x) for x in pokemon_names]
-    data_pokemon_type = [requestPokemonType(x) for x in pokemon_names]
-
-
+    data_pokemon_ability = [x for sub in (requestPokemonAbility(x) for x in pokemon_names) for x in sub]
+    data_pokemon_type = [x for sub in (requestPokemonType(x) for x in pokemon_names) for x in sub] 
 
     df_types = pd.DataFrame(data_types)
 
@@ -134,63 +152,36 @@ def main():
     
 
     # conexión
-    conn = psycopg2.connect(**DB_CONFIG)
+    conn = conectar_bd()
+    if not conn:
+        return
+
     cur = conn.cursor()
 
-    # ---------- INSERT DF 1: pokemon ----------
-    buffer1 = io.StringIO()
-    df_pokemons.to_csv(buffer1, index=False, header=False, sep='\t')
-    buffer1.seek(0)
+    # lista de DataFrames y sus nombres de tabla correspondientes
+    datasets = [
+        (df_pokemons, 'pokemon'),
+        (df_types, 'type'),
+        (df_abilities, 'ability'),
+        (df_pokemon_type, 'pokemon_type'),
+        (df_pokemon_ability, 'pokemon_ability')
+    ]
 
-    cur.copy_from(buffer1, 'pokemon', sep='\t')
-    conn.commit()
+    for df, table_name in datasets:
+        buffer = io.StringIO()
+        df.to_csv(buffer, index=False, header=False, sep='\t')
+        buffer.seek(0)
+        
+        try:
+            cur.copy_from(buffer, table_name, sep='\t')
+            conn.commit()
+        except Exception as e:
+            conn.rollback()
 
-
-
-    # ---------- INSERT DF 2: types ----------
-    buffer2 = io.StringIO()
-    df_types.to_csv(buffer2, index=False, header=False, sep='\t')
-    buffer2.seek(0)
-
-    cur.copy_from(buffer2, 'type', sep='\t')
-    conn.commit()
-    
-
-
-
-    # ---------- INSERT DF 3: abilities ----------
-    buffer3 = io.StringIO()
-    df_abilities.to_csv(buffer3, index=False, header=False, sep='\t')
-    buffer3.seek(0)
-
-    cur.copy_from(buffer3, 'ability', sep='\t')
-    conn.commit()
-
-
-
-
-    # ---------- INSERT DF 4: pokemon-type ----------
-    buffer4 = io.StringIO()
-    df_pokemon_type.to_csv(buffer4, index=False, header=False, sep='\t')
-    buffer4.seek(0)
-
-    cur.copy_from(buffer4, 'pokemon_type', sep='\t')
-    conn.commit()
-
-
-
-
-        # ---------- INSERT DF 5: pokemon-ability  ----------
-    buffer5 = io.StringIO()
-    df_pokemon_ability.to_csv(buffer5, index=False, header=False, sep='\t')
-    buffer5.seek(0)
-
-
-    cur.copy_from(buffer5, 'pokemon_ability', sep='\t')
-    conn.commit()
 
     cur.close()
     conn.close()
+
 
 
 
