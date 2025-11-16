@@ -205,6 +205,7 @@ def main():
 
     cur.close()
     conn.close()
+    print("Proceso de inserción pokemon completado.")
 
 
 

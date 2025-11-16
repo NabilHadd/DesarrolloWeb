@@ -122,6 +122,7 @@ def main():
 
     cur.close()
     conn.close()
+    print("Proceso de inserción economía completado.")
   
 
 if __name__ == "__main__":

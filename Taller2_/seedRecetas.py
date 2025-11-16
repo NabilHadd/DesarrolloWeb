@@ -6,6 +6,7 @@ import os
 import time
 from dotenv import load_dotenv
 from collections import defaultdict
+import csv
 
 # carga variables de entorno desde el archivo .env en el directorio raíz
 load_dotenv()
@@ -111,6 +112,8 @@ def fetch_meals():
     return pd.DataFrame(all_meals), df_ingredients, pd.DataFrame(all_meal_ingredients)
 
 
+# Función main() corregida en seedRecetas.py
+
 def main():
     df_meals, df_ingredients, df_meal_ingredients = fetch_meals()
     
@@ -121,27 +124,49 @@ def main():
 
     cur = conn.cursor()
 
-    # Definir el orden y los nombres de las tablas
+    try:
+        cur.execute("TRUNCATE TABLE meal_ingredients, ingredients, meals RESTART IDENTITY CASCADE;")
+        conn.commit()
+        print("Tablas de Recetas truncadas con éxito.")
+    except Exception as e:
+        conn.rollback()
+        print(f"FALLO al truncar tablas: {e}")
+        return
+
     datasets = [
-        (df_meals, 'meals', ','),    
-        (df_ingredients, 'ingredients', ','),
-        (df_meal_ingredients, 'meal_ingredients', ','),
+        (df_meals, 'meals', '\t'),    
+        (df_ingredients, 'ingredients', '\t'),
+        (df_meal_ingredients, 'meal_ingredients', '\t'),
     ]
 
     for df, table_name, sep_char in datasets:
         buffer = io.StringIO()
-        df.to_csv(buffer, index=False, header=False, sep=sep_char)
+        
+        if table_name == 'meals':
+            df.to_csv(buffer, index=False, header=False, sep='\t', quoting=csv.QUOTE_NONE, escapechar='\\')
+            columns_to_copy = ('meal_id', 'meal_name', 'category', 'area', 'instructions', 'thumbnail_url', 'youtube_url')
+    
+        elif table_name == 'ingredients':
+            df[['ingredient_name']].to_csv(buffer, index=False, header=False, sep='\t')
+            columns_to_copy = ('ingredient_name',)
+        
+        elif table_name == 'meal_ingredients':
+            df.to_csv(buffer, index=False, header=False, sep='\t')
+            columns_to_copy = ('meal_id', 'ingredient_id', 'measure')
+
         buffer.seek(0)
         
         try:
-            cur.copy_from(buffer, table_name, sep=sep_char)
+            cur.copy_from(buffer, table_name, sep=sep_char, columns=columns_to_copy)
             conn.commit()
+            print(f"Inserción exitosa en la tabla {table_name}")
         except Exception as e:
             conn.rollback()
+            print(f"FALLO al insertar datos en la tabla {table_name}: {e}")
             
     cur.close()
     conn.close()
-
+    print("Proceso de inserción recetas completado.")
 
 if __name__ == "__main__":
     main()
