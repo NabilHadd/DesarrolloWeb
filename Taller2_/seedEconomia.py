@@ -70,9 +70,9 @@ def main():
     
     #todos los item economicos
     response = requests.get(URL)
-    indicator_names = list(response.json().keys())[3:]
+    indicator_names = list(response.json().keys())[3:7]
 
-    indicator_list = list(response.json().items())[3:]
+    indicator_list = list(response.json().items())[3:7]
 
     for _, d in indicator_list:
         d.pop("fecha", None)
