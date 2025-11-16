@@ -147,7 +147,7 @@ def main():
     abilitie_names = list(map(lambda x : x.get('name') ,abilities_response.json().get('results')))
     data_abilities = [requestAbility(x) for x in abilitie_names]
 
-    pokemon_response = requests.get(URL+POKEMON+POSTFIJO)
+    pokemon_response = requests.get(URL+POKEMON+'?limit=100&offset=0')
     pokemon_names = list(map(lambda x : x.get('name') ,pokemon_response.json().get('results')))
     data_pokemon = [requestPokemon(x) for x in pokemon_names]
     data_pokemon_type = [
