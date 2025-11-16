@@ -2,6 +2,7 @@ import psycopg2
 import pandas as pd
 import requests
 import io
+import time
 import os
 from dotenv import load_dotenv
 

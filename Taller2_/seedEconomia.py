@@ -4,6 +4,7 @@ import requests
 import io
 import os
 from dotenv import load_dotenv
+import time
 from datetime import datetime
 
 # carga variables de entorno desde el archivo .env en el directorio raíz
