@@ -112,18 +112,17 @@ def fetch_meals():
     return pd.DataFrame(all_meals), df_ingredients, pd.DataFrame(all_meal_ingredients)
 
 
-# Función main() corregida en seedRecetas.py
 
 def main():
     df_meals, df_ingredients, df_meal_ingredients_raw = fetch_meals()
     
     # --- PASO 1: LIMPIEZA Y PREPARACIÓN DE DATAFRAMES ---
 
-    # A. Eliminar duplicados de platos (solución al error meals_pkey)
+    # eliminar duplicados de platos 
     df_meals.drop_duplicates(subset=['meal_id'], inplace=True) 
 
-    # B. Limpiar caracteres problemáticos en instrucciones (solución al error missing data)
-    # Reemplaza saltos de línea y comillas para evitar conflictos con el delimitador \t
+    # limpiar caracteres problemáticos en instrucciones
+    # reemplaza saltos de línea y comillas para evitar conflictos con el delimitador \t
     df_meals['instructions'] = df_meals['instructions'].str.replace('"', '').str.replace('\n', ' ').str.replace('\r', ' ')
     
     conn = conectar_bd()
@@ -132,7 +131,7 @@ def main():
 
     cur = conn.cursor()
 
-    # --- PASO 2: TRUNCATE FORZADO ---
+    # TRUNCATE FORZADO
     try:
         # Limpia todas las tablas, reinicia las secuencias SERIAL y maneja FKs
         cur.execute("TRUNCATE TABLE meal_ingredients, ingredients, meals RESTART IDENTITY CASCADE;")
@@ -142,9 +141,8 @@ def main():
         print(f"ERROR: Falló el TRUNCATE: {e}")
         conn.rollback()
         return 
-    # --------------------------------
 
-    # --- PASO 3: INSERCIÓN DE MEALS E INGREDIENTS (PADRES) ---
+    # INSERCIÓN DE MEALS E INGREDIENTS 
     
     datasets_parents = [
         (df_meals, 'meals', '\t', ('meal_id', 'meal_name', 'category', 'area', 'instructions', 'thumbnail_url', 'youtube_url')),
@@ -169,46 +167,38 @@ def main():
         except Exception as e:
             conn.rollback()
             print(f"FALLO al insertar datos en la tabla {table_name}: {e}")
-            return # Detener si falla la inserción de padres
+            return 
 
-    # --- PASO 4: MAPEO Y REPARACIÓN DE meal_ingredients ---
+    #  MAPEO Y REPARACIÓN DE meal_ingredients
 
-    # 4A. Obtener el mapeo REAL de IDs de ingredientes desde la DB
+    # Obtener el mapeo REAL de IDs de ingredientes desde la DB
     cur.execute("SELECT ingredient_id, ingredient_name FROM ingredients;")
     db_ingredients = cur.fetchall()
     
-    # Crear diccionario de mapeo: {nombre_ingrediente: id_real_db}
+    # diccionario de mapeo {nombre_ingrediente: id_real_db}
     db_ingredient_map = {name: id for id, name in db_ingredients}
 
-    # 4B. Crear el DataFrame de unión (meal_ingredients) con los IDs REALES de la DB
+    # DataFrame de unión meal_ingredients con los id reales de la DB
     
-    # Mapear los nombres de ingredientes (que no estaban en el raw DF) para obtener los IDs reales
+    # mapea los nombres de ingredientes (que no estaban en el raw DF) para obtener los id reales
     df_final_meal_ingredients = pd.DataFrame({
         'meal_id': df_meal_ingredients_raw['meal_id'],
         # Usamos el mapeo para obtener el ID real de la DB
-        'ingredient_id': df_meal_ingredients_raw['ingredient_id'].map(lambda x: db_ingredients[x - 1][0]), # Esto es peligroso y se basa en el orden de inserción
+        'ingredient_id': df_meal_ingredients_raw['ingredient_id'].map(lambda x: db_ingredients[x - 1][0]), # esto es peligroso y se basa en el orden de inserción
         'measure': df_meal_ingredients_raw['measure']
     })
 
-    # CORRECCIÓN ROBUSTA: En lugar de usar el ID generado por Python, usamos el nombre original
-    # (Necesitaríamos reestructurar fetch_meals para devolver el nombre original del ingrediente)
     
-    # **ASUMIENDO que el orden de fetch_meals() es idéntico al orden de inserción, usamos el mapeo de la DB**
-    # **La forma más segura es re-mapear usando el nombre:**
-    # Nota: Como df_meal_ingredients_raw no tiene el nombre, necesitamos una solución alternativa.
-    
-    # Volvemos a generar el DF de unión, mapeando el ID provisional de Python al ID REAL de la DB
-    
-    # Mapeo de IDs generados por Python a IDs REALES en la base de datos
+    # mapeo de IDs generados por Python a IDs REALES en la base de datos
     python_id_to_db_id = {
         python_id: db_id for python_id, (db_id, _) in enumerate(db_ingredients, 1)
     }
 
-    # Aplicar el mapeo al DataFrame
+    # mapeo al DataFrame
     df_final_meal_ingredients['ingredient_id'] = df_meal_ingredients_raw['ingredient_id'].map(python_id_to_db_id)
     
     
-    # 4C. Inserción de meal_ingredients
+    # inserción de meal_ingredients
 
     df_final_meal_ingredients.drop_duplicates(
         subset=['meal_id', 'ingredient_id'],
