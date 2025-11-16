@@ -1,0 +1,146 @@
+version: '3.8'
+name: taller2_project
+
+volumes:
+  postgres_economia_data:
+  postgres_pokemon_data:
+  postgres_recetas_data:
+
+services:
+
+
+  db_economia:
+    image: postgres:16-alpine
+    container_name: db_economia
+    restart: always
+    environment:
+      POSTGRES_USER: dev_user
+      POSTGRES_PASSWORD: dev_password
+      POSTGRES_DB: economia_db
+    ports:
+      - "5435:5432" # puertos externos unicos para bases de datos empiezan a partir de 5435 para evitar conflictos -Diego
+    volumes:
+      - postgres_economia_data:/var/lib/postgresql/data
+      # montar schema al iniciar
+      - ./Tablas_economia.sql:/docker-entrypoint-initdb.d/10_schema_economia.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dev_user -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  db_pokemon:
+    image: postgres:16-alpine
+    container_name: db_pokemon
+    restart: always
+    environment:
+      POSTGRES_USER: dev_user
+      POSTGRES_PASSWORD: dev_password
+      POSTGRES_DB: pokemon_db
+    ports:
+      - "5436:5432" 
+    volumes:
+      - postgres_pokemon_data:/var/lib/postgresql/data
+      - ./Tablas_pokemon.sql:/docker-entrypoint-initdb.d/10_schema_pokemon.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dev_user -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  db_recetas:
+    image: postgres:16-alpine
+    container_name: db_recetas
+    restart: always
+    environment:
+      POSTGRES_USER: dev_user
+      POSTGRES_PASSWORD: dev_password
+      POSTGRES_DB: recetas_db
+    ports:
+      - "5437:5432" 
+    volumes:
+      - postgres_recetas_data:/var/lib/postgresql/data
+      - ./Tablas_recetas.sql:/docker-entrypoint-initdb.d/10_schema_recetas.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dev_user -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # SEEDERS 
+  seeder:
+    build:
+      context: .
+      dockerfile: seeder.Dockerfile # Usa el nuevo Dockerfile
+    container_name: seeder
+    # El comando ejecuta los 3 scripts secuencialmente
+    command: sh -c "python seedEconomia.py && python seedPokemon.py && python seedRecetas.py"
+    environment:
+      # Injectamos las variables de entorno específicas para que los scripts sepan dónde conectarse
+      RECETAS_DB_HOST: db_recetas
+      POKEMON_DB_HOST: db_pokemon
+      ECONOMIA_DB_HOST: db_economia
+      
+      RECETAS_DB_PORT: 5432 
+      POKEMON_DB_PORT: 5432 
+      ECONOMIA_DB_PORT: 5432
+
+      DB_USER: dev_user
+      DB_PASSWORD: dev_password
+      
+    depends_on:
+      db_economia:
+        condition: service_healthy # Espera a que las 3 DBs reporten salud
+      db_pokemon:
+        condition: service_healthy
+      db_recetas:
+        condition: service_healthy
+
+
+
+  # # SERVICIOS DE APIs
+
+  #  # FastAPI se encarga de recetas 
+  # fastapi_app:
+  #   build:
+  #     context: ./multiApi/FastApi
+  #   container_name: fastapi_app
+  #   ports:
+  #     - "9000:8000"
+  #   environment:
+  #     DB_HOST: db_recetas
+  #     DB_NAME: recetas_db
+  #     DB_USER: dev_user
+  #     DB_PASSWORD: dev_password
+  #   depends_on:
+  #     - db_recetas
+
+  # # ExpressApp se encarga de pokemones
+  # express_app:
+  #   build:
+  #     context: ./multiApi/ExpressApi
+  #   container_name: express_app
+  #   ports:
+  #     - "9001:3000"
+  #   environment:
+  #     DB_HOST: db_pokemon
+  #     DB_NAME: pokemon_db
+  #     DB_USER: dev_user
+  #     DB_PASSWORD: dev_password
+  #   depends_on:
+  #     - db_pokemon 
+
+  # # NestApp se encarga de economia
+  # nest_app:
+  #   build:
+  #     context: ./multiApi/nest-api
+  #   container_name: nest_app
+  #   ports:
+  #     - "9002:3001"
+  #   environment:
+  #     DB_HOST: db_economia
+  #     DB_NAME: economia_db
+  #     DB_USER: dev_user
+  #     DB_PASSWORD: dev_password
+  #   depends_on:
+  #     - db_economia 
