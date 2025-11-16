@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from sqlalchemy import create_engine, text
+from collections import defaultdict
 import os
 
 app = FastAPI()
