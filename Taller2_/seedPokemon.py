@@ -92,34 +92,47 @@ def requestAbility(ability):
 def requestPokemonType(pokemon):
     response = requests.get(f'{URL+POKEMON}{pokemon}')
     raw_data = response.json()
-    types = raw_data.get('types')
+    types = raw_data.get('types', [])
     id_pokemon = raw_data.get('id')
-    return [{
-        'id_type': x
-                    .get('type')
-                    .get('name'),
 
-        'id_pokemon': id_pokemon
-        } 
+    return [
+        {
+            'id_type': int(x['type']['url'].rstrip('/').split('/')[-1]),
+            'id_pokemon': id_pokemon
+        }
         for x in types
-        ]
+    ]
 
 
 def requestPokemonAbility(pokemon):
-    response = requests.get(f'{URL+POKEMON}/{pokemon}')
+    response = requests.get(f'{URL+POKEMON}{pokemon}')
     raw_data = response.json()
-    abilities = raw_data.get('abilities')
+    abilities = raw_data.get('abilities', [])
     id_pokemon = raw_data.get('id')
+
     return [
         {
-            'id_ability': x['ability']['url']
-                                    .rstrip('/')
-                                    .split('/')[-1],
-
+            'id_ability': int(x['ability']['url'].rstrip('/').split('/')[-1]),
             'id_pokemon': id_pokemon
-        } 
+        }
         for x in abilities
-        ]
+    ]
+
+
+def requestPokemonAbility(pokemon):
+    response = requests.get(f'{URL+POKEMON}{pokemon}')
+    raw_data = response.json()
+    abilities = raw_data.get('abilities', [])
+    id_pokemon = raw_data.get('id')
+
+    return [
+        {
+            'id_ability': int(x['ability']['url'].rstrip('/').split('/')[-1]),
+            'id_pokemon': id_pokemon
+        }
+        for x in abilities
+    ]
+
 
 
 def main():
@@ -127,18 +140,28 @@ def main():
     
     #todos los item economicos
     types_response = requests.get(URL+TYPE+POSTFIJO)
-    type_names = map(lambda x : x.get('name') ,types_response.json().get('results'))
+    type_names = list(map(lambda x : x.get('name') ,types_response.json().get('results')))
     data_types = [requestType(x) for x in type_names]
 
     abilities_response = requests.get(URL+ABILITY+POSTFIJO)
-    abilitie_names = map(lambda x : x.get('name') ,abilities_response.json().get('results'))
+    abilitie_names = list(map(lambda x : x.get('name') ,abilities_response.json().get('results')))
     data_abilities = [requestAbility(x) for x in abilitie_names]
 
     pokemon_response = requests.get(URL+POKEMON+POSTFIJO)
-    pokemon_names = map(lambda x : x.get('name') ,pokemon_response.json().get('results'))
+    pokemon_names = list(map(lambda x : x.get('name') ,pokemon_response.json().get('results')))
     data_pokemon = [requestPokemon(x) for x in pokemon_names]
-    data_pokemon_ability = [x for sub in (requestPokemonAbility(x) for x in pokemon_names) for x in sub]
-    data_pokemon_type = [x for sub in (requestPokemonType(x) for x in pokemon_names) for x in sub] 
+    data_pokemon_type = [
+        x
+        for pokemon in pokemon_names
+        for x in requestPokemonType(pokemon)
+    ]
+
+    data_pokemon_ability = [
+        x
+        for pokemon in pokemon_names
+        for x in requestPokemonAbility(pokemon)
+    ]
+
 
     df_types = pd.DataFrame(data_types)
 
