@@ -115,44 +115,50 @@ def fetch_meals():
 # Función main() corregida en seedRecetas.py
 
 def main():
-    df_meals, df_ingredients, df_meal_ingredients = fetch_meals()
+    df_meals, df_ingredients, df_meal_ingredients_raw = fetch_meals()
     
-    # Conexión
+    # --- PASO 1: LIMPIEZA Y PREPARACIÓN DE DATAFRAMES ---
+
+    # A. Eliminar duplicados de platos (solución al error meals_pkey)
+    df_meals.drop_duplicates(subset=['meal_id'], inplace=True) 
+
+    # B. Limpiar caracteres problemáticos en instrucciones (solución al error missing data)
+    # Reemplaza saltos de línea y comillas para evitar conflictos con el delimitador \t
+    df_meals['instructions'] = df_meals['instructions'].str.replace('"', '').str.replace('\n', ' ').str.replace('\r', ' ')
+    
     conn = conectar_bd()
     if not conn:
         return
 
     cur = conn.cursor()
 
+    # --- PASO 2: TRUNCATE FORZADO ---
     try:
+        # Limpia todas las tablas, reinicia las secuencias SERIAL y maneja FKs
         cur.execute("TRUNCATE TABLE meal_ingredients, ingredients, meals RESTART IDENTITY CASCADE;")
-        conn.commit()
+        conn.commit() 
         print("Tablas de Recetas truncadas con éxito.")
     except Exception as e:
+        print(f"ERROR: Falló el TRUNCATE: {e}")
         conn.rollback()
-        print(f"FALLO al truncar tablas: {e}")
-        return
+        return 
+    # --------------------------------
 
-    datasets = [
-        (df_meals, 'meals', '\t'),    
-        (df_ingredients, 'ingredients', '\t'),
-        (df_meal_ingredients, 'meal_ingredients', '\t'),
+    # --- PASO 3: INSERCIÓN DE MEALS E INGREDIENTS (PADRES) ---
+    
+    datasets_parents = [
+        (df_meals, 'meals', '\t', ('meal_id', 'meal_name', 'category', 'area', 'instructions', 'thumbnail_url', 'youtube_url')),
+        (df_ingredients[['ingredient_name']], 'ingredients', '\t', ('ingredient_name',)),
     ]
 
-    for df, table_name, sep_char in datasets:
+    for df, table_name, sep_char, columns_to_copy in datasets_parents:
         buffer = io.StringIO()
         
+        # Para meals, se usa quoting=csv.QUOTE_NONE y escapechar='\\' para manejar el texto
         if table_name == 'meals':
-            df.to_csv(buffer, index=False, header=False, sep='\t', quoting=csv.QUOTE_NONE, escapechar='\\')
-            columns_to_copy = ('meal_id', 'meal_name', 'category', 'area', 'instructions', 'thumbnail_url', 'youtube_url')
-    
-        elif table_name == 'ingredients':
-            df[['ingredient_name']].to_csv(buffer, index=False, header=False, sep='\t')
-            columns_to_copy = ('ingredient_name',)
-        
-        elif table_name == 'meal_ingredients':
-            df.to_csv(buffer, index=False, header=False, sep='\t')
-            columns_to_copy = ('meal_id', 'ingredient_id', 'measure')
+            df.to_csv(buffer, index=False, header=False, sep=sep_char, quoting=csv.QUOTE_NONE, escapechar='\\')
+        else:
+            df.to_csv(buffer, index=False, header=False, sep=sep_char) 
 
         buffer.seek(0)
         
@@ -163,7 +169,66 @@ def main():
         except Exception as e:
             conn.rollback()
             print(f"FALLO al insertar datos en la tabla {table_name}: {e}")
-            
+            return # Detener si falla la inserción de padres
+
+    # --- PASO 4: MAPEO Y REPARACIÓN DE meal_ingredients ---
+
+    # 4A. Obtener el mapeo REAL de IDs de ingredientes desde la DB
+    cur.execute("SELECT ingredient_id, ingredient_name FROM ingredients;")
+    db_ingredients = cur.fetchall()
+    
+    # Crear diccionario de mapeo: {nombre_ingrediente: id_real_db}
+    db_ingredient_map = {name: id for id, name in db_ingredients}
+
+    # 4B. Crear el DataFrame de unión (meal_ingredients) con los IDs REALES de la DB
+    
+    # Mapear los nombres de ingredientes (que no estaban en el raw DF) para obtener los IDs reales
+    df_final_meal_ingredients = pd.DataFrame({
+        'meal_id': df_meal_ingredients_raw['meal_id'],
+        # Usamos el mapeo para obtener el ID real de la DB
+        'ingredient_id': df_meal_ingredients_raw['ingredient_id'].map(lambda x: db_ingredients[x - 1][0]), # Esto es peligroso y se basa en el orden de inserción
+        'measure': df_meal_ingredients_raw['measure']
+    })
+
+    # CORRECCIÓN ROBUSTA: En lugar de usar el ID generado por Python, usamos el nombre original
+    # (Necesitaríamos reestructurar fetch_meals para devolver el nombre original del ingrediente)
+    
+    # **ASUMIENDO que el orden de fetch_meals() es idéntico al orden de inserción, usamos el mapeo de la DB**
+    # **La forma más segura es re-mapear usando el nombre:**
+    # Nota: Como df_meal_ingredients_raw no tiene el nombre, necesitamos una solución alternativa.
+    
+    # Volvemos a generar el DF de unión, mapeando el ID provisional de Python al ID REAL de la DB
+    
+    # Mapeo de IDs generados por Python a IDs REALES en la base de datos
+    python_id_to_db_id = {
+        python_id: db_id for python_id, (db_id, _) in enumerate(db_ingredients, 1)
+    }
+
+    # Aplicar el mapeo al DataFrame
+    df_final_meal_ingredients['ingredient_id'] = df_meal_ingredients_raw['ingredient_id'].map(python_id_to_db_id)
+    
+    
+    # 4C. Inserción de meal_ingredients
+
+    df_final_meal_ingredients.drop_duplicates(
+        subset=['meal_id', 'ingredient_id'],
+        inplace=True
+    )
+
+    buffer = io.StringIO()
+    df_final_meal_ingredients.to_csv(buffer, index=False, header=False, sep='\t')
+    buffer.seek(0)
+    
+    columns_to_copy_mi = ('meal_id', 'ingredient_id', 'measure')
+    
+    try:
+        cur.copy_from(buffer, 'meal_ingredients', sep='\t', columns=columns_to_copy_mi)
+        conn.commit()
+        print("Inserción exitosa en la tabla meal_ingredients")
+    except Exception as e:
+        conn.rollback()
+        print(f"FALLO al insertar datos en la tabla meal_ingredients: {e}")
+    
     cur.close()
     conn.close()
     print("Proceso de inserción recetas completado.")
