@@ -9,6 +9,9 @@ RUN npm install
 
 COPY . .
 
+ENV DATABASE_URL="postgresql://user:pass@localhost:5432/db"
+RUN npx prisma generate
+
 RUN npm run build
 
 FROM node:20-alpine AS production
@@ -20,8 +23,6 @@ COPY package.json ./
 RUN npm install --omit=dev
 
 COPY --from=builder /app/dist ./dist
-
-
 COPY --from=builder /app/prisma ./prisma
 RUN npx prisma generate
 #puerto que usa api en docker
