@@ -2,9 +2,9 @@ import { useState } from 'react';
 import './App.css';
 import FloatingBackground from './components/FloatingBackground';
 import Header from './components/Header';
-import RecetasSection from './components/RecetasSection';
-import PokemonsSection from './components/PokemonsSection';
-import EconomiaSection from './components/EconomiaSection';
+import RecetasSection from './components/Recetas/RecetasSection';
+import PokemonsSection from './components/Pokemon/PokemonsSection';
+import EconomiaSection from './components/Economia/EconomiaSection';
 import Footer from './components/Footer';
 
 export default function App() {

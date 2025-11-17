@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { ReactComponent as RecetasIcon } from '../icons/recetas.svg';
 //import { mockRecetas } from '../mocks/data';
-import { getRandomItems } from '../utils/getRandomItems';
-import AnimatedText from './AnimatedText';
+import { getRandomItems } from '../../utils/getRandomItems';
+import AnimatedText from '../AnimatedText';
 import RecetaModal from './RecetaModal';
 
 const recipePlaceholder =

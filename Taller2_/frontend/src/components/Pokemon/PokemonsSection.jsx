@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { ReactComponent as PokemonsIcon } from '../icons/pokemons.svg';
-import AnimatedText from './AnimatedText';
+import AnimatedText from '../AnimatedText';
 import PokemonModal from './PokemonModal';
+import MisteryCards from "./MisteryCard";
 
 export default function PokemonsSection({ isExpanded, onToggle, onCollapse}) {
   const [selectedPokemon, setSelectedPokemon] = useState(null);
@@ -19,6 +20,7 @@ export default function PokemonsSection({ isExpanded, onToggle, onCollapse}) {
       setSelectedPokemon(null);
     }
   }, [isExpanded]);
+
 
   const closeModal = () => setSelectedPokemon(null);
 
@@ -51,33 +53,17 @@ export default function PokemonsSection({ isExpanded, onToggle, onCollapse}) {
           <div className="mt-3 mb-3 md:mb-4">
             <AnimatedText
               as="p"
-              text="Haz clic en un Pokémon para ver detalles completos."
+              text="Haz clic en cualquiera de las cartas secretas !!!"
               isActive={isExpanded}
               className="text-center text-sm font-medium mb-4 text-slate-700"
               speed={12}
             />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-              {destacados.map((id, index) => (
-                <div
-                  key={id}
-                  className={`bg-white rounded p-3 cursor-pointer hover:shadow-lg transition-shadow transform hover:scale-105`}
-                  onClick={() => setSelectedPokemon(id)}
-                >
-                  <div className="w-full h-28 flex items-center justify-center bg-gray-50 rounded mb-2">
-                    <span className="text-gray-400 text-sm">Pokémon {id}</span>
-                  </div>
-                  <AnimatedText
-                    as="p"
-                    text={`#${id}`}
-                    isActive={isExpanded}
-                    className="text-center text-sm font-bold text-slate-800 mb-2"
-                    speed={10}
-                    delay={index * 40}
-                  />
-                </div>
-              ))}
-            </div>
+            <MisteryCards
+              ids={destacados}
+              isExpanded={isExpanded}
+              onSelect={(id) => setSelectedPokemon(id)}
+            />
 
             <button
               className="mx-auto block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded text-sm transition-colors"

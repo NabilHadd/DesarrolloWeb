@@ -1,4 +1,4 @@
-import AnimatedText from './AnimatedText';
+import AnimatedText from '../AnimatedText';
 
 export default function RecetaModal({ receta, onClose }) {
   return (
@@ -21,7 +21,7 @@ export default function RecetaModal({ receta, onClose }) {
           as="h2"
           text={receta.nombre}
           isActive
-          className="text-3xl font-bold text-center mb-6 underline"
+          className="text-3xl font-bold text-center mb-6 text-blue-600"
           speed={12}
         />
 
@@ -31,26 +31,34 @@ export default function RecetaModal({ receta, onClose }) {
           className="w-96 max-w-[90%] mx-auto rounded-lg shadow-lg mb-6 animate-card"
         />
 
-        <AnimatedText
-          as="h3"
-          text="Ingredientes"
-          isActive
-          className="text-2xl font-bold text-center text-blue-600 mb-4"
-          speed={12}
-        />
-        <ul className="list-disc list-inside bg-gray-50 rounded-lg p-4 mb-6 max-w-lg mx-auto border-l-4 border-blue-500">
-          {receta.ingredientes.map((ingrediente, index) => (
+      <AnimatedText
+        as="h3"
+        text="Ingredientes"
+        isActive
+        className="text-2xl font-bold text-center text-blue-600 mb-4"
+        speed={12}
+      />
+
+      <ul className="bg-gray-50 rounded-lg p-4 mb-6 max-w-3xl mx-auto border-l-4 border-blue-500 flex flex-col gap-2">
+        {receta.ingredientes.map((ingrediente, index) => (
+          <li
+            key={`${receta.id}-ingredient-${index}`}
+            className="w-full block bg-white/60 rounded-md px-3 py-2 shadow-sm"
+          >
+            {/* AnimatedText solo para animar el texto; no para el layout */}
             <AnimatedText
-              key={`${receta.id}-ingredient-${index}`}
-              as="li"
+              as="span"
               text={ingrediente}
               isActive
-              className="my-2 font-medium text-gray-800"
+              className="font-medium text-gray-800 block w-full"
               speed={10}
               delay={index * 40}
             />
-          ))}
-        </ul>
+          </li>
+        ))}
+      </ul>
+
+
 
         <AnimatedText
           as="h3"

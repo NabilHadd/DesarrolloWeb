@@ -5,15 +5,14 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   // Habilitar CORS correctamente
-  app.enableCors({
-    origin: 'http://localhost:3000', // o '*' para desarrollo temporal
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    credentials: true,
-  });
-
-  const port = process.env.PORT ?? 9001;
+app.enableCors({
+  origin: 'http://localhost:3000',
+  methods: 'GET,POST,PUT,DELETE,PATCH,OPTIONS',
+  allowedHeaders: 'Content-Type, Authorization',
+});
+  const port = 3001;
   await app.listen(port);
-  console.log(`API corriendo en http://localhost:${port}`);
+  console.log(`API corriendo en http://localhost:${port} interno`);
 }
 
 bootstrap();
