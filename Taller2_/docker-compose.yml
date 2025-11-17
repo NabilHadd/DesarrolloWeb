@@ -101,21 +101,22 @@ services:
   # # SERVICIOS DE APIs
 
   #  # FastAPI se encarga de recetas 
-  # fastapi_app:
-  #   build:
-  #     context: ./multiApi/FastApi
-  #   container_name: fastapi_app
-  #   ports:
-  #     - "9000:8000"
-  #   environment:
-  #     DB_HOST: db_recetas
-  #     DB_NAME: recetas_db
-  #     DB_USER: dev_user
-  #     DB_PASSWORD: dev_password
-  #   depends_on:
-  #     - db_recetas
+  fastapi_app:
+    build:
+      context: ./multiApi/FastApi
+    container_name: fastapi_app
+    ports:
+      - "9000:8000"
+    environment:
+      DB_HOST: db_recetas
+      DB_NAME: recetas_db
+      DB_USER: dev_user
+      DB_PASSWORD: dev_password
+    depends_on:
+      db_recetas:
+        condition: service_healthy
 
-  # # ExpressApp se encarga de pokemones
+  # # ExpressApp se encarga de economia
   # express_app:
   #   build:
   #     context: ./multiApi/ExpressApi
@@ -130,7 +131,7 @@ services:
   #   depends_on:
   #     - db_pokemon 
 
-  # # NestApp se encarga de economia
+  # # NestApp se encarga de pokemones
   # nest_app:
   #   build:
   #     context: ./multiApi/nest-api
