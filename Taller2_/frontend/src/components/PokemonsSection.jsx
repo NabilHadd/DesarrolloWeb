@@ -73,7 +73,7 @@ export default function PokemonsSection({ isExpanded, onToggle, onCollapse }) {
               speed={14}
             />
           </div>
-          <span className="text-xs uppercase tracking-wide text-indigo-700/70 font-semibold">
+          <span className="hidden text-xs uppercase tracking-wide text-indigo-700/70 font-semibold sm:inline-block">
             Panel interactivo
           </span>
         </button>

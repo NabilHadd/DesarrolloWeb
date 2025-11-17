@@ -40,7 +40,7 @@ export default function RecetasSection({ isExpanded, onToggle, onCollapse }) {
               speed={14}
             />
           </div>
-          <span className="text-xs uppercase tracking-wide text-amber-700/70 font-semibold">
+          <span className="hidden text-xs uppercase tracking-wide text-amber-700/70 font-semibold sm:inline-block">
             Panel interactivo
           </span>
         </button>

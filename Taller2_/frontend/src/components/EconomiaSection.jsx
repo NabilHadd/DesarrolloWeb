@@ -79,7 +79,7 @@ export default function EconomiaSection({ isExpanded, onToggle, onCollapse }) {
             />
           </div>
 
-          <span className="text-xs uppercase tracking-wide text-emerald-700/70 font-semibold">
+          <span className="hidden text-xs uppercase tracking-wide text-emerald-700/70 font-semibold sm:inline-block">
             Panel interactivo
           </span>
         </button>
