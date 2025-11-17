@@ -1,0 +1,24 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model indicator {
+  code            String            @id @db.VarChar(50)
+  name            String            @db.VarChar(200)
+  unit            String            @db.VarChar(50)
+  indicator_value indicator_value[]
+}
+
+model indicator_value {
+  indicator_code String    @db.VarChar(50)
+  date           DateTime  @db.Date
+  value          Decimal   @db.Decimal(20, 4)
+  indicator      indicator @relation(fields: [indicator_code], references: [code], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([indicator_code, date])
+}
