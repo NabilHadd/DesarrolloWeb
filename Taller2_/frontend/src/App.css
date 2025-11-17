@@ -1,38 +1,163 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
+.floating-background {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
   pointer-events: none;
+  z-index: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.floating-element {
+  position: absolute;
+  border-radius: 9999px;
+  opacity: 0.3;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+  filter: blur(0.5px);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+.floating-element.float-up-down {
+  animation-name: floatUpDown;
+}
+
+.floating-element.float-left-right {
+  animation-name: floatLeftRight;
+}
+
+.floating-element.float-diagonal {
+  animation-name: floatDiagonal;
+}
+
+.section-icon {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.section-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.section-icon svg path,
+.section-icon svg g {
+  fill: currentColor;
+}
+
+
+.hero-title {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: linear-gradient(120deg, #fde68a 0%, #fb7185 35%, #c084fc 65%, #7c3aed 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  position: relative;
+  display: inline-block;
+}
+
+.hero-title::after {
+  content: '';
+  display: block;
+  width: 90px;
+  height: 4px;
+  background: linear-gradient(90deg, #f472b6, #a855f7);
+  margin: 1.5rem auto 0;
+  border-radius: 999px;
+  opacity: 0.8;
+}
+
+@keyframes floatUpDown {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-25px); }
+}
+
+@keyframes floatLeftRight {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(25px); }
+}
+
+@keyframes floatDiagonal {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(20px, -15px); }
+}
+
+
+.animate-section-entry {
+  animation: sectionReveal 0.6s ease forwards;
+}
+
+.animate-card {
+  opacity: 0;
+  transform: translateY(12px) scale(0.98);
+  animation: cardRise 0.5s ease forwards;
+}
+
+.animate-text-slide {
+  opacity: 0;
+  display: inline-block;
+  animation: textSlide 0.45s ease forwards;
+}
+
+.modal-overlay {
+  animation: overlayFade 0.35s ease forwards;
+}
+
+.modal-panel {
+  animation: modalPop 0.4s ease forwards;
+  transform-origin: center;
+}
+
+@keyframes sectionReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.97);
   }
-  to {
-    transform: rotate(360deg);
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes cardRise {
+  0% {
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes textSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes overlayFade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes modalPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
   }
 }
