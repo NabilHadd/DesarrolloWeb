@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import create_engine, text
 from collections import defaultdict
 import os
@@ -11,6 +12,20 @@ app = FastAPI(
         "name": "Diego Parga",
         "email": "diego.parga@alumnos.ucn.cl",
     })
+
+origins = [
+    "http://localhost:3000",  
+    "http://127.0.0.1:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 DB_HOST = os.environ.get("DB_HOST", "localhost")
 DB_NAME = os.environ.get("DB_NAME", "recetas_db")
@@ -38,6 +53,7 @@ def get_meals():
             m.meal_id,
             m.meal_name,
             m.thumbnail_url,
+            m.instructions,
             i.ingredient_name,
             mi.measure
         FROM meals m
@@ -50,6 +66,7 @@ def get_meals():
         'meal_id': None,
         'strMeal': None, 
         'strMealThumb': None, 
+        'instructions': None,
         'ingredients': []
     })
 
@@ -58,13 +75,14 @@ def get_meals():
             result = connection.execute(text(query))
 
             for row in result:
-                meal_id, meal_name, thumbnail_url, ingredient_name, measure = row
+                meal_id, meal_name, thumbnail_url, instructions, ingredient_name, measure = row
                 
                 # inicialización de la comida
                 if meals_data[meal_id]['meal_id'] is None:
                     meals_data[meal_id]['meal_id'] = meal_id
                     meals_data[meal_id]['strMeal'] = meal_name
                     meals_data[meal_id]['strMealThumb'] = thumbnail_url
+                    meals_data[meal_id]['instructions'] = instructions
                 
                 meals_data[meal_id]['ingredients'].append({
                     'ingredient': ingredient_name,
@@ -76,7 +94,9 @@ def get_meals():
             for meal in meals_data.values():
                 formato = {
                     "strMeal": meal['strMeal'],
-                    "strMealThumb": meal['strMealThumb']
+                    "strMealThumb": meal['strMealThumb'],
+                    "strInstructions": meal['instructions']
+                    
                 }
             
                 # se añaden hasta 20 ingredientes, en pares de ingredient{i} y measure{i}
