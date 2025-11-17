@@ -68,6 +68,20 @@
   opacity: 0.8;
 }
 
+@media (max-width: 640px) {
+  .hero-title {
+    font-size: clamp(2rem, 9vw, 2.6rem);
+    letter-spacing: 0.04em;
+    line-height: 1.1;
+    display: block;
+  }
+
+  .hero-title::after {
+    width: 60px;
+    margin-top: 1rem;
+  }
+}
+
 @keyframes floatUpDown {
   0% { transform: translateY(0); }
   100% { transform: translateY(-25px); }
