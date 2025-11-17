@@ -20,7 +20,7 @@ const typeLabels = {
   siniestro: 'Siniestro',
 };
 
-export default function PokemonModal({ pokemonId, onClose, puerto }) {
+export default function PokemonModal({ pokemonId, onClose}) {
   const [pokemon, setPokemon] = useState(null);
   const [tipos, setTipos] = useState([]);
   const [habilidades, setHabilidades] = useState([]);
@@ -42,7 +42,7 @@ export default function PokemonModal({ pokemonId, onClose, puerto }) {
     axios.get(`http://localhost:9001/pokemon/habilidades?id=${pokemonId}`)
       .then(res => setHabilidades(res.data.filter(Boolean)))
       .catch(err => console.error(err));
-  }, [pokemonId, puerto]);
+  }, [pokemonId]);
 
   if (!pokemon) return null; // Opcional: loader o spinner
 
