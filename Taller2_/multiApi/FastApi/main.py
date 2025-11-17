@@ -3,7 +3,14 @@ from sqlalchemy import create_engine, text
 from collections import defaultdict
 import os
 
-app = FastAPI()
+app = FastAPI(
+    title="API de Recetas Taller 2",
+    description="API para consultar recetas y sus ingredientes desde la base de datos PostgreSQL.",
+    version="1.0.0",
+    contact={
+        "name": "Diego Parga",
+        "email": "diego.parga@alumnos.ucn.cl",
+    })
 
 DB_HOST = os.environ.get("DB_HOST", "localhost")
 DB_NAME = os.environ.get("DB_NAME", "recetas_db")
@@ -18,9 +25,14 @@ engine = create_engine(DATABASE_URL) #para ORM. en este caso no usaré prisma
 def read_root():
     return {"message": "Hola desde FastAPI - API de Recetas"}
 
-@app.get("/meals")
+@app.get("/meals",
+    tags=["Recetas"], # Lo agrupa bajo el tag "Recetas"
+    summary="Obtener todas las recetas con ingredientes detallados.",
+    description="Retorna una lista de todas las comidas disponibles, transformando la estructura relacional de ingredientes (strIngredient1, strMeasure1, etc.) para cada receta.")
 def get_meals():
-    
+    """
+    Retorna todas las comidas agrupando sus ingredientes en el formato solicitado.
+    """
     query = """
         SELECT
             m.meal_id,

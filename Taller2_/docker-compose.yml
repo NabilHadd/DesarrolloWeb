@@ -116,32 +116,37 @@ services:
       db_recetas:
         condition: service_healthy
 
-  # # ExpressApp se encarga de economia
-  # express_app:
-  #   build:
-  #     context: ./multiApi/ExpressApi
-  #   container_name: express_app
-  #   ports:
-  #     - "9001:3000"
-  #   environment:
-  #     DB_HOST: db_pokemon
-  #     DB_NAME: pokemon_db
-  #     DB_USER: dev_user
-  #     DB_PASSWORD: dev_password
-  #   depends_on:
-  #     - db_pokemon 
+  # ExpressApp se encarga de economia
+  express_app:
+    build:
+      context: ./multiApi/ExpressApi
+    container_name: express_app
+    ports:
+      - "9002:3000"
+    environment:
+      DB_HOST: db_economia
+      DB_NAME: economia_db
+      DB_USER: dev_user
+      DB_PASSWORD: dev_password
+      DATABASE_URL: postgresql://dev_user:dev_password@db_economia:5432/economia_db
+    depends_on:
+      db_economia:
+        condition: service_healthy
 
-  # # NestApp se encarga de pokemones
-  # nest_app:
-  #   build:
-  #     context: ./multiApi/nest-api
-  #   container_name: nest_app
-  #   ports:
-  #     - "9002:3001"
-  #   environment:
-  #     DB_HOST: db_economia
-  #     DB_NAME: economia_db
-  #     DB_USER: dev_user
-  #     DB_PASSWORD: dev_password
-  #   depends_on:
-  #     - db_economia 
+  # NestApp se encarga de pokemones
+  nest_app:
+    build:
+      context: ./multiApi/nest-api
+    container_name: nest_app
+    ports:
+      - "9001:3001"
+    environment:
+      DB_HOST: db_pokemon
+      DB_NAME: pokemon_db
+      DB_USER: dev_user
+      DB_PASSWORD: dev_password
+      DATABASE_URL: postgresql://dev_user:dev_password@db_pokemon:5432/pokemon_db
+    depends_on:
+      db_pokemon:
+        condition: service_healthy 
+

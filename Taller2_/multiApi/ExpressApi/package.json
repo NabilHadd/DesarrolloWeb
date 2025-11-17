@@ -4,7 +4,8 @@
   "description": "",
   "main": "main.ts",
   "scripts": {
-  "dev": "ts-node-dev --respawn --transpile-only --project tsconfig.json src/main.ts"
+  "dev": "ts-node-dev --respawn --transpile-only --project tsconfig.json src/main.ts",
+  "build": "tsc"
 },
   "keywords": [],
   "author": "",
