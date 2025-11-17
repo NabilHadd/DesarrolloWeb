@@ -18,6 +18,11 @@ class IndicatorController {
     return res.json(value);
   }
 
+  async getAll(req: Request, res: Response) {
+    const indicators = await indicatorService.getAll();
+    res.json(indicators);
+  }
+
 }
 
 export const indicatorController = new IndicatorController();
