@@ -1,57 +1,26 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ReactComponent as PokemonsIcon } from '../icons/pokemons.svg';
-import { mockPokemons } from '../mocks/data';
-import { getRandomItems } from '../utils/getRandomItems';
 import AnimatedText from './AnimatedText';
 import PokemonModal from './PokemonModal';
 
-export default function PokemonsSection({ isExpanded, onToggle, onCollapse }) {
+export default function PokemonsSection({ isExpanded, onToggle, onCollapse}) {
   const [selectedPokemon, setSelectedPokemon] = useState(null);
-  const destacados = useMemo(() => getRandomItems(mockPokemons, 4), []);
+  const [destacados, setDestacados] = useState([]);
+
 
   useEffect(() => {
-    if (!isExpanded) {
+    if (isExpanded) {
+      // Genera 4 IDs aleatorios entre 1 y 100
+      const randomIds = Array.from({ length: 4 }, () =>
+        Math.floor(Math.random() * 100) + 1
+      );
+      setDestacados(randomIds);
+    } else {
       setSelectedPokemon(null);
     }
   }, [isExpanded]);
 
   const closeModal = () => setSelectedPokemon(null);
-
-  const typeColors = {
-    fuego: 'bg-orange-100 text-orange-700',
-    agua: 'bg-blue-100 text-blue-700',
-    planta: 'bg-emerald-100 text-emerald-700',
-    electrico: 'bg-yellow-100 text-yellow-700',
-    veneno: 'bg-purple-100 text-purple-700',
-    volador: 'bg-indigo-100 text-indigo-700',
-    dragon: 'bg-pink-100 text-pink-700',
-    psiquico: 'bg-fuchsia-100 text-fuchsia-700',
-    hada: 'bg-rose-100 text-rose-700',
-    tierra: 'bg-amber-100 text-amber-700',
-    acero: 'bg-gray-100 text-gray-700',
-    fantasma: 'bg-violet-100 text-violet-700',
-    lucha: 'bg-red-100 text-red-700',
-    roca: 'bg-stone-100 text-stone-700',
-    siniestro: 'bg-slate-200 text-slate-800',
-  };
-
-  const typeLabels = {
-    fuego: 'Fuego',
-    agua: 'Agua',
-    planta: 'Planta',
-    electrico: 'Eléctrico',
-    veneno: 'Veneno',
-    volador: 'Volador',
-    dragon: 'Dragón',
-    psiquico: 'Psíquico',
-    hada: 'Hada',
-    tierra: 'Tierra',
-    acero: 'Acero',
-    fantasma: 'Fantasma',
-    lucha: 'Lucha',
-    roca: 'Roca',
-    siniestro: 'Siniestro',
-  };
 
   return (
     <>
@@ -89,39 +58,23 @@ export default function PokemonsSection({ isExpanded, onToggle, onCollapse }) {
             />
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-              {destacados.map((pokemon, index) => (
+              {destacados.map((id, index) => (
                 <div
-                  key={pokemon.id}
-                  className={`bg-white rounded p-3 cursor-pointer hover:shadow-lg transition-shadow transform hover:scale-105 ${isExpanded ? 'animate-card' : ''}`}
-                  style={isExpanded ? { animationDelay: `${index * 80}ms` } : undefined}
-                  onClick={() => setSelectedPokemon(pokemon)}
+                  key={id}
+                  className={`bg-white rounded p-3 cursor-pointer hover:shadow-lg transition-shadow transform hover:scale-105`}
+                  onClick={() => setSelectedPokemon(id)}
                 >
-                  <img
-                    src={pokemon.imagen}
-                    alt={pokemon.nombre}
-                    className="w-full h-28 object-contain rounded mb-2"
-                  />
+                  <div className="w-full h-28 flex items-center justify-center bg-gray-50 rounded mb-2">
+                    <span className="text-gray-400 text-sm">Pokémon {id}</span>
+                  </div>
                   <AnimatedText
                     as="p"
-                    text={pokemon.nombre}
+                    text={`#${id}`}
                     isActive={isExpanded}
                     className="text-center text-sm font-bold text-slate-800 mb-2"
                     speed={10}
                     delay={index * 40}
                   />
-                  <div className="flex flex-wrap justify-center gap-1">
-                    {pokemon.tipos.map((tipo) => (
-                      <AnimatedText
-                        key={`${pokemon.id}-${tipo}`}
-                        as="span"
-                        text={typeLabels[tipo] || tipo}
-                        isActive={isExpanded}
-                        className={`inline-flex items-center px-2 py-1 rounded text-xs font-bold ${typeColors[tipo] || 'bg-gray-100 text-gray-700'}`}
-                        speed={9}
-                        delay={index * 40}
-                      />
-                    ))}
-                  </div>
                 </div>
               ))}
             </div>
@@ -145,7 +98,7 @@ export default function PokemonsSection({ isExpanded, onToggle, onCollapse }) {
       </section>
 
       {selectedPokemon && (
-        <PokemonModal pokemon={selectedPokemon} onClose={closeModal} />
+        <PokemonModal pokemonId={selectedPokemon} onClose={closeModal} />
       )}
     </>
   );

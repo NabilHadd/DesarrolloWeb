@@ -5,15 +5,16 @@ import axios from "axios";
 
 export default function SectionEconomia({ isExpanded, onToggle }) {
   const [items, setItems] = useState([]);
-  const [selectedItem, setSelectedItem] = useState("");
+  const [selectedItem, setSelectedItem] = useState(null);
   const [selectedDate, setSelectedDate] = useState("");
+  const [item_nombre, setItem_Nombre] =useState("")
   const [valor, setValor] = useState(null);
 
   const formatDate = (isoString) => isoString ? isoString.split("T")[0] : "";
 
   // Traer todos los indicadores al montar el componente
   useEffect(() => {
-    axios.get('http://localhost:PUERTO/indicator')
+    axios.get('http://localhost:9002/indicator')
       .then(res => setItems(res.data))
       .catch(err => console.error(err));
   }, []);
@@ -22,8 +23,11 @@ export default function SectionEconomia({ isExpanded, onToggle }) {
   useEffect(() => {
     if (!selectedItem || !selectedDate) return;
 
-    axios.get(`http://localhost:PUERTO/indicator/${selectedItem}/${selectedDate}`)
+    axios.get(`http://localhost:9002/indicator/${selectedItem}/${selectedDate}`)
       .then(res => setValor(res.data))
+      .catch(err => console.error(err));
+    axios.get(`http://localhost:9002/indicator/${selectedItem}`)
+      .then(res => setItem_Nombre(res.data))
       .catch(err => console.error(err));
   }, [selectedItem, selectedDate]);
 
@@ -50,7 +54,7 @@ export default function SectionEconomia({ isExpanded, onToggle }) {
         <span className="text-xs uppercase tracking-wide text-indigo-700/70 font-semibold">
           Panel interactivo
         </span>
-      </button>
+      </button> 
 
       {/* Contenido expandible */}
       {isExpanded && (
@@ -62,8 +66,8 @@ export default function SectionEconomia({ isExpanded, onToggle }) {
           >
             <option value="">Selecciona un ítem económico</option>
             {items.map((item) => (
-              <option key={item.code} value={item.code}>
-                {item.name}
+              <option key={item} value={item} className="text-gray-800">
+                {item}
               </option>
             ))}
           </select>
@@ -77,19 +81,21 @@ export default function SectionEconomia({ isExpanded, onToggle }) {
             max="2024-12-31"
           />
 
-        </div>
-      )}
-
-      {/* Valor seleccionado */}
+                {/* Valor seleccionado */}
       {valor && (
         <div className="border-t pt-4 mt-4 text-slate-800">
           <p className="font-semibold">
-            Ítem: {valor.name} ({valor.code})
+            Ítem: {item_nombre.name} ({valor.indicator_code})
           </p>
           <p className="font-bold text-xl text-slate-900">Valor: {valor.value}</p>
           <p className="text-sm text-slate-500">Fecha: {formatDate(valor.date)}</p>
         </div>
       )}
+
+        </div>
+      )}
+
+
     </section>
   );
 }

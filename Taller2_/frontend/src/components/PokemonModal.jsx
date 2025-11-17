@@ -1,4 +1,6 @@
+import React, { useEffect, useState } from "react";
 import AnimatedText from './AnimatedText';
+import axios from 'axios';
 
 const typeLabels = {
   fuego: 'Fuego',
@@ -18,7 +20,32 @@ const typeLabels = {
   siniestro: 'Siniestro',
 };
 
-export default function PokemonModal({ pokemon, onClose }) {
+export default function PokemonModal({ pokemonId, onClose, puerto }) {
+  const [pokemon, setPokemon] = useState(null);
+  const [tipos, setTipos] = useState([]);
+  const [habilidades, setHabilidades] = useState([]);
+
+  useEffect(() => {
+    if (!pokemonId) return;
+
+    // Obtener datos básicos
+    axios.get(`http://localhost:9001/pokemon?id=${pokemonId}`)
+      .then(res => setPokemon(res.data))
+      .catch(err => console.error(err));
+
+    // Obtener tipos
+    axios.get(`http://localhost:9001/pokemon/tipos?id=${pokemonId}`)
+      .then(res => setTipos(res.data.filter(Boolean)))
+      .catch(err => console.error(err));
+
+    // Obtener habilidades
+    axios.get(`http://localhost:9001/pokemon/habilidades?id=${pokemonId}`)
+      .then(res => setHabilidades(res.data.filter(Boolean)))
+      .catch(err => console.error(err));
+  }, [pokemonId, puerto]);
+
+  if (!pokemon) return null; // Opcional: loader o spinner
+
   return (
     <div
       className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4 modal-overlay"
@@ -37,33 +64,34 @@ export default function PokemonModal({ pokemon, onClose }) {
 
         <AnimatedText
           as="h2"
-          text={pokemon.nombre}
+          text={pokemon.name}
           isActive
           className="text-3xl font-bold text-center mb-6 underline capitalize"
           speed={12}
         />
 
         <img
-          src={pokemon.imagen}
-          alt={pokemon.nombre}
+          src={pokemon.sprite}
+          alt={pokemon.name}
           className="w-64 mx-auto mb-6 animate-card"
         />
 
         <div className="bg-white rounded-lg p-6 shadow-lg space-y-6">
+          {/* Tipos */}
           <div className="flex flex-wrap gap-3 justify-center">
-            {pokemon.tipos.map((tipo) => (
+            {tipos.map((tipo) => (
               <AnimatedText
-                key={`${pokemon.id}-modal-${tipo}`}
+                key={`tipo-${tipo.id}`}
                 as="span"
-                text={typeLabels[tipo] || tipo}
+                text={typeLabels[tipo.name] || tipo.name}
                 isActive
                 className="px-4 py-1 rounded-full bg-indigo-50 text-indigo-700 font-semibold capitalize"
                 speed={10}
-                delay={pokemon.tipos.indexOf(tipo) * 60}
               />
             ))}
           </div>
 
+          {/* Altura y peso */}
           <div className="grid grid-cols-2 gap-4">
             <div className="text-center">
               <AnimatedText
@@ -75,11 +103,10 @@ export default function PokemonModal({ pokemon, onClose }) {
               />
               <AnimatedText
                 as="p"
-                text={`${pokemon.altura} m`}
+                text={`${pokemon.height ?? 0} m`}
                 isActive
                 className="text-xl font-bold text-blue-600"
                 speed={10}
-                delay={50}
               />
             </div>
             <div className="text-center">
@@ -92,15 +119,15 @@ export default function PokemonModal({ pokemon, onClose }) {
               />
               <AnimatedText
                 as="p"
-                text={`${pokemon.peso} kg`}
+                text={`${pokemon.weight ?? 0} kg`}
                 isActive
                 className="text-xl font-bold text-green-600"
                 speed={10}
-                delay={50}
               />
             </div>
           </div>
 
+          {/* Habilidades */}
           <div>
             <AnimatedText
               as="h3"
@@ -110,54 +137,17 @@ export default function PokemonModal({ pokemon, onClose }) {
               speed={12}
             />
             <ul className="list-disc list-inside bg-purple-50 rounded-lg p-4">
-              {pokemon.habilidades.map((habilidad, index) => (
+              {habilidades.map((hab) => (
                 <AnimatedText
-                  key={`${pokemon.id}-ability-${habilidad}`}
+                  key={`hab-${hab.id}`}
                   as="li"
-                  text={habilidad}
+                  text={`${hab.name} - ${hab.effect}`}
                   isActive
                   className="text-gray-800 font-medium capitalize"
                   speed={10}
-                  delay={index * 40}
                 />
               ))}
             </ul>
-          </div>
-
-          <div>
-            <AnimatedText
-              as="h3"
-              text="Estadísticas"
-              isActive
-              className="text-xl font-bold text-center mb-3 text-blue-600"
-              speed={12}
-            />
-            <div className="space-y-2">
-              {Object.entries(pokemon.estadisticas).map(([stat, value]) => (
-                <div key={stat} className="flex items-center">
-                  <AnimatedText
-                    as="span"
-                    text={`${stat}:`}
-                    isActive
-                    className="w-24 capitalize font-semibold text-gray-700"
-                    speed={10}
-                  />
-                  <div className="flex-1 bg-gray-200 rounded-full h-4 ml-2">
-                    <div
-                      className="bg-gradient-to-r from-blue-500 to-purple-500 h-4 rounded-full transition-all"
-                      style={{ width: `${Math.min((value / 150) * 100, 100)}%` }}
-                    ></div>
-                  </div>
-                  <AnimatedText
-                    as="span"
-                    text={String(value)}
-                    isActive
-                    className="ml-2 font-bold text-gray-800"
-                    speed={10}
-                  />
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </div>
