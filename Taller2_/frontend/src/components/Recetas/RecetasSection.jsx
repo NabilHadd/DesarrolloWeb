@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { ReactComponent as RecetasIcon } from '../icons/recetas.svg';
-//import { mockRecetas } from '../mocks/data';
+import { API_RECETAS } from '../api';
 import { getRandomItems } from '../../utils/getRandomItems';
 import AnimatedText from '../AnimatedText';
 import RecetaModal from './RecetaModal';
@@ -52,7 +52,7 @@ export default function RecetasSection({ isExpanded, onToggle, onCollapse }) {
       setError(null);
       try {
         // Asegúrate de que esta URL coincida con tu servidor FastAPI
-        const response = await fetch('http://localhost:9000/meals'); 
+        const response = await fetch(`${API_RECETAS}/meals`); 
         if (!response.ok) {
           throw new Error('Error al cargar las recetas desde la API.');
         }

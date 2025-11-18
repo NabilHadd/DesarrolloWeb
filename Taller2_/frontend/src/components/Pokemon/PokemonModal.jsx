@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import AnimatedText from '../AnimatedText';
 import Habilidades from './Habilidades'
+import {API_POKEMON} from '../api.js'
 import axios from 'axios';
 
 
