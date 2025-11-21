@@ -6,11 +6,10 @@ async function bootstrap() {
 
   // Habilitar CORS correctamente
 app.enableCors({
-  origin: '*',
-  methods: 'GET,POST,PUT,DELETE,PATCH,OPTIONS',
-  allowedHeaders: 'Content-Type, Authorization',
+  origin: '*'
 });
 
+//revisar esto
   const port = 3001;
   await app.listen(port);
   console.log(`API corriendo en http://localhost:${port} interno`);

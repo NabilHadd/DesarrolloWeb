@@ -52,6 +52,7 @@ export default function RecetasSection({ isExpanded, onToggle, onCollapse }) {
       setError(null);
       try {
         // Asegúrate de que esta URL coincida con tu servidor FastAPI
+        console.log(API_RECETAS)
         const response = await fetch(`${API_RECETAS}/meals`); 
         if (!response.ok) {
           throw new Error('Error al cargar las recetas desde la API.');

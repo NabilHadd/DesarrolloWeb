@@ -1,21 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.cordova.hellocordova"
-        version="1.0.0"
-        xmlns="http://www.w3.org/ns/widgets"
-        xmlns:cdv="http://cordova.apache.org/ns/1.0">
-
-    <name>HelloCordova</name>
-    <description>Sample Apache Cordova App</description>
-
+<widget id="com.miapp.app" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>InfoMovil</name>
+    <description>InfoMovil</description>
     <content src="index.html" />
-
-    <!-- Permitir llamadas HTTP sin HTTPS -->
-    <preference name="AndroidAllowCleartextTraffic" value="true" />
-
-    <!-- Permitir acceso a cualquier origen (importante para APIs locales) -->
     <access origin="*" />
     <allow-navigation href="*" />
     <allow-intent href="*" />
-
     <preference name="loglevel" value="DEBUG" />
 </widget>
