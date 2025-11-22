@@ -1,4 +1,4 @@
-# 📱 Descripción del Taller
+# Descripción del Taller
 
 En este taller se llevó a cabo la creación de una **APK para el cliente de la empresa InfoMovil**, desarrollando una **WebView para Android** que permite a los usuarios acceder al mismo contenido disponible en la página web.
 
