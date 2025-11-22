@@ -89,7 +89,7 @@ Se habilito un script dentro de el frontend para que reemplace los de ejemplo lo
 
 ## APK Incluida en el Repositorio
 
-En el repositorio podrá encontrar la APK (**[AQUÍ]()**).  
+En el repositorio podrá encontrar la APK (**[AQUÍ](./app-debug.apk)**).  
 El problema es que esta APK fue generada a partir del frontend con **endpoints de ejemplo**.
 
 Para poder probar la aplicación de forma adecuada, es necesario **buildear una WebView propia**.  
