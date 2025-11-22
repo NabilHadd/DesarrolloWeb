@@ -14,17 +14,17 @@ export default function PokemonModal({ pokemonId, onClose}) {
     if (!pokemonId) return;
 
     // Obtener datos básicos
-    axios.get(`${API_POKEMON}/pokemon?id=${pokemonId}`)
+    axios.get(`${API_POKEMON}pokemon?id=${pokemonId}`)
       .then(res => setPokemon(res.data))
       .catch(err => console.error(err));
 
     // Obtener tipos
-    axios.get(`${API_POKEMON}/pokemon/tipos?id=${pokemonId}`)
+    axios.get(`${API_POKEMON}pokemon/tipos?id=${pokemonId}`)
       .then(res => setTipos(res.data.filter(Boolean)))
       .catch(err => console.error(err));
 
     // Obtener habilidades
-    axios.get(`${API_POKEMON}/pokemon/habilidades?id=${pokemonId}`)
+    axios.get(`${API_POKEMON}pokemon/habilidades?id=${pokemonId}`)
       .then(res => setHabilidades(res.data.filter(Boolean)))
       .catch(err => console.error(err));
   }, [pokemonId]);

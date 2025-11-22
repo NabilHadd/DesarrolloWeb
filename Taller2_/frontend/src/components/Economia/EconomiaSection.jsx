@@ -16,7 +16,7 @@ export default function SectionEconomia({ isExpanded, onToggle, onCollapse }) {
   // Obtener indicadores al montar
   useEffect(() => {
     axios
-      .get(`${API_ECONOMIA}/indicator`)
+      .get(`${API_ECONOMIA}indicator`)
       .then((res) => setItems(res.data))
       .catch((err) => console.error(err));
   }, []);
@@ -26,12 +26,12 @@ export default function SectionEconomia({ isExpanded, onToggle, onCollapse }) {
     if (!selectedItem || !selectedDate) return;
 
     axios
-      .get(`${API_ECONOMIA}/indicator/${selectedItem}/${selectedDate}`)
+      .get(`${API_ECONOMIA}indicator/${selectedItem}/${selectedDate}`)
       .then((res) => setValor(res.data))
       .catch((err) => console.error(err));
 
     axios
-      .get(`${API_ECONOMIA}/indicator/${selectedItem}`)
+      .get(`${API_ECONOMIA}indicator/${selectedItem}`)
       .then((res) => setItem_Nombre(res.data))
       .catch((err) => console.error(err));
   }, [selectedItem, selectedDate]);
