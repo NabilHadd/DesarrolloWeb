@@ -83,7 +83,7 @@ Cuando ya tenga sus url correspondientes a cada API por ejemplo:
 | POKEMON (NestApi)     | https://bg6nj47p-9001.brs.devtunnels.ms/           |
 | ECONOMIA (ExpressApi) | https://bg6nj47p-9002.brs.devtunnels.ms/           |
 
-Se habilito un script dentro de el frontend para que reemplace los de ejemplo los suyos.
+Se habilito un script dentro de el frontend para que reemplace los de ejemplo por los suyos.
 
 [AQUÍ](./frontend/src/components/api.js)
 
