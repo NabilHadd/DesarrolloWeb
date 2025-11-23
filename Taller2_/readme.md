@@ -10,7 +10,7 @@ Además, el cliente buscaba **mayor control sobre sus datos**, por lo que ahora 
 
 La arquitectura principal del proyecto es la siguiente:
 
-![Arquitectura del Proyecto](./Arq.jpg)
+![Arquitectura del Proyecto](./arqui.jpeg)
 
 
 ## Tecnologías Utilizadas
