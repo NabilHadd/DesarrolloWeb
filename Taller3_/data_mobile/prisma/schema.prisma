@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "windows", "debian-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Administrador {
+  rut_admin   String     @id @db.VarChar(20)
+  nombre      String     @db.VarChar(100)
+  email       String     @db.VarChar(100)
+  contraseña String     @db.VarChar(255)
+  compras     Compra[]
+  logs        LogAdmin[]
+}
+
+model Producto {
+  id_producto    Int               @id @default(autoincrement())
+  nombre         String            @db.VarChar(100)
+  descripcion    String            @db.VarChar(255)
+  precio         Decimal           @db.Decimal(10, 2)
+  stock          Int
+  imagen         Bytes
+  detalleCompras DetalleCompra[]
+  historial      HistorialStock[]
+  reseñas       ReseñaProducto[]
+}
+
+model ReseñaProducto {
+  id_producto Int
+  fecha       DateTime @default(now())
+  valoracion  Int
+  descripcion String?  @db.VarChar(255)
+  producto    Producto @relation(fields: [id_producto], references: [id_producto])
+
+  @@id([id_producto, fecha])
+}
+
+model Compra {
+  id_compra     Int             @id @default(autoincrement())
+  fecha         DateTime        @default(now())
+  total         Decimal         @db.Decimal(10, 2)
+  rut_comprador String
+  rut_admin     String
+  admin         Administrador   @relation(fields: [rut_admin], references: [rut_admin])
+  detalles      DetalleCompra[]
+}
+
+model DetalleCompra {
+  id_compra   Int
+  id_producto Int
+  cantidad    Int
+  subtotal    Decimal @db.Decimal(10, 2)
+
+  compra      Compra   @relation(fields: [id_compra], references: [id_compra])
+  producto    Producto @relation(fields: [id_producto], references: [id_producto])
+
+  @@id([id_compra, id_producto])
+}
+
+model HistorialStock {
+  id_movimiento Int      @id @default(autoincrement())
+  id_producto   Int
+  variacion     Int
+  fecha         DateTime @default(now())
+  descripcion   String   @db.VarChar(255)
+  producto      Producto @relation(fields: [id_producto], references: [id_producto])
+}
+
+model LogAdmin {
+  id_log    Int           @id @default(autoincrement())
+  rut_admin String
+  accion    String        @db.VarChar(255)
+  fecha     DateTime      @default(now())
+  admin     Administrador @relation(fields: [rut_admin], references: [rut_admin])
+}
