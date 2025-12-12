@@ -1,36 +1,28 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# Talleres de desarrollo web/movil.
+En este proyecto se ofrece una página/herramienta que permite ver los productos que están almacenados en una base de datos. Tiene funcionalidades de filtro, detalle para cada producto y 5 gráficos en total:
+En página principal (1) para ver variación en el stock (suma de stocks de productos filtrados) a través del tiempo en un gráfico de líneas, (2) un gráfico de barras con las ventas totales por cada producto post filtro, (3) un gráfico de torta que indica la proporción de cada producto respecto al total de ventas.
+Luego en el detalle de cada producto se puede encontrar un gráfico con su variable puntuación (en estrellas), un gráfico de lineas (4) con el stock de ese único producto individual a través del tiempo, y un gráfico de barras (5) que muestra el numero de unidades por venta del producto.
 
-First, run the development server:
+## Para instalar la aplicación:
+1. Clonar repositorio.
+2. Navegar en IDE hasta Taller3_/data_mobile.
+3. Con la aplicación de docker abierta, ejecutar docker compose up --build en la terminal.
+4. Dirigirse a localhost:3000. Otros puertos no cargarán la información correctamente.
+¡Listo!
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Grupo 11
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Integrantes:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Nabil Haddad 21.427.760-3
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Diego Parga 21.621.105-7
 
-## Learn More
+Vincenzo Porzio 21.369.897-4
 
-To learn more about Next.js, take a look at the following resources:
+https://github.com/NabilHadd/DesarrolloWeb/tree/main/Taller3_/data_mobile
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
