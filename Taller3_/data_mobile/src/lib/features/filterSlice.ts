@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 // 1. Define la interfaz del estado de los filtros (lo que se guardará)
 export interface FilterState {
-  category: string;
+  //category: string;
   minPrice: number;
   sortBy: 'price' | 'name' | 'stock';
   order: 'asc' | 'desc';
@@ -10,7 +10,7 @@ export interface FilterState {
 
 // 2. Define el estado inicial
 const initialState: FilterState = {
-  category: 'all',
+  //category: 'all',
   minPrice: 0,
   sortBy: 'name',
   order: 'asc',

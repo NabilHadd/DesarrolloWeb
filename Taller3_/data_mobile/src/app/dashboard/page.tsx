@@ -6,9 +6,13 @@ import React, {useEffect, useState} from "react";
 import axios  from "axios";
 import { Product } from '@/modules/products';
 import { Admin } from '@/modules/admin';
+import { useAppSelector } from '@/lib/hooks'; 
 
 export default function DashboardPage() {
   
+
+  const filters = useAppSelector((state) => state.filters); 
+
   const [admin, setAdmin] = useState<Admin[] | null>(null);
   const [error, setError] = useState();
   const [products, setProducts] = useState<Product[]>();
@@ -18,7 +22,6 @@ export default function DashboardPage() {
     axios.get(`http://localhost:3001/api/admin`)
     .then(res => {
       setAdmin(res.data);
-      console.log(JSON.stringify(res));
     })
     .catch(err => {
       setError(err.error);
@@ -29,12 +32,26 @@ export default function DashboardPage() {
     axios.get(`http://localhost:3001/api/products`)
     .then(res => {
       setProducts(res.data);
-      console.log(JSON.stringify(res));
     })
     .catch(err => {
       setError(err.error);
     });
   }, [])
+
+
+  useEffect(() => {
+
+        const queryParams = new URLSearchParams(filters as Record<string, any>).toString();
+        
+        axios.get(`http://localhost:3001/api/products?${queryParams}`)
+        .then(res => {
+            setProducts(res.data);
+            console.log("Productos cargados/refrescados con filtros:", filters);
+        })
+        .catch((err: any) => { 
+            setError(err.response?.data?.message || err.message);
+        });
+    }, [filters]) 
 
 
 

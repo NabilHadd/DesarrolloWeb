@@ -7,4 +7,7 @@ export interface Product {
     precio: number;
     stock: number;
     imagen: Bytes;
+    reseñas?: any[];
+    detalleCompras?: any[]
+    historial?: any[];
 }
