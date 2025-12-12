@@ -19,23 +19,6 @@ export default function FilterPanel() {
     <div className="bg-white p-4 rounded-lg shadow-md border border-gray-100">
       <h2 className="text-lg font-bold mb-4 text-gray-800">Filtros Dinámicos</h2>
 
-      {/* 1. Filtro de Categoría
-      <div className="mb-4">
-        <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">
-          Categoría:
-        </label>
-        <select
-          id="category"
-          value={filters.category}
-          // cambia estado global
-          onChange={(e) => handleUpdateFilter('category', e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-        >
-          <option value="all">Todas</option>
-          <option value="electronica">Electrónica</option>
-          <option value="accesorios">Accesorios</option>
-        </select>
-      </div> */}
 
       {/* 2. Filtro de Precio Mínimo */}
       <div className="mb-4">
@@ -90,9 +73,6 @@ export default function FilterPanel() {
         </select>
       </div>
       
-      <p className="text-xs text-green-500 mt-4">
-        ¡Estado de filtros globalmente persistente vía Redux!
-      </p>
     </div>
   );
 }

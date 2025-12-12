@@ -66,7 +66,7 @@ export default function StockHistoryChart({ historial, productName, currentStock
     // ... (El resto del componente de Recharts se mantiene igual) ...
     <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
       <h3 className="text-xl font-semibold mb-2">Historial de Stock: {productName}</h3>
-      <ResponsiveContainer width="100%" height={300}>
+      <ResponsiveContainer width="100%" height={400}>
         <LineChart
           data={chartData}
           // ...

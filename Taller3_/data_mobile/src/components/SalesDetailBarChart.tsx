@@ -29,7 +29,7 @@ export default function SalesDetailBarChart({ sales, productName }: SalesDetailB
   return (
     <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
         <h3 className="text-xl font-semibold mb-2">Unidades Vendidas por Compra</h3>
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer width="100%" height={400}>
             <BarChart
                 data={chartData}
                 margin={{ top: 5, right: 30, left: 20, bottom: 5 }}

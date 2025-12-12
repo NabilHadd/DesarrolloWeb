@@ -65,7 +65,7 @@ export default function DashboardPage() {
       <header className="mb-6">
         <h1 className="text-3xl font-extrabold text-gray-900">Dashboard de Productos </h1>
         <p className="text-gray-500">Visualización de registros y métricas de e-commerce.</p>
-        <p className="bg-green-400 flex justify-center m-4">{admin?.[0].nombre}</p>
+        {/* <p className="bg-green-400 flex justify-center m-4">{admin?.[0].nombre}</p> */}  
       </header>
       
       {products && <MetricsContainer products={products} />}

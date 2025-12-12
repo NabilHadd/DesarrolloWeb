@@ -18,7 +18,7 @@ export default function CurrentStockBarChart({ data }: CurrentStockBarChartProps
     if (chartData.length === 0) return <div className="text-center text-gray-500 py-8">No hay productos para mostrar.</div>;
 
   return (
-    <ResponsiveContainer width="100%" height={300}>
+    <ResponsiveContainer width="100%" height={400}>
       <BarChart
         data={chartData}
         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
