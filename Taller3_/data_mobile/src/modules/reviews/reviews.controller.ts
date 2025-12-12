@@ -15,7 +15,7 @@ export const reviewController = {
       valoracion: data.valoracion,
       descripcion: data.descripcion,
       producto: {
-        connect: { id_producto: data.id_producto }, // ✅ conectar con el producto
+        connect: { id_producto: data.id_producto }, 
       },
     });
   },
