@@ -1,36 +1,19 @@
-'use client'; // debe ser un componente de cliente para manejar input y estado
+'use client'; 
 
 import React from 'react';
-
-// Tipos para el estado de los filtros (manejado por Redux)
-interface Filters {
-  category: string;
-  minPrice: number;
-  sortBy: 'price' | 'name' | 'stock';
-  order: 'asc' | 'desc';
-}
-
-// Hook de simulación para manejar el estado localmente,
-// hasta conectar a redux
-const useSimulatedReduxFilters = () => {
-  const [filters, setFilters] = React.useState<Filters>({
-    category: 'all',
-    minPrice: 0,
-    sortBy: 'name',
-    order: 'asc',
-  });
-
-  const updateFilter = (key: keyof Filters, value: string | number) => {
-    setFilters(prev => ({ ...prev, [key]: value }));
-    console.log(`Filtro actualizado: ${key} = ${value}`);
-    // aqui se va a disparar dipsatch de redux
-  };
-
-  return { filters, updateFilter };
-};
+import { useAppDispatch, useAppSelector } from '@/lib/hooks';
+import { setFilter, FilterState } from '@/lib/features/filterSlice'; 
 
 export default function FilterPanel() {
-  const { filters, updateFilter } = useSimulatedReduxFilters();
+  // lee estado de filtros desde Redux
+  const filters = useAppSelector((state) => state.filters);
+  // cambia estado de filtros en Redux
+  const dispatch = useAppDispatch();
+
+  //dispara la acción de Redux
+  const handleUpdateFilter = (key: keyof FilterState, value: string | number) => {
+    dispatch(setFilter({ key, value }));
+  };
 
   return (
     <div className="bg-white p-4 rounded-lg shadow-md border border-gray-100">
@@ -44,7 +27,8 @@ export default function FilterPanel() {
         <select
           id="category"
           value={filters.category}
-          onChange={(e) => updateFilter('category', e.target.value)}
+          // cambia estado global
+          onChange={(e) => handleUpdateFilter('category', e.target.value)}
           className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
         >
           <option value="all">Todas</option>
@@ -62,7 +46,8 @@ export default function FilterPanel() {
           id="minPrice"
           type="number"
           value={filters.minPrice}
-          onChange={(e) => updateFilter('minPrice', Number(e.target.value))}
+          // 3. Usa handleUpdateFilter para cambiar el estado global
+          onChange={(e) => handleUpdateFilter('minPrice', Number(e.target.value))}
           className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
           placeholder="Ej: 50000"
         />
@@ -78,7 +63,8 @@ export default function FilterPanel() {
         <select
           id="sortBy"
           value={filters.sortBy}
-          onChange={(e) => updateFilter('sortBy', e.target.value as 'price' | 'name' | 'stock')}
+          // 3. Usa handleUpdateFilter para cambiar el estado global
+          onChange={(e) => handleUpdateFilter('sortBy', e.target.value)}
           className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
         >
           <option value="name">Nombre</option>
@@ -95,14 +81,18 @@ export default function FilterPanel() {
         <select
           id="order"
           value={filters.order}
-          onChange={(e) => updateFilter('order', e.target.value as 'asc' | 'desc')}
+          // 3. Usa handleUpdateFilter para cambiar el estado global
+          onChange={(e) => handleUpdateFilter('order', e.target.value)}
           className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
         >
-          <option value="asc">Ascendente (A-Z, Menor a Mayor)</option>
-          <option value="desc">Descendente (Z-A, Mayor a Menor)</option>
+          <option value="asc">Ascendente</option>
+          <option value="desc">Descendente</option>
         </select>
       </div>
       
+      <p className="text-xs text-green-500 mt-4">
+        ¡Estado de filtros globalmente persistente vía Redux!
+      </p>
     </div>
   );
 }
