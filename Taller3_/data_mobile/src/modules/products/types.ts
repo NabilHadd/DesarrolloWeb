@@ -11,3 +11,9 @@ export interface Product {
     detalleCompras?: any[]
     historial?: any[];
 }
+
+export interface HistorialStockItem {
+    fecha: string; // O Date
+    variacion: number;
+    descripcion: string;
+}
