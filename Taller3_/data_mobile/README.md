@@ -11,12 +11,13 @@ Luego en el detalle de cada producto se puede encontrar un gráfico con su varia
 4. Dirigirse a localhost:3000. Otros puertos no cargarán la información correctamente.
 
 ### Paso a paso:
+Considerando que tiene docker abierto...
 
+```cmd
 git clone https://github.com/NabilHadd/DesarrolloWeb
 cd .\DesarrolloWeb\Taller3_\data_mobile\
-npm install 
-
-
+docker-compose up --build
+```
 
 ¡Listo!
 
