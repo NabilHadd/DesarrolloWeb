@@ -8,6 +8,7 @@ import { ProductMetrics } from "@/modules/products/types";
 import StockLineChart from './StockLineChart'; 
 import SalesPieChart from './SalesPieChart';
 import CurrentStockBarChart from './CurrentStockBarChart';
+import RevenueBarChart from './RevenueBarChart';
 
 interface MetricsContainerProps {
     products: Product[]; // productos ya filtrados
@@ -17,6 +18,7 @@ interface MetricsContainerProps {
 const initialMetrics: ProductMetrics = {
     stockHistory: [], // Gráfico 1
     salesByProduct: [], // Gráfico 2
+    revenueByProduct: [], // Gráfico 4
 };
 
 export default function MetricsContainer({ products }: MetricsContainerProps) {
@@ -55,7 +57,7 @@ export default function MetricsContainer({ products }: MetricsContainerProps) {
 
     return (
         <div className="space-y-6">
-            <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
                 
                 {/* grafico de lineas de variación de stock histórica (cambio) */}
                 <div className="bg-white p-4 rounded-lg shadow-md border border-gray-100 col-span-full xl:col-span-1">
@@ -86,6 +88,15 @@ export default function MetricsContainer({ products }: MetricsContainerProps) {
                         <p className="text-center text-gray-500 py-8">No hay productos disponibles con los filtros actuales.</p>
                     )}
                 </div>
+                {/* histograma de recaudación total por producto */}
+                <div className="bg-white p-4 rounded-lg shadow-md border border-gray-100">
+                <h3 className="text-lg font-semibold mb-4 text-gray-800">Recaudación Total por Producto (CLP)</h3>
+                {metrics.revenueByProduct && metrics.revenueByProduct.length > 0 ? (
+                    <RevenueBarChart data={metrics.revenueByProduct} />
+                ) : (
+                    <p className="text-center text-gray-500 py-8">No hay datos de recaudación disponibles.</p>
+                )}
+            </div>
             </div>
         </div>
     );

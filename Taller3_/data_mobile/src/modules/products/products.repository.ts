@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
-import { StockHistoryItem, SalesMetricsItem } from "./types";
+import { StockHistoryItem, SalesMetricsItem, RevenueMetricsItem } from "./types";
+
 
 export const productRepository = {
   
@@ -123,5 +124,31 @@ export const productRepository = {
           total_sales_quantity: item._sum.cantidad || 0,
       }));
   },
+  // ganancia por producto (barras)
+  async getTotalRevenueByProduct(productIds: number[]): Promise<RevenueMetricsItem[]> {
+    const revenueData = await prisma.detalleCompra.groupBy({
+        by: ['id_producto'],
+        _sum: {
+            subtotal: true, // sumar el campo subtotal (que es tipo Decimal)
+        },
+        where: {
+            id_producto: { in: productIds },
+        },
+    });
+
+    // sacarle los nombres
+    const productNames = await prisma.producto.findMany({
+        where: { id_producto: { in: productIds } },
+        select: { id_producto: true, nombre: true },
+    });
+    const nameMap = new Map(productNames.map(p => [p.id_producto, p.nombre]));
+
+    // dec a number
+    return revenueData.map(item => ({
+        id_product: item.id_producto,
+        nombre: nameMap.get(item.id_producto) || 'Producto Desconocido',
+        total_revenue: Number(item._sum.subtotal) || 0, 
+    }));
+}
 
 };

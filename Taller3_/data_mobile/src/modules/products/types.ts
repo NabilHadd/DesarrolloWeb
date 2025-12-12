@@ -33,4 +33,11 @@ export interface SalesMetricsItem {
 export interface ProductMetrics {
     stockHistory: StockHistoryItem[];
     salesByProduct: SalesMetricsItem[];
+    revenueByProduct: RevenueMetricsItem[];
+}
+
+export interface RevenueMetricsItem {
+    id_product: number;
+    nombre: string;
+    total_revenue: number; 
 }

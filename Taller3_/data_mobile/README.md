@@ -1,8 +1,8 @@
 
 # Talleres de desarrollo web/movil.
 En este proyecto se ofrece una página/herramienta que permite ver los productos que están almacenados en una base de datos. Tiene funcionalidades de filtro, detalle para cada producto y 5 gráficos en total:
-En página principal (1) para ver variación en el stock (suma de stocks de productos filtrados) a través del tiempo en un gráfico de líneas, (2) un gráfico de barras con las ventas totales por cada producto post filtro, (3) un gráfico de torta que indica la proporción de cada producto respecto al total de ventas.
-Luego en el detalle de cada producto se puede encontrar un gráfico con su variable puntuación (en estrellas), un gráfico de lineas (4) con el stock de ese único producto individual a través del tiempo, y un gráfico de barras (5) que muestra el numero de unidades por venta del producto.
+En página principal (1) para ver variación en el stock a través del tiempo en un gráfico de líneas, (2) un gráfico de barras comparando el stock por cada producto, (3) un gráfico de torta que indica la proporción de cada producto respecto al total de ventas y (4) un gráfico de barras que muestra en comparación el dinero que ha recaudado cada producto en ventas. Todos toman en cuenta los productos filtrados.
+Luego en el detalle de cada producto se puede encontrar un gráfico con su variable puntuación (en estrellas), un gráfico de lineas (5) con el stock de ese único producto individual a través del tiempo, y un gráfico de barras (6) que muestra el numero de unidades por venta del producto.
 
 ## Para instalar la aplicación:
 1. Clonar repositorio.

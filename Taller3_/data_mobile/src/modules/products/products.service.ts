@@ -45,15 +45,24 @@ export const productService = {
     const productIds = await productRepository.getFilteredProductIds(minPrice);
     
     if (productIds.length === 0) {
-      return { stockHistory: [], salesByProduct: [] };
+      return { 
+          stockHistory: [], 
+          salesByProduct: [],
+          revenueByProduct: [], // NUEVO
+      };
     }
 
     // Ejecutar ambas consultas de métricas en paralelo
-    const [stockHistory, salesByProduct] = await Promise.all([
+    const [
+        stockHistory, 
+        salesByProduct, 
+        revenueByProduct // NUEVA VARIABLE
+    ] = await Promise.all([
       productRepository.getGlobalStockHistory(productIds),
       productRepository.getSalesQuantityByProduct(productIds),
+      productRepository.getTotalRevenueByProduct(productIds), // Llamada para Recaudación
     ]);
-    return { stockHistory, salesByProduct };
+    return { stockHistory, salesByProduct, revenueByProduct };
   },
 
 };
