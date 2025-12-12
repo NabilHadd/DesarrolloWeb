@@ -1,43 +1,30 @@
-import { productRepository } from "./reviews.repository";
+import { reviewRepository } from "./reviews.repository";
 import { Prisma } from "@prisma/client";
 
-export const productService = {
-  async getProducts(filters?: { minPrice?: number; sortBy?: 'price' | 'name' | 'stock'; order?: 'asc' | 'desc' }) {
-    const products =  await productRepository.findAll(filters);
-    if(!products) throw new Error("");
-    return products;
-    
+export const reviewService = {
+  async getReviewsByProduct(id_producto: number) {
+    return await reviewRepository.findManyByProduct(id_producto);
   },
 
-
-  async getProductById(id_producto: number) {
-    const product = await productRepository.findById(id_producto);
-    if (!product) throw new Error("No se encontró el producto");
-    return product;
-  },
-  async createProduct(data: Prisma.ProductoCreateInput) {
-    // Aquí podrías validar campos, precio > 0, stock >= 0, etc.
-    return await productRepository.createProduct(data);
+  async getReview(id_producto: number, fecha: Date) {
+    const review = await reviewRepository.findById(id_producto, fecha);
+    if (!review) throw new Error("Reseña no encontrada");
+    return review;
   },
 
-  // Actualizar producto
-  async updateProduct(id_producto: number, data: Prisma.ProductoUpdateInput) {
-    // Verificar si existe antes de actualizar
-    const existing = await productRepository.findById(id_producto);
-    if (!existing) throw new Error(`Producto con ID ${id_producto} no existe`);
-    return await productRepository.updateProduct(id_producto, data);
+  async createReview(data: Prisma.ReseñaProductoCreateInput) {
+    return await reviewRepository.create(data);
   },
 
-  // Eliminar producto
-  async deleteProduct(id_producto: number) {
-    // Verificar si existe antes de eliminar
-    const existing = await productRepository.findById(id_producto);
-    if (!existing) throw new Error(`Producto con ID ${id_producto} no existe`);
-    return await productRepository.deleteProduct(id_producto);
+  async updateReview(id_producto: number, fecha: Date, data: Prisma.ReseñaProductoUpdateInput) {
+    const existing = await reviewRepository.findById(id_producto, fecha);
+    if (!existing) throw new Error("Reseña no encontrada");
+    return await reviewRepository.update(id_producto, fecha, data);
   },
 
-  // Opcional: obtener todos los productos
-  async getAll(filters?: { minPrice?: number; sortBy?: 'price' | 'name' | 'stock'; order?: 'asc' | 'desc' }) {
-    return await productRepository.findAll(filters);
+  async deleteReview(id_producto: number, fecha: Date) {
+    const existing = await reviewRepository.findById(id_producto, fecha);
+    if (!existing) throw new Error("Reseña no encontrada");
+    return await reviewRepository.delete(id_producto, fecha);
   },
 };

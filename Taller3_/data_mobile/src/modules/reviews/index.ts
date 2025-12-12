@@ -1,4 +1,4 @@
-export  { productService } from "./reviews.service";
-export { productRepository } from "./reviews.repository";
-export { productController } from "./reviews.controller";
-export type { Product } from "./types";
+export  { reviewService } from "./reviews.service";
+export { reviewRepository } from "./reviews.repository";
+export { reviewController } from "./reviews.controller";
+export type { Review } from "./types";

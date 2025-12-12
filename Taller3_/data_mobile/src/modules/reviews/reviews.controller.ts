@@ -1,13 +1,30 @@
-// productController.ts
-import { productService } from "./reviews.service";
+import { reviewService } from "./reviews.service";
 
-export const productController = {
-  async getProducts(filters?: { minPrice?: number; sortBy?: 'price' | 'name' | 'stock'; order?: 'asc' | 'desc' }) {
-    const data = await productService.getProducts(filters);
-    return data;
+export const reviewController = {
+  async getReviewsByProduct(id_producto: number) {
+    return await reviewService.getReviewsByProduct(id_producto);
   },
-  async getProductById(id: number){
-    const data = await productService.getProductById(id);
-    return data;
-  }
+
+  async getReview(id_producto: number, fecha: Date) {
+    return await reviewService.getReview(id_producto, fecha);
+  },
+
+  async createReview(data: { id_producto: number; valoracion: number; descripcion?: string }) {
+    return await reviewService.createReview({
+      fecha: new Date(),
+      valoracion: data.valoracion,
+      descripcion: data.descripcion,
+      producto: {
+        connect: { id_producto: data.id_producto }, // ✅ conectar con el producto
+      },
+    });
+  },
+
+  async updateReview(id_producto: number, fecha: Date, data: { valoracion?: number; descripcion?: string }) {
+    return await reviewService.updateReview(id_producto, fecha, data);
+  },
+
+  async deleteReview(id_producto: number, fecha: Date) {
+    return await reviewService.deleteReview(id_producto, fecha);
+  },
 };
