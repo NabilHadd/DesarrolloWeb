@@ -1,4 +1,4 @@
-import { adminController } from "@/modules/admin/admin.controller";
+import { adminController } from "@/modules/admin";
 
 // GET /api/admin
 export async function GET() {

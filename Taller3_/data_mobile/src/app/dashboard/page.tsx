@@ -4,12 +4,15 @@ import ProductTable from '@/components/ProductTable';
 import Image from "next/image";
 import React, {useEffect, useState} from "react";
 import axios  from "axios";
-import {Admin} from "src/modules/admin/types"
+import { Product } from '@/modules/products';
+import { Admin } from '@/modules/admin';
 
 export default function DashboardPage() {
   
   const [admin, setAdmin] = useState<Admin[] | null>(null);
   const [error, setError] = useState();
+  const [products, setProducts] = useState<Product[]>();
+  
 
   useEffect(() => {
     axios.get(`http://localhost:3001/api/admin`)
@@ -22,7 +25,23 @@ export default function DashboardPage() {
     });
   }, [])
 
+  useEffect(() => {
+    axios.get(`http://localhost:3001/api/products`)
+    .then(res => {
+      setProducts(res.data);
+      console.log(JSON.stringify(res));
+    })
+    .catch(err => {
+      setError(err.error);
+    });
+  }, [])
 
+
+
+  if(!products) return
+
+  if(error) return
+  
   return (
     <div className="p-4 sm:p-6 md:p-8 bg-gray-50 min-h-screen">
       <header className="mb-6">
@@ -39,7 +58,7 @@ export default function DashboardPage() {
         </aside>
 
         <section className="md:col-span-3">
-          <ProductTable /> {/* Lista de productos (con LinkToDetail) */}
+          <ProductTable products={products}/> {/* Lista de productos (con LinkToDetail) */}
         </section>
       </main>
     </div>

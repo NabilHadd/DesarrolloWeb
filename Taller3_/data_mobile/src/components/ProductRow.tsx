@@ -1,12 +1,5 @@
 import LinkToDetail from './LinkToDetail';
-
-interface Product {
-  id: string;
-  name: string;
-  category: string;
-  price: number;
-  stock: number;
-}
+import { Product } from '@/modules/products';
 
 interface ProductRowProps {
   product: Product;
@@ -16,13 +9,12 @@ export default function ProductRow({ product }: ProductRowProps) {
   const formattedPrice = new Intl.NumberFormat('es-CL', { 
     style: 'currency', 
     currency: 'CLP' 
-  }).format(product.price);
+  }).format(product.precio);
   return (
-    <LinkToDetail itemId={product.id}>
+    <LinkToDetail itemId={product.id_product}>
       <div className="flex justify-between items-center">
         <div className="flex flex-col">
-          <h3 className="text-lg font-semibold text-gray-800">{product.name}</h3>
-          <p className="text-sm text-gray-500">{product.category}</p>
+          <h3 className="text-lg font-semibold text-gray-800">{product.nombre}</h3>
         </div>
         <div className="text-right">
           <p className="font-bold text-green-600">{formattedPrice}</p>
