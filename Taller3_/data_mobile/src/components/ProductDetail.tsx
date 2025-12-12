@@ -1,10 +1,11 @@
-import GraphContainer from './GraphContainer';
+import StockHistoryChart from './StockHistoryChart'; 
+import SalesDetailBarChart from './SalesDetailBarChart';
 import ProductReview from './ProductReviewSummary';
 import { Product } from '@/modules/products';
 
 
 export default function ProductDetail(props: {product: Product}) {
-  // Nota: Aquí se haría el fetch a la API: /api/products/[id]
+  // Nota: Aqui fetch a la API: /api/products/[id]
   const product = props.product;
   const formattedPrice = new Intl.NumberFormat('es-CL', { 
     style: 'currency', 
@@ -29,17 +30,24 @@ export default function ProductDetail(props: {product: Product}) {
 
   return (
     <div className="space-y-8">
-      <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
-        <h2 className="text-3xl font-bold text-gray-900 mb-2">{product.nombre}</h2>
-        <p className="text-lg text-blue-600 mb-4 font-mono">{formattedPrice}</p>
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-600">
-          <p><strong>Última Actualización:</strong> {fechaReciente}</p>
-        </div>
-      </div>
+      {/* ... (Tarjeta de información del producto) ... */}
 
-      {/* 3. Sección de Gráficos (Requisito: Gráficos interactivos) */}
-      <GraphContainer productId={''} />
+      {/* 3. Sección de Gráficos de Detalle */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        
+        {/* Gráfico 1: Historial de Stock */}
+        <StockHistoryChart 
+          historial={product.historial || []} 
+          productName={product.nombre} 
+          currentStock={product.stock} // <-- ¡IMPORTANTE! Pasamos el stock actual (40)
+        />
+
+        {/* Gráfico 2: Ventas por Compra */}
+        <SalesDetailBarChart 
+          sales={product.detalleCompras || []} 
+          productName={product.nombre} 
+        />
+      </div>
 
       {/* 4. Resumen de Reseñas */}
       <ProductReview rating={promedio} count={totalReseñas} />
