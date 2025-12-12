@@ -1,7 +1,6 @@
-import Image from "next/image";
+
+import { redirect } from 'next/navigation';
 
 export default function Home() {
-  return (
-    <p className="bg-green-400 flex justify-center m-4">hello</p>
-  );
+  redirect('/dashboard');
 }
