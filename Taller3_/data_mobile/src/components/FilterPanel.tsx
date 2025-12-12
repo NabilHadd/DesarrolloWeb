@@ -29,7 +29,7 @@ export default function FilterPanel() {
           id="minPrice"
           type="number"
           value={filters.minPrice}
-          // 3. Usa handleUpdateFilter para cambiar el estado global
+          // handleUpdateFilter para cambiar estado global
           onChange={(e) => handleUpdateFilter('minPrice', Number(e.target.value))}
           className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
           placeholder="Ej: 50000"
@@ -46,7 +46,6 @@ export default function FilterPanel() {
         <select
           id="sortBy"
           value={filters.sortBy}
-          // 3. Usa handleUpdateFilter para cambiar el estado global
           onChange={(e) => handleUpdateFilter('sortBy', e.target.value)}
           className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
         >
@@ -64,7 +63,6 @@ export default function FilterPanel() {
         <select
           id="order"
           value={filters.order}
-          // 3. Usa handleUpdateFilter para cambiar el estado global
           onChange={(e) => handleUpdateFilter('order', e.target.value)}
           className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
         >

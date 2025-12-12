@@ -2,12 +2,12 @@
 import React, { useMemo } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Product } from '@/modules/products'; 
-import { HistorialStockItem } from '@/modules/products/types'; // Asumimos que tienes el tipo HistorialStockItem
+import { HistorialStockItem } from '@/modules/products/types'; 
 
 interface StockHistoryChartProps {
   historial: Product['historial']; 
   productName: string;
-  currentStock: number; // <-- NUEVA PROP
+  currentStock: number; 
 }
 
 interface ChartDataItem {
@@ -21,21 +21,20 @@ export default function StockHistoryChart({ historial, productName, currentStock
   const chartData: ChartDataItem[] = useMemo(() => {
     if (!historial || historial.length === 0) return [];
     
-    // 1. Ordenamos el historial de forma ascendente (más antiguo primero)
+    // más antiguo primero
     const sortedHistorial = [...historial].sort(
         (a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime()
     );
 
-    // 2. Calculamos la variación total neta
+    // variación total neta
     const totalNetChange = sortedHistorial.reduce((sum, item) => sum + item.variacion, 0);
 
-    // 3. Calculamos el stock inicial antes del primer movimiento
-    // Stock Inicial = Stock Actual - Variación Total
+    // stock inicial antes del primer movimiento
     let currentAccumulatedStock = currentStock - totalNetChange; 
     
-    // 4. Mapeamos y acumulamos el stock a lo largo del tiempo
+    // mapeo y acumulación de stock en el tiempo
     const dataWithInitial: ChartDataItem[] = [{
-        fecha: "Inicio", // Punto de referencia antes del primer movimiento
+        fecha: "Inicio", 
         stock_acumulado: currentAccumulatedStock,
         variacion: 0,
     }];
@@ -51,9 +50,9 @@ export default function StockHistoryChart({ historial, productName, currentStock
     
     return dataWithInitial;
     
-  }, [historial, currentStock]); // Dependencia del historial y stock actual
+  }, [historial, currentStock]); 
 
-  if (chartData.length <= 1) { // Solo tendrá "Inicio" si no hay historial real
+  if (chartData.length <= 1) { // Solo tendrá inicio si no hay historial real
     return (
       <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200 text-center text-gray-500">
         <h3 className="text-xl font-semibold mb-2">Historial de Stock</h3>
@@ -63,17 +62,15 @@ export default function StockHistoryChart({ historial, productName, currentStock
   }
 
   return (
-    // ... (El resto del componente de Recharts se mantiene igual) ...
     <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
       <h3 className="text-xl font-semibold mb-2">Historial de Stock: {productName}</h3>
       <ResponsiveContainer width="100%" height={400}>
         <LineChart
           data={chartData}
-          // ...
         >
           {/* ... (CartesianGrid, XAxis, YAxis) ... */}
           <XAxis dataKey="fecha" stroke="#6b7280" />
-          <YAxis stroke="#6b7280" />
+          <YAxis stroke="#6b7280"  domain={[0, 'auto']} />
           <Tooltip 
              formatter={(value: number, name: string, props) => {
                 if (name === 'Stock Acumulado') {

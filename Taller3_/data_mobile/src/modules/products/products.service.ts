@@ -19,7 +19,6 @@ export const productService = {
   },
 
     async createProduct(data: Prisma.ProductoCreateInput) {
-    // Aquí podrías validar campos, precio > 0, stock >= 0, etc.
     return await productRepository.createProduct(data);
   },
 

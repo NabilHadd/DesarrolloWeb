@@ -10,7 +10,7 @@ import SalesPieChart from './SalesPieChart';
 import CurrentStockBarChart from './CurrentStockBarChart';
 
 interface MetricsContainerProps {
-    products: Product[]; // Productos ya filtrados por el DashboardPage
+    products: Product[]; // productos ya filtrados
 }
 
 // estructura de métricas mínima para evitar errores
@@ -32,7 +32,7 @@ export default function MetricsContainer({ products }: MetricsContainerProps) {
         
         const queryParams = new URLSearchParams(filters as Record<string, any>).toString();
 
-        // 1. Fetch para Gráficos 1 y 2 (Stock Histórico y Ventas Totales)
+        // fetch para stock histórico y ventas totales)
         axios.get(`http://localhost:3000/api/products/metrics?${queryParams}`)
             .then(res => {
                 setMetrics(res.data);
@@ -57,9 +57,9 @@ export default function MetricsContainer({ products }: MetricsContainerProps) {
         <div className="space-y-6">
             <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
                 
-                {/* 1. GRÁFICO DE LÍNEAS (Variación de Stock Histórica) */}
+                {/* grafico de lineas de variación de stock histórica (cambio) */}
                 <div className="bg-white p-4 rounded-lg shadow-md border border-gray-100 col-span-full xl:col-span-1">
-                    <h3 className="text-lg font-semibold mb-4 text-gray-800">Variación de Stock Histórica (Global Filtrada)</h3>
+                    <h3 className="text-lg font-semibold mb-4 text-gray-800">Variación de Stock Histórica</h3>
                     {metrics.stockHistory && metrics.stockHistory.length > 0 ? (
                         <StockLineChart data={metrics.stockHistory} />
                     ) : (
@@ -67,7 +67,7 @@ export default function MetricsContainer({ products }: MetricsContainerProps) {
                     )}
                 </div>
 
-                {/* 2. GRÁFICO DE TORTA (Ventas Totales por Producto) */}
+                {/* torta de proporción de ventas totales por producto) */}
                 <div className="bg-white p-4 rounded-lg shadow-md border border-gray-100">
                     <h3 className="text-lg font-semibold mb-4 text-gray-800">Distribución de Ventas por Producto</h3>
                     {metrics.salesByProduct && metrics.salesByProduct.length > 0 ? (
@@ -77,9 +77,9 @@ export default function MetricsContainer({ products }: MetricsContainerProps) {
                     )}
                 </div>
                 
-                {/* 3. HISTOGRAMA/BARRAS (Stock Actual por Producto) */}
+                {/* histograma stock actual por producto) */}
                 <div className="bg-white p-4 rounded-lg shadow-md border border-gray-100">
-                    <h3 className="text-lg font-semibold mb-4 text-gray-800">Stock Actual por Producto (Filtrado)</h3>
+                    <h3 className="text-lg font-semibold mb-4 text-gray-800">Stock Actual por Producto</h3>
                     {products.length > 0 ? (
                         <CurrentStockBarChart data={products} />
                     ) : (

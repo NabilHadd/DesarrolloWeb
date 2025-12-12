@@ -10,11 +10,11 @@ interface SalesDetailBarChartProps {
 
 export default function SalesDetailBarChart({ sales, productName }: SalesDetailBarChartProps) {
 
-    // Formatear datos para el gráfico: Usamos id_compra como eje X
+    // id_compra como eje X
     const chartData = sales?.map(item => ({
         id_compra: `#${item.id_compra}`,
         cantidad: item.cantidad,
-        subtotal: Number(item.subtotal), // Convertir Decimal (String) a Number
+        subtotal: Number(item.subtotal), 
     }));
 
     if (!chartData || chartData.length === 0) {
@@ -61,7 +61,7 @@ export default function SalesDetailBarChart({ sales, productName }: SalesDetailB
                 />
                 <Bar 
                     dataKey="cantidad" 
-                    fill="#F59E0B" // Color ámbar
+                    fill="#F59E0B" 
                     name="Cantidad"
                 />
             </BarChart>

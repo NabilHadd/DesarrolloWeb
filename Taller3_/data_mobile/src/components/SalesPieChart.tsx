@@ -5,7 +5,7 @@ import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recha
 import { SalesMetricsItem } from '@/modules/products/types'; 
 
 interface SalesPieChartProps {
-  data: SalesMetricsItem[]; // Array con nombre del producto y total_sales_quantity
+  data: SalesMetricsItem[]; // array con nombre del producto y total_sales_quantity
 }
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#AF19FF', '#FF0000'];

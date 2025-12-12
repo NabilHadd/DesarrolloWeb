@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-// 1. Define la interfaz del estado de los filtros (lo que se guardará)
+// 1. Define la interfaz del estado de los filtros (el filtro en sí)
 export interface FilterState {
   //category: string;
   minPrice: number;
@@ -21,7 +21,7 @@ export const filterSlice = createSlice({
   name: 'filters',
   initialState,
   reducers: {
-    // Reducer para actualizar cualquier filtro por clave
+    // reducer para actualizar cualquier filtro por clave
     setFilter: (state, action: PayloadAction<{ key: keyof FilterState, value: any }>) => {
       const { key, value } = action.payload;
       // Asegúrate de que el valor sea correcto, si es 'minPrice' debería ser número
@@ -31,7 +31,7 @@ export const filterSlice = createSlice({
         (state as any)[key] = value;
       }
     },
-    // Opcional: Reducer para resetear todos los filtros
+    // reducer para resetear todos los filtros
     resetFilters: (state) => {
       return initialState;
     },
