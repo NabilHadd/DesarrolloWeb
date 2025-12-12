@@ -12,10 +12,10 @@
     "seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
-    "@prisma/client": "^6.19.0",
+    "@prisma/client": "6.19.0",
+    "prisma": "6.19.0",
     "axios": "^1.13.2",
     "next": "16.0.8",
-    "prisma": "^6.19.0",
     "react": "19.2.1",
     "react-dom": "19.2.1",
     "swr": "^2.3.7"
@@ -27,7 +27,6 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.0.8",
-    "prisma": "^7.1.0",
     "tailwindcss": "^4",
     "ts-node": "^10.9.2",
     "tsx": "^4.21.0",
