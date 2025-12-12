@@ -1,7 +1,7 @@
 import ProductRow from './ProductRow';
 import { Product } from '@/modules/products';
 
-export default function ProductTable(props: {products: Product[]}) {
+export default function asyncProductTable(props: {products: Product[]}) {
 
   const products = props.products;
 

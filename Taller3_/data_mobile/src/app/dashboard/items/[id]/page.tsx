@@ -1,3 +1,4 @@
+"use client";
 import ProductDetail from '@/components/ProductDetail';
 
 interface ItemDetailPageProps {
