@@ -1,4 +1,4 @@
-import { productRepository } from "./products.repository";
+import { productRepository } from "./reviews.repository";
 import { Prisma } from "@prisma/client";
 
 export const productService = {
@@ -15,8 +15,7 @@ export const productService = {
     if (!product) throw new Error("No se encontró el producto");
     return product;
   },
-
-    async createProduct(data: Prisma.ProductoCreateInput) {
+  async createProduct(data: Prisma.ProductoCreateInput) {
     // Aquí podrías validar campos, precio > 0, stock >= 0, etc.
     return await productRepository.createProduct(data);
   },
@@ -35,5 +34,10 @@ export const productService = {
     const existing = await productRepository.findById(id_producto);
     if (!existing) throw new Error(`Producto con ID ${id_producto} no existe`);
     return await productRepository.deleteProduct(id_producto);
+  },
+
+  // Opcional: obtener todos los productos
+  async getAll(filters?: { minPrice?: number; sortBy?: 'price' | 'name' | 'stock'; order?: 'asc' | 'desc' }) {
+    return await productRepository.findAll(filters);
   },
 };

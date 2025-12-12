@@ -19,7 +19,7 @@ export default function DashboardPage() {
   
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/api/admin`)
+    axios.get(`/api/admin`)
     .then(res => {
       setAdmin(res.data);
     })
@@ -29,7 +29,7 @@ export default function DashboardPage() {
   }, [])
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/api/products`)
+    axios.get(`/api/products`)
     .then(res => {
       setProducts(res.data);
     })
@@ -43,7 +43,7 @@ export default function DashboardPage() {
 
         const queryParams = new URLSearchParams(filters as Record<string, any>).toString();
         
-        axios.get(`http://localhost:3001/api/products?${queryParams}`)
+        axios.get(`/api/products?${queryParams}`)
         .then(res => {
             setProducts(res.data);
             console.log("Productos cargados/refrescados con filtros:", filters);
