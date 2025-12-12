@@ -1,7 +1,7 @@
 import { Bytes } from "@prisma/client/runtime/library";
 
 export interface Product {
-    id_product: number;
+    id_producto: number;
     nombre: string;
     descripcion: string;
     precio: number;

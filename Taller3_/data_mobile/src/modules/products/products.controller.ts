@@ -6,4 +6,8 @@ export const productController = {
     const data = await productService.getProducts(filters);
     return data;
   },
+  async getProductById(id: number){
+    const data = await productService.getProductById(id);
+    return data;
+  }
 };

@@ -11,7 +11,7 @@ export default function ProductRow({ product }: ProductRowProps) {
     currency: 'CLP' 
   }).format(product.precio);
   return (
-    <LinkToDetail itemId={product.id_product}>
+    <LinkToDetail itemId={product.id_producto}>
       <div className="flex justify-between items-center">
         <div className="flex flex-col">
           <h3 className="text-lg font-semibold text-gray-800">{product.nombre}</h3>

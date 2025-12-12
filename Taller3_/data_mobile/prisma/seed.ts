@@ -72,7 +72,31 @@ async function main() {
     }
   }
 
-  console.log("Seed con varias ventas generado correctamente!");
+  // 🔹 Agregar reseñas a los productos
+  const comentarios = [
+    "Excelente producto",
+    "Muy satisfecho",
+    "No cumplió mis expectativas",
+    "Recomendado 100%",
+    "Podría ser mejor",
+    "Gran relación precio/calidad",
+  ];
+
+  for (const producto of productos) {
+    const numReseñas = Math.floor(Math.random() * 3) + 1; // 1-3 reseñas por producto
+    for (let i = 0; i < numReseñas; i++) {
+      await prisma.reseñaProducto.create({
+        data: {
+          id_producto: producto.id_producto,
+          fecha: new Date(Date.now() - Math.floor(Math.random() * 1000000000)), // fecha aleatoria reciente
+          valoracion: Math.floor(Math.random() * 5) + 1, // 1-5 estrellas
+          descripcion: comentarios[Math.floor(Math.random() * comentarios.length)],
+        },
+      });
+    }
+  }
+
+  console.log("Seed con varias ventas y reseñas generado correctamente!");
 }
 
 main()
