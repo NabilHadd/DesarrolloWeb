@@ -4,16 +4,18 @@ const prisma = new PrismaClient();
 async function main() {
   console.log("Seeding database...");
 
-  // Ejemplo genérico
+  // Limpiar la tabla antes de agregar registros
+  await prisma.administrador.deleteMany({});
 
+  // Crear registro
   await prisma.administrador.create({
     data: {
-        rut_admin: '111111111',
-        nombre: 'prueba_seeder',
-        email: 'default',
-        contraseña: 'holas'
+      rut_admin: '111111111',
+      nombre: 'prueba_seeder',
+      email: 'default',
+      contraseña: 'holas'
     }
-  })
+  });
 
   console.log("Seed ejecutado correctamente!");
 }
