@@ -33,7 +33,7 @@ export default function MetricsContainer({ products }: MetricsContainerProps) {
         const queryParams = new URLSearchParams(filters as Record<string, any>).toString();
 
         // 1. Fetch para Gráficos 1 y 2 (Stock Histórico y Ventas Totales)
-        axios.get(`http://localhost:3001/api/products/metrics?${queryParams}`)
+        axios.get(`http://localhost:3000/api/products/metrics?${queryParams}`)
             .then(res => {
                 setMetrics(res.data);
                 setIsLoading(false);
