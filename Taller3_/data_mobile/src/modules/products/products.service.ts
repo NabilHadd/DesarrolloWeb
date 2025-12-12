@@ -1,5 +1,7 @@
 import { productRepository } from "./products.repository";
 import { Prisma } from "@prisma/client";
+import { FilterState } from "@/lib/features/filterSlice";
+import { ProductMetrics } from "./types";
 
 export const productService = {
   async getProducts(filters?: { minPrice?: number; sortBy?: 'price' | 'name' | 'stock'; order?: 'asc' | 'desc' }) {
@@ -36,4 +38,23 @@ export const productService = {
     if (!existing) throw new Error(`Producto con ID ${id_producto} no existe`);
     return await productRepository.deleteProduct(id_producto);
   },
+
+  async getProductMetrics(filters: Partial<FilterState>): Promise<ProductMetrics> {
+    
+    // Obtener los IDs de los productos que cumplen el filtro
+    const minPrice = filters.minPrice || 0;
+    const productIds = await productRepository.getFilteredProductIds(minPrice);
+    
+    if (productIds.length === 0) {
+      return { stockHistory: [], salesByProduct: [] };
+    }
+
+    // Ejecutar ambas consultas de métricas en paralelo
+    const [stockHistory, salesByProduct] = await Promise.all([
+      productRepository.getGlobalStockHistory(productIds),
+      productRepository.getSalesQuantityByProduct(productIds),
+    ]);
+    return { stockHistory, salesByProduct };
+  },
+
 };

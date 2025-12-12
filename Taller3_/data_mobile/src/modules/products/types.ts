@@ -17,3 +17,20 @@ export interface HistorialStockItem {
     variacion: number;
     descripcion: string;
 }
+
+export interface StockHistoryItem {
+    date: string; // fecha truncada (YYYY-MM-DD)
+    stock_change: number; 
+}
+
+export interface SalesMetricsItem {
+    id_product: number;
+    nombre: string;
+    total_sales_quantity: number;
+    [key: string]: any;
+}
+
+export interface ProductMetrics {
+    stockHistory: StockHistoryItem[];
+    salesByProduct: SalesMetricsItem[];
+}

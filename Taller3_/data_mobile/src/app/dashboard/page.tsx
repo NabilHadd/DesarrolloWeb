@@ -7,6 +7,7 @@ import axios  from "axios";
 import { Product } from '@/modules/products';
 import { Admin } from '@/modules/admin';
 import { useAppSelector } from '@/lib/hooks'; 
+import MetricsContainer from '@/components/MetricsContainer';
 
 export default function DashboardPage() {
   
@@ -67,6 +68,7 @@ export default function DashboardPage() {
         <p className="bg-green-400 flex justify-center m-4">{admin?.[0].nombre}</p>
       </header>
       
+      {products && <MetricsContainer products={products} />}
       {/* Estructura Mobile-First: Filtros encima de la tabla en móvil */}
       <main className="grid grid-cols-1 md:grid-cols-4 gap-6">
         
