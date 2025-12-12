@@ -14,7 +14,7 @@ const DUMMY_PRODUCTS: Product[] = [
   { id: '3', name: 'Monitor 4K Ultra', category: 'Electrónica', price: 320000, stock: 12 },
 ];
 
-export default async function ProductTable() {
+export default function ProductTable() {
   //aqui se tiene que hacer el fetch
   
   const products = DUMMY_PRODUCTS;
