@@ -13,13 +13,13 @@ export interface Product {
 }
 
 export interface HistorialStockItem {
-    fecha: string; // O Date
+    fecha: string;
     variacion: number;
     descripcion: string;
 }
 
 export interface StockHistoryItem {
-    date: string; // fecha truncada (YYYY-MM-DD)
+    date: string; 
     stock_change: number; 
 }
 

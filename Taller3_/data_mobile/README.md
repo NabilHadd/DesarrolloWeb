@@ -9,6 +9,15 @@ Luego en el detalle de cada producto se puede encontrar un gráfico con su varia
 2. Navegar en IDE hasta Taller3_/data_mobile.
 3. Con la aplicación de docker abierta, ejecutar docker compose up --build en la terminal.
 4. Dirigirse a localhost:3000. Otros puertos no cargarán la información correctamente.
+
+### Paso a paso:
+
+git clone https://github.com/NabilHadd/DesarrolloWeb
+cd .\DesarrolloWeb\Taller3_\data_mobile\
+npm install 
+
+
+
 ¡Listo!
 
 Grupo 11
