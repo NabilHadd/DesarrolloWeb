@@ -17,6 +17,11 @@ export const productRepository = {
       orderBy: {
         [orderField[sortBy]]: order,
       },
+      include: {
+        reseñas: true,
+        detalleCompras: true,
+        historial:true,
+      }
     });
   },
 
